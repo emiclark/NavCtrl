@@ -23,6 +23,13 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		AADBA0911C7BB43900801D76 /* View.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADBA0901C7BB43900801D76 /* View.xib */; };
+		AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F9D1C7BDA60005B22DA /* WebViewController.m */; };
+		AAE05FA01C7BDA60005B22DA /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAE05F9E1C7BDA60005B22DA /* WebViewController.xib */; };
+		AAE05FA51C7CC249005B22DA /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA11C7CC249005B22DA /* apple.png */; };
+		AAE05FA61C7CC249005B22DA /* asus.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA21C7CC249005B22DA /* asus.png */; };
+		AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA31C7CC249005B22DA /* microsoft.png */; };
+		AAE05FA81C7CC249005B22DA /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA41C7CC249005B22DA /* samsung.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +65,14 @@
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		AADBA0901C7BB43900801D76 /* View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = View.xib; sourceTree = "<group>"; };
+		AAE05F9C1C7BDA60005B22DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		AAE05F9D1C7BDA60005B22DA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		AAE05F9E1C7BDA60005B22DA /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
+		AAE05FA11C7CC249005B22DA /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
+		AAE05FA21C7CC249005B22DA /* asus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asus.png; sourceTree = "<group>"; };
+		AAE05FA31C7CC249005B22DA /* microsoft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microsoft.png; sourceTree = "<group>"; };
+		AAE05FA41C7CC249005B22DA /* samsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = samsung.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +122,10 @@
 			children = (
 				48A656E818163F8700746D36 /* ProductViewController.h */,
 				48A656E918163F8700746D36 /* ProductViewController.m */,
+				AAE05FA11C7CC249005B22DA /* apple.png */,
+				AAE05FA21C7CC249005B22DA /* asus.png */,
+				AAE05FA31C7CC249005B22DA /* microsoft.png */,
+				AAE05FA41C7CC249005B22DA /* samsung.png */,
 			);
 			name = ProductViewController;
 			sourceTree = "<group>";
@@ -149,6 +168,10 @@
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				AADBA0901C7BB43900801D76 /* View.xib */,
+				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
+				AAE05F9D1C7BDA60005B22DA /* WebViewController.m */,
+				AAE05F9E1C7BDA60005B22DA /* WebViewController.xib */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
 			path = NavCtrl;
@@ -232,6 +255,9 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Aditya Narayan";
 				TargetAttributes = {
+					48A656B018163BF200746D36 = {
+						DevelopmentTeam = 6F8P242K3J;
+					};
 					48A656CB18163BF200746D36 = {
 						TestTargetID = 48A656B018163BF200746D36;
 					};
@@ -260,10 +286,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
+				AADBA0911C7BB43900801D76 /* View.xib in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
+				AAE05FA81C7CC249005B22DA /* samsung.png in Resources */,
+				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
+				AAE05FA01C7BDA60005B22DA /* WebViewController.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
+				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
+				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
@@ -406,11 +439,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NavCtrl/NavCtrl-Prefix.pch";
 				INFOPLIST_FILE = "NavCtrl/NavCtrl-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "qcd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -421,11 +457,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NavCtrl/NavCtrl-Prefix.pch";
 				INFOPLIST_FILE = "NavCtrl/NavCtrl-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "qcd.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

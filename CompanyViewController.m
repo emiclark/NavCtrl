@@ -1,7 +1,7 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-//
+//ASSIGNMENT2
 //  Created by Aditya Narayan on 10/22/13.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
@@ -35,8 +35,9 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.companyList = [[NSMutableArray alloc]initWithObjects:@"Apple mobile devices",@"Samsung mobile devices",@"Asus mobile devices",@"Microsoft mobile devices",nil];
+
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices"];
     self.title = @"Mobile device makers";
     
     
@@ -52,14 +53,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.companyList count];
 }
@@ -75,6 +74,18 @@
     // Configure the cell...
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
+    
+    //add company logos
+    
+    if ([cell.textLabel.text isEqualToString:@"Apple mobile devices"]) {
+        [[cell imageView ] setImage:[UIImage imageNamed:@"apple.png"]];
+    } else if ([cell.textLabel.text isEqualToString:@"Samsung mobile devices"]) {
+        [[cell imageView ] setImage:[UIImage imageNamed:@"samsung.png"]];
+    } else if ([cell.textLabel.text isEqualToString: @"Asus mobile devices"] ) {
+        [[cell imageView] setImage: [UIImage imageNamed: @"asus.png" ]];
+    } else if ([cell.textLabel.text isEqualToString: @"Microsoft mobile devices"]){
+        [[cell imageView] setImage: [UIImage imageNamed: @"microsoft.png"]];
+    }
     
     return cell;
 }
@@ -94,11 +105,11 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+    }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }
+    [tableView reloadData];
 }
 */
 
@@ -128,8 +139,12 @@
 
     if (indexPath.row == 0){
         self.productViewController.title = @"Apple mobile devices";
-    } else {
+    } else if (indexPath.row == 1) {
         self.productViewController.title = @"Samsung mobile devices";
+    } else if (indexPath.row == 2) {
+        self.productViewController.title = @"Asus mobile devices";
+    } else if (indexPath.row == 3) {
+        self.productViewController.title = @"Microsoft mobile devices";
     }
     
     [self.navigationController
