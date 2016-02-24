@@ -1,6 +1,8 @@
 //
 //  WebViewController.m
 //  NavCtrl
+//  Assignment2.1
+//  Replaced UIWebView with WKWebView
 //
 //  Created by Aditya Narayan on 2/22/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -8,9 +10,12 @@
 
 #import "WebViewController.h"
 #import "ProductViewController.h"
+#import <WebKit/WebKit.h>
 
 @interface WebViewController ()
-@property (retain, nonatomic) IBOutlet UIWebView *myWebView;
+
+@property (retain, nonatomic) WKWebView *myWebView;
+@property (retain, nonatomic)  WKWebViewConfiguration *myWebViewConfiguration;
 
 @end
 
@@ -19,24 +24,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"product url:%@", self.productURL);
-    // Do any additional setup after loading the view.
-    //    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    //    CGFloat screenHeight = screenRect.size.height;
-    //    CGFloat screenWidth = screenRect.size.width;
-    //    self.myWebView = [[UIWebView alloc]initWithFrame:screenRect];
     
-    //initialize urls arrays for each company's products
+    //init WKWebView
+    self.myWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
     
-    //get which product user selected and then dispay web page
-    CGRect screen = [[UIScreen mainScreen] bounds];
-    CGFloat width = CGRectGetWidth(screen);
-    CGFloat height = CGRectGetHeight(screen);
-    
-    self.myWebView  = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, width, height)];
+    //convert NSString productURL to a valid URL
     NSURL *url  = [NSURL URLWithString:self.productURL];
-    NSURLRequest *urlRrequest = [[NSURLRequest alloc] initWithURL:url];
-    [self.myWebView loadRequest:urlRrequest];
+    
+    //create url request
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
+    
+    //send url request
+    [self.myWebView loadRequest:urlRequest];
+    
+    //assign view to WKWebView
+    self.myWebView.frame = self.view.frame;
+
+//    send request to WKWebView
+//    [self.myWebView loadRequest:urlRequest];
+
+    //add webview to view
     [self.view addSubview:self.myWebView];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -54,4 +63,8 @@
  }
  */
 
+- (void)dealloc {
+    [_myWebView release];
+    [super dealloc];
+}
 @end

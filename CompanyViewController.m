@@ -1,10 +1,13 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-//ASSIGNMENT2
-//  Created by Aditya Narayan on 10/22/13.
-//  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
+//  Assignment2.1
+//  Replaced UIWebView with WKWebView
+//
+//
+//  Created by Aditya Narayan on 10/22/13.
+
 
 #import "CompanyViewController.h"
 #import "ProductViewController.h"

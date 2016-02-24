@@ -1,11 +1,12 @@
 //
 //  ProductViewController.m
 //  NavCtrl
-//ASSIGNMENT2
-//  Created by Aditya Narayan on 10/22/13.
-//  Copyright (c) 2013 Aditya Narayan. All rights reserved.
+//  Assignment2.1
+//  Replaced UIWebView with WKWebView
 //
-
+//  Created by Aditya Narayan on 2/22/16.
+//  Copyright © 2016 Aditya Narayan. All rights reserved.
+//
 #import "ProductViewController.h"
 
 @interface ProductViewController ()
@@ -136,7 +137,9 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    self.myWebViewCtlr = [[WebViewController alloc]initWithNibName:@"WebViewController" bundle:nil];
+//    self.myWebViewCtlr = [[WebViewController alloc]initWithNibName:@"WebViewController" bundle:nil];
+        self.myWebViewCtlr = [[WebViewController alloc]init];
+
     // Pass the selected object to the new view controller.
    
     if ([[self.products objectAtIndex: indexPath.row]  isEqualToString:@"iPad"]) {
