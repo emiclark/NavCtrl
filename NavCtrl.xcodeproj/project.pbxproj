@@ -63,7 +63,7 @@
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyViewController.h; sourceTree = "<group>"; };
+		AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyViewController.h; path = ../CompanyViewController.h; sourceTree = "<group>"; };
 		AACD08BD1C7E87EA008E02C2 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		AAE05F9C1C7BDA60005B22DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		AAE05F9D1C7BDA60005B22DA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -111,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
 			);
 			name = ParentViewController;
@@ -128,7 +129,6 @@
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
-				AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,

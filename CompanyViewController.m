@@ -40,9 +40,7 @@
     
     self.companyList = [[NSMutableArray alloc]initWithObjects:@"Apple mobile devices",@"Samsung mobile devices",@"Asus mobile devices",@"Microsoft mobile devices",nil];
 
-    
     self.title = @"Mobile device makers";
-    
     
 }
 
@@ -75,11 +73,9 @@
     }
     
     // Configure the cell...
-    
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
     //add company logos
-    
     if ([cell.textLabel.text isEqualToString:@"Apple mobile devices"]) {
         [[cell imageView ] setImage:[UIImage imageNamed:@"apple.png"]];
     } else if ([cell.textLabel.text isEqualToString:@"Samsung mobile devices"]) {
@@ -89,7 +85,6 @@
     } else if ([cell.textLabel.text isEqualToString: @"Microsoft mobile devices"]){
         [[cell imageView] setImage: [UIImage imageNamed: @"microsoft.png"]];
     }
-    
     return cell;
 }
 
@@ -106,18 +101,26 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the company row from the data source
-        [self.companyList   removeObjectAtIndex:indexPath.row];
+        
+        
         //remove corresponding products array
-        if (indexPath.row == 0) {
+        if ([self.productViewController.currentCompany isEqualToString:@"Apple"]) {
             [self.productViewController.appleProducts removeAllObjects];
-        }else if (indexPath.row == 1) {
+            [self.productViewController.appleProducts release];
+        } else if ([self.productViewController.currentCompany isEqualToString:@"Samsung"]) {
             [self.productViewController.samsungProducts removeAllObjects];
-        }else if (indexPath.row == 2) {
+            [self.productViewController.samsungProducts release];
+        } else if ([self.productViewController.currentCompany isEqualToString:@"Asus"]) {
             [self.productViewController.asusProducts removeAllObjects];
-        }else if (indexPath.row == 3) {
+            [self.productViewController.asusProducts release];
+        } else if ([self.productViewController.currentCompany isEqualToString:@"Microsoft"]) {
             [self.productViewController.microsoftProducts removeAllObjects];
+            [self.productViewController.microsoftProducts release];
         }
+        // Delete the company row from the data source
+        [self.companyList removeObjectAtIndex:indexPath.row];
+        self.productViewController.currentCompany = @"";
+
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -149,30 +152,24 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (indexPath.row == 0){
+    if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Apple mobile devices"]){
         self.productViewController.title = @"Apple mobile devices";
-        self.companyNumber = 0;
-    } else if (indexPath.row == 1) {
+        self.productViewController.currentCompany = @"Apple";
+    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Samsung mobile devices"]) {
         self.productViewController.title = @"Samsung mobile devices";
-        self.companyNumber = 1;
-    } else if (indexPath.row == 2) {
+        self.productViewController.currentCompany = @"Samsung";
+    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Asus mobile devices"]) {
         self.productViewController.title = @"Asus mobile devices";
-        self.companyNumber = 2;
-    } else if (indexPath.row == 3) {
+        self.productViewController.currentCompany = @"Asus";
+    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Microsoft mobile devices"]) {
         self.productViewController.title = @"Microsoft mobile devices";
-        self.companyNumber = 3;
+        self.productViewController.currentCompany = @"Microsoft";
     }
     
-    self.productViewController.companyNumber = indexPath.row;
     [self.navigationController pushViewController:self.productViewController animated:YES];
-    NSLog(@"companyNumber:%ld",(long)self.companyNumber);
-
 }
  
-
-
 - (void)dealloc {
-    [_productViewController release];
     [_productViewController release];
     [super dealloc];
 }

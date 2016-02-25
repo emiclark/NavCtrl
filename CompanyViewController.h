@@ -16,6 +16,5 @@
 
 @property (retain, nonatomic) IBOutlet ProductViewController *productViewController;
 @property (nonatomic, retain) NSMutableArray *companyList;
-@property (nonatomic) int companyNumber;
 
 @end
