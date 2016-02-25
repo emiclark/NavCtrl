@@ -2,8 +2,8 @@
 //  ProductViewController.h
 //  NavCtrl
 //
-//  Assignment2.1
-//  Replaced UIWebView with WKWebView
+//  Assignment2.3
+//  Delete Feature
 //
 //
 //  Created by Aditya Narayan on 10/22/13.
@@ -12,10 +12,21 @@
 
 #import <UIKit/UIKit.h>
 #import "WebViewController.h"
+#import "CompanyViewController.h"
 
 @interface ProductViewController : UITableViewController
 
+
 @property (nonatomic, strong) WebViewController    *myWebViewCtlr;
-@property (nonatomic, retain) NSMutableArray *products;
+//@property (nonatomic, strong) CompanyViewController *myCompanyViewCtlr;
+@property (nonatomic, retain) NSMutableArray *appleProducts;
+@property (nonatomic, retain) NSMutableArray *samsungProducts;
+@property (nonatomic, retain) NSMutableArray *asusProducts;
+@property (nonatomic, retain) NSMutableArray *microsoftProducts;
+
+@property (nonatomic, retain) NSMutableArray *currentProducts;
+
+@property (nonatomic) NSUInteger companyNumber;
+
 
 @end

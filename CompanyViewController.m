@@ -2,15 +2,13 @@
 //  CompanyViewController.m
 //  NavCtrl
 //
-//  Assignment2.1
-//  Replaced UIWebView with WKWebView
-//
+//  Assignment2.3
+//  Delete Feature
 //
 //  Created by Aditya Narayan on 10/22/13.
 
-
-#import "CompanyViewController.h"
 #import "ProductViewController.h"
+#import "CompanyViewController.h"
 
 @interface CompanyViewController ()
 
@@ -35,6 +33,8 @@
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
  
+    self.productViewController = [[ProductViewController alloc] init];
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
@@ -93,28 +93,38 @@
     return cell;
 }
 
-/*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-*/
 
-/*
+
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        // Delete the company row from the data source
+        [self.companyList   removeObjectAtIndex:indexPath.row];
+        //remove corresponding products array
+        if (indexPath.row == 0) {
+            [self.productViewController.appleProducts removeAllObjects];
+        }else if (indexPath.row == 1) {
+            [self.productViewController.samsungProducts removeAllObjects];
+        }else if (indexPath.row == 2) {
+            [self.productViewController.asusProducts removeAllObjects];
+        }else if (indexPath.row == 3) {
+            [self.productViewController.microsoftProducts removeAllObjects];
+        }
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
     [tableView reloadData];
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -139,24 +149,31 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-
     if (indexPath.row == 0){
         self.productViewController.title = @"Apple mobile devices";
+        self.companyNumber = 0;
     } else if (indexPath.row == 1) {
         self.productViewController.title = @"Samsung mobile devices";
+        self.companyNumber = 1;
     } else if (indexPath.row == 2) {
         self.productViewController.title = @"Asus mobile devices";
+        self.companyNumber = 2;
     } else if (indexPath.row == 3) {
         self.productViewController.title = @"Microsoft mobile devices";
+        self.companyNumber = 3;
     }
     
-    [self.navigationController
-        pushViewController:self.productViewController
-        animated:YES];
-    
+    self.productViewController.companyNumber = indexPath.row;
+    [self.navigationController pushViewController:self.productViewController animated:YES];
+    NSLog(@"companyNumber:%ld",(long)self.companyNumber);
 
 }
  
 
 
+- (void)dealloc {
+    [_productViewController release];
+    [_productViewController release];
+    [super dealloc];
+}
 @end
