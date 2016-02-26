@@ -1,7 +1,9 @@
 //  CompanyViewController.h
 //  NavCtrl
+//
 //ASSIGNMENT2
-
+//Add Company+products + WKWebView+delete+moveRow
+//
 //  Created by Aditya Narayan on 2/24/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
@@ -16,6 +18,5 @@
 
 @property (retain, nonatomic) IBOutlet ProductViewController *productViewController;
 @property (nonatomic, retain) NSMutableArray *companyList;
-@property (nonatomic) int companyNumber;
 
 @end

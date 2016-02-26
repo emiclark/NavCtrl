@@ -2,8 +2,8 @@
 //  ProductViewController.h
 //  NavCtrl
 //
-//  Assignment2.3
-//  Delete Feature
+//  Assignment2
+//Add Company+products + WKWebView+delete+moveRow
 //
 //
 //  Created by Aditya Narayan on 10/22/13.
@@ -18,15 +18,11 @@
 
 
 @property (nonatomic, strong) WebViewController    *myWebViewCtlr;
-//@property (nonatomic, strong) CompanyViewController *myCompanyViewCtlr;
 @property (nonatomic, retain) NSMutableArray *appleProducts;
 @property (nonatomic, retain) NSMutableArray *samsungProducts;
 @property (nonatomic, retain) NSMutableArray *asusProducts;
 @property (nonatomic, retain) NSMutableArray *microsoftProducts;
-
+@property (nonatomic,retain) NSString *currentCompany;
 @property (nonatomic, retain) NSMutableArray *currentProducts;
-
-@property (nonatomic) NSUInteger companyNumber;
-
 
 @end
