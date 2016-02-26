@@ -24,6 +24,8 @@
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
+		AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF61C80E7D200DA7BB4 /* Company.m */; };
+		AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF91C80E97000DA7BB4 /* Product.m */; };
 		AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F9D1C7BDA60005B22DA /* WebViewController.m */; };
 		AAE05FA51C7CC249005B22DA /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA11C7CC249005B22DA /* apple.png */; };
 		AAE05FA61C7CC249005B22DA /* asus.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA21C7CC249005B22DA /* asus.png */; };
@@ -63,6 +65,10 @@
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		AA7CEDF51C80E7D200DA7BB4 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
+		AA7CEDF61C80E7D200DA7BB4 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
+		AA7CEDF81C80E97000DA7BB4 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
+		AA7CEDF91C80E97000DA7BB4 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyViewController.h; path = ../CompanyViewController.h; sourceTree = "<group>"; };
 		AACD08BD1C7E87EA008E02C2 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		AAE05F9C1C7BDA60005B22DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -160,6 +166,10 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
+				AA7CEDF51C80E7D200DA7BB4 /* Company.h */,
+				AA7CEDF61C80E7D200DA7BB4 /* Company.m */,
+				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
+				AA7CEDF91C80E97000DA7BB4 /* Product.m */,
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
@@ -310,7 +320,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
+				AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */,
 				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,

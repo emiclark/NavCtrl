@@ -1,9 +1,7 @@
 //
 //  WebViewController.m
 //  NavCtrl
-//
-//  Assignment2.3
-//  Delete Feature
+//  ASSIGNMENT3
 //
 //
 //  Created by Aditya Narayan on 2/22/16.
@@ -16,9 +14,6 @@
 @interface WebViewController : UIViewController <UIWebViewDelegate, WKNavigationDelegate>
 
 @property (nonatomic, strong) NSString *productURL;
-@property (nonatomic, strong) NSMutableArray *appleProductURLs;
-@property (nonatomic, strong) NSMutableArray *samsungProductURLs;
-@property (nonatomic, strong) NSMutableArray *asusProductURLs;
-@property (nonatomic, strong) NSMutableArray *microsoftProductURLs;
+
 
 @end

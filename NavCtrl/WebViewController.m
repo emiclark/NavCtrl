@@ -1,9 +1,7 @@
 //
 //  WebViewController.m
 //  NavCtrl
-//
-//  Assignment2.3
-//  Delete Feature
+//  ASSIGNMENT3
 //
 //
 //  Created by Aditya Narayan on 2/22/16.

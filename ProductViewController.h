@@ -1,9 +1,7 @@
 //
 //  ProductViewController.h
 //  NavCtrl
-//
-//  Assignment2.3
-//  Delete Feature
+//  ASSIGNMENT3
 //
 //
 //  Created by Aditya Narayan on 10/22/13.
@@ -18,10 +16,6 @@
 
 
 @property (nonatomic, strong) WebViewController    *myWebViewCtlr;
-@property (nonatomic, retain) NSMutableArray *appleProducts;
-@property (nonatomic, retain) NSMutableArray *samsungProducts;
-@property (nonatomic, retain) NSMutableArray *asusProducts;
-@property (nonatomic, retain) NSMutableArray *microsoftProducts;
 @property (nonatomic,retain) NSString *currentCompany;
 @property (nonatomic, retain) NSMutableArray *currentProducts;
 

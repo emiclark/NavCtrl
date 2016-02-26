@@ -2,8 +2,7 @@
 //  ProductViewController.m
 //  NavCtrl
 //
-//  Assignment2.3
-//  Delete Feature
+//  ASSIGNMENT3
 //
 //
 //  Created by Aditya Narayan on 2/22/16.
@@ -29,14 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-//    self.myCompanyViewCtlr = [[CompanyViewController alloc] init];
-    
-    //initialize product and url arrays
-    self.appleProducts = [[NSMutableArray alloc] initWithObjects:@"iPad", @"iPod Touch",@"iPhone", nil];
-    self.samsungProducts = [[NSMutableArray alloc]initWithObjects: @"Galaxy S4", @"Galaxy Note", @"Galaxy Tab",nil];
-    self.asusProducts = [[NSMutableArray alloc]initWithObjects: @"ZenFone 2E", @"Padfone Infinity", @"Eee Slate", nil];
-    self.microsoftProducts = [[NSMutableArray alloc]initWithObjects: @"Lumia 950 XL", @"Lenovo ideapad MIIX 700", @"Surface Pro 4", nil];
+
 
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
@@ -46,16 +38,6 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
-
-    if ([self.currentCompany isEqualToString:@"Apple"] ) {
-         self.currentProducts = self.appleProducts;
-    } else if ([self.currentCompany isEqualToString:@"Samsung"] ) {
-        self.currentProducts = self.samsungProducts;
-    } else if ([self.currentCompany isEqualToString:@"Asus"] ) {
-        self.currentProducts = self.asusProducts;
-    } else if ([self.currentCompany isEqualToString:@"Microsoft"] ) {
-        self.currentProducts = self.microsoftProducts;
-    }
     
     [super viewWillAppear:animated];
     [self.tableView reloadData];
@@ -150,41 +132,9 @@
     
     if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPad"]) {
 //    if ([[self.appleProducts objectAtIndex: indexPath.row]  isEqualToString:@"iPad"]) {
-        self.myWebViewCtlr.title = @"iPad";
+
+        self.myWebViewCtlr.title = self.currentCompany.product;
         self.myWebViewCtlr.productURL = @"http://www.apple.com/ipad/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPod Touch"]){
-        self.myWebViewCtlr.title = @"iPod Touch";
-        self.myWebViewCtlr.productURL = @"http://www.apple.com/ipod-touch/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPhone"]) {
-        self.myWebViewCtlr.title = @"iPhone";
-        self.myWebViewCtlr.productURL = @"http://www.apple.com/iphone/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"Galaxy S4"]) {
-        self.myWebViewCtlr.title = @"Galaxy S4";
-        self.myWebViewCtlr.productURL = @"http://www.samsung.com/global/microsite/galaxys4/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"Galaxy Note"]) {
-        self.myWebViewCtlr.title = @"Galaxy Note";
-        self.myWebViewCtlr.productURL = @"http://www.samsung.com/us/mobile/galaxy-note/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString: @"Galaxy Tab"]) {
-        self.myWebViewCtlr.title = @"Galaxy Tab";
-        self.myWebViewCtlr.productURL = @"http://www.samsung.com/us/mobile/galaxy-tab/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row]isEqualToString: @"Lumia 950 XL"]) {
-        self.myWebViewCtlr.title = @"Lumia 950 XL";
-        self.myWebViewCtlr.productURL = @"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString: @"Lenovo ideapad MIIX 700"]) {
-        self.myWebViewCtlr.title = @"Lenovo ideapad MIIX 700";
-        self.myWebViewCtlr.productURL = @"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString: @"Surface Pro 4"]) {
-        self.myWebViewCtlr.title = @"Surface Pro 4";
-        self.myWebViewCtlr.productURL = @"http://www.microsoft.com/surface/en-us/devices/surface-pro-4";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"ZenFone 2E"]) {
-        self.myWebViewCtlr.title = @"ZenFone 2E";
-        self.myWebViewCtlr.productURL = @"http://www.asus.com/us/Phone/ZenFone-2E-US-ATT-exclusive/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString: @"Padfone Infinity"]) {
-        self.myWebViewCtlr.title = @"Padfone Infinity";
-        self.myWebViewCtlr.productURL =  @"http://www.asus.com/Phone/PadFone-A80/";
-    } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString: @"Eee Slate"]) {
-        self.myWebViewCtlr.title = @"Eee Slate";
-        self.myWebViewCtlr.productURL = @"http://www.asus.com/Tablets/Eee_Slate_EP121/";
     }
 
     // Push the view controller.
