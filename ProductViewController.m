@@ -37,7 +37,7 @@
     self.samsungProducts = [[NSMutableArray alloc]initWithObjects: @"Galaxy S4", @"Galaxy Note", @"Galaxy Tab",nil];
     self.asusProducts = [[NSMutableArray alloc]initWithObjects: @"ZenFone 2E", @"Padfone Infinity", @"Eee Slate", nil];
     self.microsoftProducts = [[NSMutableArray alloc]initWithObjects: @"Lumia 950 XL", @"Lenovo ideapad MIIX 700", @"Surface Pro 4", nil];
-    
+
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
     
@@ -59,8 +59,7 @@
     
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    
-    
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,7 +90,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    
+
     cell.textLabel.text = [self.currentProducts objectAtIndex:[indexPath row]];
     return cell;
 }
@@ -143,12 +142,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     // Create the next view controller.
     self.myWebViewCtlr = [[WebViewController alloc]init];
     
     if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPad"]) {
-        //    if ([[self.appleProducts objectAtIndex: indexPath.row]  isEqualToString:@"iPad"]) {
         self.myWebViewCtlr.title = @"iPad";
         self.myWebViewCtlr.productURL = @"http://www.apple.com/ipad/";
     } else if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPod Touch"]){
@@ -185,7 +183,7 @@
         self.myWebViewCtlr.title = @"Eee Slate";
         self.myWebViewCtlr.productURL = @"http://www.asus.com/Tablets/Eee_Slate_EP121/";
     }
-    
+
     // Push the view controller.
     self.myWebViewCtlr.title = [self.currentProducts objectAtIndex:indexPath.row];
     

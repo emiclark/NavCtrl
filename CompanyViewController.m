@@ -39,7 +39,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     self.companyList = [[NSMutableArray alloc]initWithObjects:@"Apple mobile devices",@"Samsung mobile devices",@"Asus mobile devices",@"Microsoft mobile devices",nil];
-    
+
     self.title = @"Mobile device makers";
     
 }
@@ -120,7 +120,7 @@
         // Delete the company row from the data source
         [self.companyList removeObjectAtIndex:indexPath.row];
         self.productViewController.currentCompany = @"";
-        
+
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -150,7 +150,7 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Apple mobile devices"]){
         self.productViewController.title = @"Apple mobile devices";
         self.productViewController.currentCompany = @"Apple";
@@ -169,7 +169,6 @@
 }
 
 - (void)dealloc {
-    [_productViewController release];
     [_productViewController release];
     [super dealloc];
 }
