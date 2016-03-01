@@ -11,4 +11,7 @@
 @interface Product : NSObject
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *url;
+@property (nonatomic, strong) NSString *logo;
+
+- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo;
 @end

@@ -10,4 +10,19 @@
 
 @implementation Product
 
+- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo{
+    self=[super init];
+    if (self) {
+        self.name = name;
+        self.url  = url;
+        self.logo = logo;
+        NSLog(@"_init:%@",self);
+
+    }
+    return self;
+}
+
+-(NSString*)description {
+    return [NSString stringWithFormat:@"%@, %@, %@", self.name, self.url, self.logo];
+}
 @end

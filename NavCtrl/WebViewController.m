@@ -25,25 +25,25 @@
     [super viewDidLoad];
     
     //initialize url array for products
-    self.appleProductURLs = [[NSMutableArray alloc] initWithObjects:
-                                       @"http://www.apple.com/ipad/",
-                                       @"http://www.apple.com/ipod-touch/",
-                                       @"http://www.apple.com/iphone/", nil];
-    
-    self.samsungProductURLs = [[NSMutableArray alloc] initWithObjects:
-                                         @"http://www.samsung.com/global/microsite/galaxys4/",
-                                         @"http://www.samsung.com/global/microsite/galaxynote/note/index.html?type=find",
-                                         @"http://www.samsung.com/us/mobile/galaxy-tab/", nil];
-    
-    self.asusProductURLs =  [[NSMutableArray alloc] initWithObjects:
-                                       @"http://www.asus.com/us/Phone/ZenFone-2E-US-ATT-exclusive/",
-                                       @"http://www.asus.com/Phone/PadFone-A80/",
-                                       @"http://www.asus.com/Tablets/Eee_Slate_EP121/",nil];
-    
-    self.microsoftProductURLs =  [[NSMutableArray alloc] initWithObjects:
-                                        @"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/",
-                                        @"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/",
-                                        @"http://www.microsoft.com/surface/en-us/devices/surface-pro-4",nil];
+//    self.appleProductURLs = [[NSMutableArray alloc] initWithObjects:
+//                                       @"http://www.apple.com/ipad/",
+//                                       @"http://www.apple.com/ipod-touch/",
+//                                       @"http://www.apple.com/iphone/", nil];
+//    
+//    self.samsungProductURLs = [[NSMutableArray alloc] initWithObjects:
+//                                         @"http://www.samsung.com/global/microsite/galaxys4/",
+//                                         @"http://www.samsung.com/global/microsite/galaxynote/note/index.html?type=find",
+//                                         @"http://www.samsung.com/us/mobile/galaxy-tab/", nil];
+//    
+//    self.asusProductURLs =  [[NSMutableArray alloc] initWithObjects:
+//                                       @"http://www.asus.com/us/Phone/ZenFone-2E-US-ATT-exclusive/",
+//                                       @"http://www.asus.com/Phone/PadFone-A80/",
+//                                       @"http://www.asus.com/Tablets/Eee_Slate_EP121/",nil];
+//    
+//    self.microsoftProductURLs =  [[NSMutableArray alloc] initWithObjects:
+//                                        @"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/",
+//                                        @"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/",
+//                                        @"http://www.microsoft.com/surface/en-us/devices/surface-pro-4",nil];
 
     NSLog(@"WVC::viewDidLoad: product url:%@, title:%@", self.productURL, self.title);
     

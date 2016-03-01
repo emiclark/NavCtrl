@@ -16,7 +16,7 @@
 
 
 @property (nonatomic, strong) WebViewController    *myWebViewCtlr;
-@property (nonatomic,retain) NSString *currentCompany;
+@property (nonatomic) NSInteger currentCompany;
 @property (nonatomic, retain) NSMutableArray *currentProducts;
 
 @end

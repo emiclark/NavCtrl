@@ -39,10 +39,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
     
+    NSLog(@"current company %li", (long)self.currentCompany);
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -132,8 +131,7 @@
     
     if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPad"]) {
 //    if ([[self.appleProducts objectAtIndex: indexPath.row]  isEqualToString:@"iPad"]) {
-
-        self.myWebViewCtlr.title = self.currentCompany.product;
+//        self.myWebViewCtlr.title = self.currentCompany.product;
         self.myWebViewCtlr.productURL = @"http://www.apple.com/ipad/";
     }
 

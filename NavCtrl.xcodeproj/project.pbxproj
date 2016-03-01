@@ -23,6 +23,7 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF61C80E7D200DA7BB4 /* Company.m */; };
 		AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF91C80E97000DA7BB4 /* Product.m */; };
@@ -64,6 +65,8 @@
 		48A656E518163C1B00746D36 /* CompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyViewController.xib; path = ../CompanyViewController.xib; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		AA0A615B1C84F0E5009ACEB0 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAO.h; path = ../DAO.h; sourceTree = "<group>"; };
+		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA7CEDF51C80E7D200DA7BB4 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		AA7CEDF61C80E7D200DA7BB4 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
@@ -166,11 +169,13 @@
 		48A656BA18163BF200746D36 /* NavCtrl */ = {
 			isa = PBXGroup;
 			children = (
+				483796CB1BCBF7A00062D5AB /* AppDelegate */,
+				AA0A615B1C84F0E5009ACEB0 /* DAO.h */,
+				AA0A615C1C84F0E5009ACEB0 /* DAO.m */,
 				AA7CEDF51C80E7D200DA7BB4 /* Company.h */,
 				AA7CEDF61C80E7D200DA7BB4 /* Company.m */,
 				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
 				AA7CEDF91C80E97000DA7BB4 /* Product.m */,
-				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
@@ -324,6 +329,7 @@
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */,
 				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
+				AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,

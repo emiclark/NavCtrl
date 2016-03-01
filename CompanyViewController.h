@@ -10,14 +10,16 @@
 #import <UIKit/UIKit.h>
 #import "ProductViewController.h"
 #import "Company.h"
+#import "Product.h"
+#import "DAO.h"
 
 @class ProductViewController;
 
 @interface CompanyViewController : UITableViewController
 
 
-@property ( nonatomic,strong) IBOutlet ProductViewController *productViewController;
-@property (nonatomic, retain) NSMutableArray *companyList;
-@property (nonatomic) Company currentCompany;
+@property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
+//@property (nonatomic, retain) NSMutableArray <Company *> *companyList;
+@property ( nonatomic, retain) DAO  *dao;
 
 @end
