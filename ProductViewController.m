@@ -1,34 +1,26 @@
 //
 //  ProductViewController.m
 //  NavCtrl
-//
 //  ASSIGNMENT3
+//  DAO
 //
 //
 //  Created by Aditya Narayan on 2/22/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 #import "ProductViewController.h"
+#import "CompanyViewController.h"
 
 @interface ProductViewController ()
-
 @end
 
 @implementation ProductViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    self.dao = [DAO sharedManager];
 
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
@@ -39,7 +31,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
     
-    NSLog(@"current company %li", (long)self.currentCompany);
+//    NSLog(@"PVC:viewWillAppear: current company %li, currentProduct:%li, %@", (long)self.dao.currentCompany, self.dao.currentProduct,self.dao);
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
@@ -61,7 +53,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return self.currentProducts.count;
+    NSLog(@"_____________PVC:numberOfRowsInSection: %@, self.currentCompany.productArray:%@",  self.currentCompany, self.currentCompany.productArray);
+    return self.currentCompany.productArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -72,8 +65,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-
-    cell.textLabel.text = [self.currentProducts objectAtIndex:[indexPath row]];
+    
+    Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = tempProduct.name;
+    self.title = self.titleOfCompany;
     return cell;
 }
 
@@ -84,17 +80,15 @@
     return YES;
 }
 
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSLog(@"%@",[self.dao.companyList objectAtIndex:indexPath.row]);
 
         // Delete the row from the data source
-        [self.currentProducts removeObjectAtIndex:indexPath.row];
-        
-        [tableView deleteRowsAtIndexPaths:[NSMutableArray arrayWithObject:indexPath] withRowAnimation: UITableViewRowAnimationFade];
+        [self.currentCompany.productArray removeObjectAtIndex:indexPath.row];
+//        [tableView reloadData];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -125,18 +119,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+    
     // Create the next view controller.
     self.myWebViewCtlr = [[WebViewController alloc]init];
-    
-    if ([[self.currentProducts objectAtIndex:indexPath.row] isEqualToString:@"iPad"]) {
-//    if ([[self.appleProducts objectAtIndex: indexPath.row]  isEqualToString:@"iPad"]) {
-//        self.myWebViewCtlr.title = self.currentCompany.product;
-        self.myWebViewCtlr.productURL = @"http://www.apple.com/ipad/";
-    }
-
-    // Push the view controller.
-    self.myWebViewCtlr.title = [self.currentProducts objectAtIndex:indexPath.row];
+    self.myWebViewCtlr.productURL = tempProduct.url;
+    self.myWebViewCtlr.title = tempProduct.name;
     
     [self.navigationController pushViewController:self.myWebViewCtlr animated:YES];
 }

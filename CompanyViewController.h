@@ -1,6 +1,7 @@
 //  CompanyViewController.h
 //  NavCtrl
 //  ASSIGNMENT3
+//  DAO
 //
 //  Created by Aditya Narayan on 2/24/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -19,7 +20,6 @@
 
 
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
-//@property (nonatomic, retain) NSMutableArray <Company *> *companyList;
 @property ( nonatomic, retain) DAO  *dao;
 
 @end

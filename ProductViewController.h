@@ -2,6 +2,7 @@
 //  ProductViewController.h
 //  NavCtrl
 //  ASSIGNMENT3
+//  DAO
 //
 //
 //  Created by Aditya Narayan on 10/22/13.
@@ -10,13 +11,15 @@
 
 #import <UIKit/UIKit.h>
 #import "WebViewController.h"
-#import "CompanyViewController.h"
+#import "DAO.h"
+
 
 @interface ProductViewController : UITableViewController
 
 
-@property (nonatomic, strong) WebViewController    *myWebViewCtlr;
-@property (nonatomic) NSInteger currentCompany;
-@property (nonatomic, retain) NSMutableArray *currentProducts;
+@property (nonatomic, retain) WebViewController    *myWebViewCtlr;
+@property ( nonatomic,retain) NSString *titleOfCompany;
+@property (nonatomic,retain) Company *currentCompany;
+@property ( nonatomic, retain) DAO  *dao;
 
 @end

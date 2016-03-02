@@ -1,6 +1,7 @@
 //
 //  Company.m
 //  ASSIGNMENT3
+//  DAO
 //
 //  Created by Aditya Narayan on 2/26/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -15,6 +16,7 @@
     if (self) {
         self.name = name;
         self.logo = logo;
+        self.productArray = [[NSMutableArray alloc]init];
         NSLog(@"_init:%@",self);
     }
     return self;

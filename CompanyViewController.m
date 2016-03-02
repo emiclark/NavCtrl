@@ -2,40 +2,14 @@
 //  CompanyViewController.m
 //  NavCtrl
 //  ASSIGNMENT3
-//
+//  DAO
 //
 //  Created by Aditya Narayan on 10/22/13.
 
-#import "ProductViewController.h"
 #import "CompanyViewController.h"
-#import "Company.h"
-#import "Product.h"
-#import "DAO.h"
 
 @interface CompanyViewController ()
-{
-    Company *apple;
-    Company *microsoft;
-    Company *asus;
-    Company *samsung;
-    
-    Product *appleiPad;
-    Product *appleiPod;
-    Product *appleiPhone;
-   
-    Product *samsungS4;
-    Product *samsungTab;
-    Product *samsungNote;
 
-    Product *asusZen;
-    Product *asusEee;
-    Product *asusPad;
-
-    Product *microsoftLumina;
-    Product *microsoftLenovo;
-    Product *microsoftSurface;
-    
-}
 @end
 
 @implementation CompanyViewController
@@ -53,7 +27,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.dao = [[DAO alloc]init];
     self.dao = [DAO sharedManager];
     
     // Uncomment the following line to preserve selection between presentations.
@@ -121,7 +94,6 @@
 
         // Delete the company row from the data source
         [self.dao.companyList removeObjectAtIndex:indexPath.row];
-        //self.productViewController.currentCompany = @"";
 
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -154,20 +126,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-//    if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Apple"]){
-//        self.productViewController.title = @"Apple mobile devices";
-//        //self.productViewController.currentCompany = apple.name;
-//    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Samsung"]) {
-//        self.productViewController.title = @"Samsung mobile devices";
-//        //self.productViewController.currentCompany = samsung.name;
-//    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Asus"]) {
-//        self.productViewController.title = @"Asus mobile devices";
-//        //self.productViewController.currentCompany = asus.name;
-//    } else if ([[self.companyList objectAtIndex: indexPath.row] isEqualToString:@"Microsoft"]) {
-//        self.productViewController.title = @"Microsoft mobile devices";
-//        //self.productViewController.currentCompany = microsoft.name;
-//    }
-    self.productViewController.currentCompany = indexPath.row;
+    self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+    self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
     [self.navigationController pushViewController:self.productViewController animated:YES];
 }
  
