@@ -1,11 +1,11 @@
 //
 //  ProductViewController.m
 //  NavCtrl
-//  ASSIGNMENT3
-//  DAO
+//  ASSIGNMENT4
+//  DAO ADD Company + Product
 //
 //
-//  Created by Aditya Narayan on 2/22/16.
+//  Created by Emiko Clark on 3/2/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 #import "ProductViewController.h"
@@ -21,17 +21,16 @@
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
-
+    
     // Uncomment the following line to preserve selection between presentations.
-     self.clearsSelectionOnViewWillAppear = NO;
- 
+    self.clearsSelectionOnViewWillAppear = NO;
+    
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
     
-//    NSLog(@"PVC:viewWillAppear: current company %li, currentProduct:%li, %@", (long)self.dao.currentCompany, self.dao.currentProduct,self.dao);
     [super viewWillAppear:animated];
     [self.tableView reloadData];
 }
@@ -53,7 +52,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"_____________PVC:numberOfRowsInSection: %@, self.currentCompany.productArray:%@",  self.currentCompany, self.currentCompany.productArray);
     return self.currentCompany.productArray.count;
 }
 
@@ -85,10 +83,10 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSLog(@"%@",[self.dao.companyList objectAtIndex:indexPath.row]);
-
+        
         // Delete the row from the data source
         [self.currentCompany.productArray removeObjectAtIndex:indexPath.row];
-//        [tableView reloadData];
+        //        [tableView reloadData];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -97,20 +95,20 @@
 }
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 
 #pragma mark - Table view delegate

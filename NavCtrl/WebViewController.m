@@ -1,10 +1,10 @@
 //
 //  WebViewController.m
 //  NavCtrl
-//  ASSIGNMENT3
-//  DAO
+//  ASSIGNMENT4
+//  DAO ADD Company + Product
 //
-//  Created by Aditya Narayan on 2/22/16.
+//  Created by Emi Clark on 2/22/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
@@ -21,7 +21,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.dao = [DAO sharedManager];
     
     NSLog(@"WVC::viewDidLoad: product url:%@, title:%@", self.productURL, self.title);
     
@@ -38,7 +37,7 @@
     
     //assign view to WKWebView
     self.myWebView.frame = self.view.frame;
-
+    
     //add webview to view
     [self.view addSubview:self.myWebView];
     

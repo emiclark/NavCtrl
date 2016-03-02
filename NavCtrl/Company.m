@@ -1,9 +1,10 @@
 //
 //  Company.m
-//  ASSIGNMENT3
-//  DAO
+//  NavCtrl
+//  ASSIGNMENT4
+//  DAO ADD Company + Product
 //
-//  Created by Aditya Narayan on 2/26/16.
+//  Created by Emiko Clark on 2/26/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
@@ -23,6 +24,7 @@
 }
 
 -(NSString*)description {
+
     return [NSString stringWithFormat:@"%@, %@", self.name, self.logo];
 }
 @end

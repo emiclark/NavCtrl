@@ -1,12 +1,13 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-//  ASSIGNMENT3
-//  DAO
+//  ASSIGNMENT4
+//  DAO ADD Company + Product
 //
-//  Created by Aditya Narayan on 10/22/13.
+//  Created by Emiko Clark on 10/22/13.
 
 #import "CompanyViewController.h"
+#import "AddCompanyViewController.h"
 
 @interface CompanyViewController ()
 
@@ -24,22 +25,42 @@
     return self;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    [self.tableView reloadData];
+
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
     // Uncomment the following line to preserve selection between presentations.
-     self.clearsSelectionOnViewWillAppear = NO;
- 
+    self.clearsSelectionOnViewWillAppear = NO;
+    
     self.productViewController = [[ProductViewController alloc] init];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
+    
+    //add button on LHS
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
+    addButton.action = @selector(addNewCompany);
+    addButton.title = @"Add New Company";
+    addButton.target = self;
+    self.navigationItem.leftBarButtonItem = addButton;
+    
     self.title = @"Mobile device makers";
     
-    
+    [self.tableView reloadData];
+
+}
+
+- (void) addNewCompany {
+    // init AddCompanyViewController
+    self.addNewItemViewController = [[AddCompanyViewController alloc]initWithNibName:@"AddCompanyViewController" bundle:nil];
+    [self.navigationController pushViewController: self.addNewItemViewController animated:YES];
+    NSLog(@"addNewItemViewController - worked   ");
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,6 +89,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        
     }
     
     // Configure the cell...
@@ -91,33 +113,34 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-
+        
         // Delete the company row from the data source
         [self.dao.companyList removeObjectAtIndex:indexPath.row];
-
+        
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+
     }
     [tableView reloadData];
 }
 
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 
 #pragma mark - Table view delegate
@@ -125,12 +148,12 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    
     self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
     self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
     [self.navigationController pushViewController:self.productViewController animated:YES];
 }
- 
+
 - (void)dealloc {
     [_productViewController release];
     [super dealloc];

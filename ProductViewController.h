@@ -1,11 +1,11 @@
 //
 //  ProductViewController.h
 //  NavCtrl
-//  ASSIGNMENT3
-//  DAO
+//  ASSIGNMENT4
+//  DAO ADD Company + Product
 //
 //
-//  Created by Aditya Narayan on 10/22/13.
+//  Created by Emiko Clark on 10/22/13.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
 
