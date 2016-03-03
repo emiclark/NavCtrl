@@ -7,6 +7,7 @@
 //
 
 #import "AddCompanyViewController.h"
+#import "CompanyViewController.h"
 #import "DAO.h"
 //#import "Company.h"
 
@@ -20,6 +21,15 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (IBAction)CancelButtonTapped:(UIButton *)sender {
+    // init AddCompanyViewController
+    CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+    companyViewController = [[CompanyViewController alloc]initWithNibName:@"CompanyViewController" bundle:nil];
+    [self.navigationController pushViewController: companyViewController animated:YES];
+    NSLog(@"back to company controller - worked   ");
+
 }
 
 - (IBAction)AddCompanyButtonTapped:(UIButton *)sender {
@@ -46,7 +56,7 @@
     }
     self.title = @"Add A Company";
     
-    NSLog(@"add company button tapped----- CL:%@, name:%@, logo:%@", self.dao.companyList, self.addCompany.name, self.addCompany.logo );
+    NSLog(@"-----add company button tapped CL:%@, name:%@, logo:%@", self.dao.companyList, self.addCompany.name, self.addCompany.logo );
 }
 
 - (void)didReceiveMemoryWarning {

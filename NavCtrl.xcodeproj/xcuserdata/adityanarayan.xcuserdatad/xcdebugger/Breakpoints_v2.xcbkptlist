@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NavCtrl/AddCompanyViewController.m"
-            timestampString = "478653327.475722"
+            timestampString = "478728693.73365"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "-AddCompanyButtonTapped:"
             landmarkType = "5">
          </BreakpointContent>
