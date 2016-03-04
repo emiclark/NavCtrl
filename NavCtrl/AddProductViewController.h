@@ -23,5 +23,6 @@
 @property (retain, nonatomic) IBOutlet UITextField *addProductURL;
 @property (retain, nonatomic) IBOutlet UITextField *addProductLogo;
 @property (retain, nonatomic)  DAO *dao;
+@property (retain, nonatomic) IBOutlet UILabel *savedProductValidation;
 
 @end

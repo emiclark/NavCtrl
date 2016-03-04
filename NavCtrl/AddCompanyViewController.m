@@ -22,35 +22,49 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     // Do any additional setup after loading the view from its nib.
+    
+    //add Done button on RHS
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc]init];
+    doneButton.action = @selector(DoneButtonTapped);
+    doneButton.title = @"Done";
+    doneButton.target = self;
+    self.navigationItem.rightBarButtonItem = doneButton;
 }
 
-- (IBAction)CancelButtonTapped:(UIButton *)sender {
-    // init AddCompanyViewController
+//- (IBAction)CancelButtonTapped:(UIButton *)sender {
+//    // init AddCompanyViewController
+//    CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
+//    companyViewController = [[CompanyViewController alloc]initWithNibName:@"CompanyViewController" bundle:nil];
+//    [self.navigationController  popToViewController:companyViewController animated:YES];
+//}
+
+- (void)DoneButtonTapped {
     CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
     companyViewController = [[CompanyViewController alloc]initWithNibName:@"CompanyViewController" bundle:nil];
-    [self.navigationController pushViewController: companyViewController animated:YES];
-    NSLog(@"back to company controller - worked   ");
-
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)AddCompanyButtonTapped:(UIButton *)sender {
-    self.title = @"Add A Company";
-    
+    // set focus to textfield
+    [self.addCompanyName performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
     self.addCompany = [[Company alloc] initWithName:self.addCompanyName.text andLogo:self.addCompanyLogo.text];
 
-    if ([self.addCompany.name isEqualToString:@""]){
-        self.addCompany.name = @"UNNamed Company";
+    //add default company name
+    if ([self.addCompany.name isEqualToString:@""]) {
+        //reset focus on text field
+        [self.addCompanyName performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+    }
+    //add default logo image
+    if ([self.addCompany.logo isEqualToString:@""]){
+        self.addCompany.logo = @"Sunflower.gif";
     }
     [self.dao.companyList addObject: self.addCompany ];
-    
-    
-    NSLog(@"-----add company button tapped CL:%@, name:%@, logo:%@", self.dao.companyList, self.addCompany.name, self.addCompany.logo );
     
     // init AddProductViewController
     AddProductViewController *addProductViewController = [[AddProductViewController alloc] init];
     addProductViewController = [[AddProductViewController alloc]initWithNibName:@"AddProductViewController" bundle:nil];
     [self.navigationController pushViewController: addProductViewController animated:YES];
-    NSLog(@"back to add product controller - worked   ");
     
 }
 
