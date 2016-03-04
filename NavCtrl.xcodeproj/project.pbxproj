@@ -26,6 +26,8 @@
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0A61611C87644B009ACEB0 /* AddCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615F1C87644B009ACEB0 /* AddCompanyViewController.m */; };
 		AA0A61621C87644B009ACEB0 /* AddCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0A61601C87644B009ACEB0 /* AddCompanyViewController.xib */; };
+		AA0A61661C88DF2D009ACEB0 /* AddProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A61641C88DF2D009ACEB0 /* AddProductViewController.m */; };
+		AA0A61671C88DF2D009ACEB0 /* AddProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0A61651C88DF2D009ACEB0 /* AddProductViewController.xib */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF61C80E7D200DA7BB4 /* Company.m */; };
 		AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF91C80E97000DA7BB4 /* Product.m */; };
@@ -72,6 +74,9 @@
 		AA0A615E1C87644B009ACEB0 /* AddCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompanyViewController.h; sourceTree = "<group>"; };
 		AA0A615F1C87644B009ACEB0 /* AddCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCompanyViewController.m; sourceTree = "<group>"; };
 		AA0A61601C87644B009ACEB0 /* AddCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCompanyViewController.xib; sourceTree = "<group>"; };
+		AA0A61631C88DF2D009ACEB0 /* AddProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProductViewController.h; sourceTree = "<group>"; };
+		AA0A61641C88DF2D009ACEB0 /* AddProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductViewController.m; sourceTree = "<group>"; };
+		AA0A61651C88DF2D009ACEB0 /* AddProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddProductViewController.xib; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA7CEDF51C80E7D200DA7BB4 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		AA7CEDF61C80E7D200DA7BB4 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
@@ -188,6 +193,9 @@
 				AA0A615E1C87644B009ACEB0 /* AddCompanyViewController.h */,
 				AA0A615F1C87644B009ACEB0 /* AddCompanyViewController.m */,
 				AA0A61601C87644B009ACEB0 /* AddCompanyViewController.xib */,
+				AA0A61631C88DF2D009ACEB0 /* AddProductViewController.h */,
+				AA0A61641C88DF2D009ACEB0 /* AddProductViewController.m */,
+				AA0A61651C88DF2D009ACEB0 /* AddProductViewController.xib */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
@@ -315,6 +323,7 @@
 				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
+				AA0A61671C88DF2D009ACEB0 /* AddProductViewController.xib in Resources */,
 				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,6 +343,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA0A61661C88DF2D009ACEB0 /* AddProductViewController.m in Sources */,
 				AA0A61611C87644B009ACEB0 /* AddCompanyViewController.m in Sources */,
 				AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,

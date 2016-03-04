@@ -7,6 +7,7 @@
 //
 
 #import "AddCompanyViewController.h"
+#import "AddProductViewController.h"
 #import "CompanyViewController.h"
 #import "DAO.h"
 //#import "Company.h"
@@ -33,30 +34,24 @@
 }
 
 - (IBAction)AddCompanyButtonTapped:(UIButton *)sender {
-    self.addCompany = [[Company alloc]init];
-    
-    //error if field is empty
-    if ([self.addCompanyName.text isEqualToString: @""] ){
-        self.addCompanyName.text = @"Company name cannot be empty.";
-    } else {
-        self.addCompany.logo = _addCompanyLogo.text;
-    }
-    
-    self.addCompany.name = _addCompanyName.text;
-    //add default logo if logo field is empty
-    if ([_addCompanyLogo.text isEqualToString: @""] ){
-        self.addCompany.logo = @"sunflower.gif";
-    } else {
-        self.addCompany.logo = _addCompanyLogo.text;
-    }
-    
-    //add company to dao if name field is !empty
-    if (![self.addCompanyName.text isEqualToString: @""]) {
-        [self.dao.companyList addObject: self.addCompany ];
-    }
     self.title = @"Add A Company";
     
+    self.addCompany = [[Company alloc] initWithName:self.addCompanyName.text andLogo:self.addCompanyLogo.text];
+
+    if ([self.addCompany.name isEqualToString:@""]){
+        self.addCompany.name = @"UNNamed Company";
+    }
+    [self.dao.companyList addObject: self.addCompany ];
+    
+    
     NSLog(@"-----add company button tapped CL:%@, name:%@, logo:%@", self.dao.companyList, self.addCompany.name, self.addCompany.logo );
+    
+    // init AddProductViewController
+    AddProductViewController *addProductViewController = [[AddProductViewController alloc] init];
+    addProductViewController = [[AddProductViewController alloc]initWithNibName:@"AddProductViewController" bundle:nil];
+    [self.navigationController pushViewController: addProductViewController animated:YES];
+    NSLog(@"back to add product controller - worked   ");
+    
 }
 
 - (void)didReceiveMemoryWarning {

@@ -26,6 +26,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    NSLog(@"VWA: %@", self.dao.companyList);
     [self.tableView reloadData];
 
 }
