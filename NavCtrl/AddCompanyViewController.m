@@ -29,14 +29,9 @@
     doneButton.title = @"Done";
     doneButton.target = self;
     self.navigationItem.rightBarButtonItem = doneButton;
+    
+    
 }
-
-//- (IBAction)CancelButtonTapped:(UIButton *)sender {
-//    // init AddCompanyViewController
-//    CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
-//    companyViewController = [[CompanyViewController alloc]initWithNibName:@"CompanyViewController" bundle:nil];
-//    [self.navigationController  popToViewController:companyViewController animated:YES];
-//}
 
 - (void)DoneButtonTapped {
     CompanyViewController *companyViewController = [[CompanyViewController alloc] init];

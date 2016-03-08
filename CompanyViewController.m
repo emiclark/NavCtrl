@@ -8,6 +8,9 @@
 
 #import "CompanyViewController.h"
 #import "AddCompanyViewController.h"
+#import "EditCompanyViewController.h"
+#import "Company.h"
+#import "DAO.h"
 
 @interface CompanyViewController ()
 
@@ -26,7 +29,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    NSLog(@"VWA: %@", self.dao.companyList);
+//    NSLog(@"VWA: %@", self.dao.companyList);
     [self.tableView reloadData];
 
 }
@@ -127,21 +130,23 @@
 }
 
 
-/*
+
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
+     Company *companyToMove = [self.dao.companyList objectAtIndex:fromIndexPath.row];
+     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
+     [self.dao.companyList insertObject:companyToMove atIndex:toIndexPath.row];
+ 
  }
- */
 
-/*
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the item to be re-orderable.
  return YES;
  }
- */
+
 
 
 #pragma mark - Table view delegate
@@ -149,11 +154,24 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
-    self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
-    self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
-    [self.navigationController pushViewController:self.productViewController animated:YES];
+    if (self.tableView.editing == YES) {
+        
+        //set new viewcontroller to editCompanyViewController
+        self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        
+        //pass in pointer of company selected to ediCompanyViewController.companyToedit
+        self.editCompanyViewController.companyToEdit = [self.dao.companyList objectAtIndex: indexPath.row];
+        [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
+        self.editCompanyViewController.title = @"Edit Company";
+        
+    } else {
+        
+        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
+        [self.navigationController pushViewController:self.productViewController animated:YES];
+    }
 }
+
 
 - (void)dealloc {
     [_productViewController release];

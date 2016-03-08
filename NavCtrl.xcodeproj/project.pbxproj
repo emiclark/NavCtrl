@@ -23,6 +23,10 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		AA002BEC1C8E1B1400A31BBD /* EditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */; };
+		AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */; };
+		AA002BF11C8E3B9D00A31BBD /* editProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA002BEF1C8E3B9D00A31BBD /* editProductViewController.m */; };
+		AA002BF21C8E3B9D00A31BBD /* editProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA002BF01C8E3B9D00A31BBD /* editProductViewController.xib */; };
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0A61611C87644B009ACEB0 /* AddCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615F1C87644B009ACEB0 /* AddCompanyViewController.m */; };
 		AA0A61621C87644B009ACEB0 /* AddCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA0A61601C87644B009ACEB0 /* AddCompanyViewController.xib */; };
@@ -69,6 +73,12 @@
 		48A656E518163C1B00746D36 /* CompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyViewController.xib; path = ../CompanyViewController.xib; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		AA002BE91C8E1B1400A31BBD /* EditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCompanyViewController.h; sourceTree = "<group>"; };
+		AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCompanyViewController.m; sourceTree = "<group>"; };
+		AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCompanyViewController.xib; sourceTree = "<group>"; };
+		AA002BEE1C8E3B9D00A31BBD /* editProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = editProductViewController.h; sourceTree = "<group>"; };
+		AA002BEF1C8E3B9D00A31BBD /* editProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = editProductViewController.m; sourceTree = "<group>"; };
+		AA002BF01C8E3B9D00A31BBD /* editProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = editProductViewController.xib; sourceTree = "<group>"; };
 		AA0A615B1C84F0E5009ACEB0 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAO.h; path = ../DAO.h; sourceTree = "<group>"; };
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0A615E1C87644B009ACEB0 /* AddCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompanyViewController.h; sourceTree = "<group>"; };
@@ -187,15 +197,21 @@
 				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
 				AA7CEDF91C80E97000DA7BB4 /* Product.m */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
-				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
-				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
-				AAE05F9D1C7BDA60005B22DA /* WebViewController.m */,
 				AA0A615E1C87644B009ACEB0 /* AddCompanyViewController.h */,
 				AA0A615F1C87644B009ACEB0 /* AddCompanyViewController.m */,
 				AA0A61601C87644B009ACEB0 /* AddCompanyViewController.xib */,
+				AA002BE91C8E1B1400A31BBD /* EditCompanyViewController.h */,
+				AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */,
+				AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */,
+				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				AA0A61631C88DF2D009ACEB0 /* AddProductViewController.h */,
 				AA0A61641C88DF2D009ACEB0 /* AddProductViewController.m */,
 				AA0A61651C88DF2D009ACEB0 /* AddProductViewController.xib */,
+				AA002BEE1C8E3B9D00A31BBD /* editProductViewController.h */,
+				AA002BEF1C8E3B9D00A31BBD /* editProductViewController.m */,
+				AA002BF01C8E3B9D00A31BBD /* editProductViewController.xib */,
+				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
+				AAE05F9D1C7BDA60005B22DA /* WebViewController.m */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
@@ -319,9 +335,11 @@
 				AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
+				AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */,
 				AAE05FA81C7CC249005B22DA /* samsung.png in Resources */,
 				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
+				AA002BF21C8E3B9D00A31BBD /* editProductViewController.xib in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 				AA0A61671C88DF2D009ACEB0 /* AddProductViewController.xib in Resources */,
 				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
@@ -351,8 +369,10 @@
 				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
 				AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
+				AA002BF11C8E3B9D00A31BBD /* editProductViewController.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
+				AA002BEC1C8E1B1400A31BBD /* EditCompanyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

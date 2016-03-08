@@ -10,6 +10,9 @@
 //
 #import "ProductViewController.h"
 #import "CompanyViewController.h"
+#import "EditCompanyViewController.h"
+#import "editProductViewController.h"
+#import "DAO.h"
 
 @interface ProductViewController ()
 @end
@@ -27,6 +30,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.tableView setAllowsSelectionDuringEditing:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
@@ -94,21 +99,22 @@
     [tableView reloadData];
 }
 
-/*
+
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
+     Product *productToMove = [self.currentCompany.productArray  objectAtIndex:fromIndexPath.row];
+     [self.currentCompany.productArray removeObjectAtIndex:fromIndexPath.row];
+     [self.currentCompany.productArray  insertObject:productToMove atIndex:toIndexPath.row];
  }
- */
 
-/*
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the item to be re-orderable.
  return YES;
  }
- */
+
 
 
 #pragma mark - Table view delegate
@@ -117,14 +123,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+
+    if (self.tableView.editing == YES){
     
-    // Create the next view controller.
-    self.myWebViewCtlr = [[WebViewController alloc]init];
-    self.myWebViewCtlr.productURL = tempProduct.url;
-    self.myWebViewCtlr.title = tempProduct.name;
-    
-    [self.navigationController pushViewController:self.myWebViewCtlr animated:YES];
+        self.editProductViewController = [[editProductViewController alloc]initWithNibName:@"editProductViewController" bundle:nil];
+        self.editProductViewController.productToEdit = [self.currentCompany.productArray objectAtIndex: indexPath.row];
+        
+        [self.navigationController pushViewController: self.editProductViewController animated:YES];
+//        self.editCompanyViewController.title = @"Edit Company";
+
+    } else {
+        Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+        
+        // Create the next view controller.
+        self.myWebViewCtlr = [[WebViewController alloc]init];
+        self.myWebViewCtlr.productURL = tempProduct.url;
+        self.myWebViewCtlr.title = tempProduct.name;
+        
+        [self.navigationController pushViewController:self.myWebViewCtlr animated:YES];
+    }
 }
 
 

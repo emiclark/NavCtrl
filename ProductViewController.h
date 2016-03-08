@@ -12,10 +12,12 @@
 #import <UIKit/UIKit.h>
 #import "WebViewController.h"
 #import "DAO.h"
-
+#import "editProductViewController.h"
+#import "Product.h"
 
 @interface ProductViewController : UITableViewController
 
+@property (retain, nonatomic) editProductViewController *editProductViewController;
 
 @property (nonatomic, retain) WebViewController    *myWebViewCtlr;
 @property ( nonatomic,retain) NSString *titleOfCompany;
