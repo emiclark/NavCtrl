@@ -84,13 +84,11 @@ static DAO *sharedMyManager = nil;
     Product *Surface = [[Product alloc] initWithName:@"Surface Pro 4" andUrl:@"http://www.microsoft.com/surface/en-us/devices/surface-pro-4" andLogo: @"microsoft.png"];
     [microsoft.productArray addObject: Surface ];
     
-    NSLog(@"TEST OF ADDED: %@",microsoft.productArray);
     self.companyList = [[NSMutableArray alloc]init];
     [self.companyList addObject:apple];
     [self.companyList addObject:samsung];
     [self.companyList addObject:asus];
     [self.companyList addObject:microsoft];
-    NSLog(@"methodToInstantiate:%@, %@, %@, %@, \n", apple, iPad, iPod, iPhone);
     
 }
 
@@ -110,10 +108,6 @@ static DAO *sharedMyManager = nil;
 - (id)retain {
     return self;
 }
-//
-//- (unsigned)retainCount {
-//    return UINT_MAX; //denotes an object that cannot be released
-//}
 
 - (oneway void)release {
     // never release

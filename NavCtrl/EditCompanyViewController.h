@@ -13,11 +13,13 @@
 @interface EditCompanyViewController : UIViewController
 
 @property (retain,nonatomic) DAO *dao;
-
 @property (retain, nonatomic) Company *companyToEdit;
+@property (retain, nonatomic) Company *companyToAdd;
+
+@property (retain, nonatomic) IBOutlet UILabel *addEditCompanyLabel;
 @property (retain, nonatomic) IBOutlet UITextField *editCompanyName;
 @property (retain, nonatomic) IBOutlet UITextField *editCompanyLogo;
-
+@property (retain, nonatomic) IBOutlet UIButton *saveButton;
 
 - (IBAction)SaveButtonTapped:(UIButton *)sender;
 @end

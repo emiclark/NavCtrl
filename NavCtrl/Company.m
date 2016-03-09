@@ -18,7 +18,7 @@
         self.name = name;
         self.logo = logo;
         self.productArray = [[NSMutableArray alloc]init];
-        NSLog(@"_init:%@",self);
+//        NSLog(@"_init:%@",self);
     }
     return self;
 }

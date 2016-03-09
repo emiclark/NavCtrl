@@ -7,7 +7,6 @@
 //  Created by Emiko Clark on 10/22/13.
 
 #import "CompanyViewController.h"
-#import "AddCompanyViewController.h"
 #import "EditCompanyViewController.h"
 #import "Company.h"
 #import "DAO.h"
@@ -29,7 +28,6 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-//    NSLog(@"VWA: %@", self.dao.companyList);
     [self.tableView reloadData];
 
 }
@@ -61,10 +59,9 @@
 }
 
 - (void) addNewCompany {
-    // init AddCompanyViewController
-    self.addNewItemViewController = [[AddCompanyViewController alloc]initWithNibName:@"AddCompanyViewController" bundle:nil];
-    [self.navigationController pushViewController: self.addNewItemViewController animated:YES];
-    NSLog(@"addNewItemViewController - worked   ");
+    
+    self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+    [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
 }
 
 - (void)didReceiveMemoryWarning
@@ -155,17 +152,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.tableView.editing == YES) {
-        
+        //edit mode - edit company
         //set new viewcontroller to editCompanyViewController
         self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
         
         //pass in pointer of company selected to ediCompanyViewController.companyToedit
         self.editCompanyViewController.companyToEdit = [self.dao.companyList objectAtIndex: indexPath.row];
         [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
-        self.editCompanyViewController.title = @"Edit Company";
         
     } else {
-        
+        //not in editing mode - show product details
         self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
         self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
         [self.navigationController pushViewController:self.productViewController animated:YES];

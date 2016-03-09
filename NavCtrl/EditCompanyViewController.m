@@ -7,8 +7,6 @@
 //
 
 #import "EditCompanyViewController.h"
-#import "DAO.h"
-#import "Company.h"
 #import "CompanyViewController.h"
 
 @interface EditCompanyViewController ()
@@ -22,22 +20,61 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
-    self.editCompanyName.text = self.companyToEdit.name;
-    self.editCompanyLogo.text = self.companyToEdit.logo;
-    
+    //check if add or edit and set label
+    if (self.companyToEdit) {
+        //edit mode
+        self.addEditCompanyLabel.text = [NSString stringWithFormat: @"Edit %@",self.companyToEdit.name];
+        self.editCompanyName.text = self.companyToEdit.name;
+        self.editCompanyLogo.text = self.companyToEdit.logo;
+        self.saveButton.titleLabel.text = @"Update Company";
+    } else {
+        //add mode
+        self.companyToAdd = [[Company alloc]init];
+        self.addEditCompanyLabel.text = @"Add Company";
+
+        //set focus
+        [self.editCompanyName performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+        
+        //set default image for logo
+        if ([self.editCompanyLogo.text  isEqual: @""]){
+            self.companyToAdd.logo = @"Sunflower.gif";
+        }
+    }
+    self.saveButton.titleLabel.text = @"Save Company";
 
 }
 
 - (IBAction)SaveButtonTapped:(UIButton *)sender {
-    self.companyToEdit.name = self.editCompanyName.text;
-    self.companyToEdit.logo = self.editCompanyLogo.text;
+
+    //edit mode - companytoEdit not nil
+    if (self.companyToEdit) {
+        self.companyToEdit.name = self.editCompanyName.text;
+        self.companyToEdit.logo = self.editCompanyLogo.text;
+    } else {
+    //add mode
+        self.companyToAdd.name = self.editCompanyName.text;
+        self.companyToAdd.logo = self.editCompanyLogo.text;
+        
+        //set company name
+        if (self.companyToAdd.name) {
+            self.companyToAdd.name =  self.editCompanyName.text;
+        } else {
+            self.companyToAdd.name = @"Undefined Company";
+        }
+        
+        //set default image for logo
+        if ([self.editCompanyLogo.text  isEqual: @""]){
+            self.companyToAdd.logo = @"Sunflower.gif";
+        }
+        //add new company to companyList
+        [self.dao.companyList addObject:self.companyToAdd];
+    }
     
     //return to rootViewController
     CompanyViewController *companyViewController = [[CompanyViewController alloc] init];
     companyViewController = [[CompanyViewController alloc]initWithNibName:@"CompanyViewController" bundle:nil];
-//    [self.navigationController popToRootViewControllerAnimated:YES];
-    [self.navigationController popViewControllerAnimated:YES];
-    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,6 +95,8 @@
 - (void)dealloc {
     [_editCompanyName release];
     [_editCompanyLogo release];
+    [_addEditCompanyLabel release];
+    [_saveButton release];
     [super dealloc];
 }
 @end

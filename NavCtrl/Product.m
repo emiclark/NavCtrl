@@ -18,7 +18,7 @@
         self.name = name;
         self.url  = url;
         self.logo = logo;
-        NSLog(@"_init:%@",self);
+//        NSLog(@"_init:%@",self);
         
     }
     return self;

@@ -9,9 +9,7 @@
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 #import "ProductViewController.h"
-#import "CompanyViewController.h"
-#import "EditCompanyViewController.h"
-#import "editProductViewController.h"
+#import "EditProductViewController.h"
 #import "DAO.h"
 
 @interface ProductViewController ()
@@ -25,13 +23,43 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
+                                   initWithTitle:@"Add New Product "
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                  action:@selector(addButton:)];
+    
+//    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]
+//                                  initWithTitle:@" / Edit"
+//                                  style:UIBarButtonItemStyleBordered
+//                                  target:self
+//                                   action:@selector(editButton:)];
+    
+//    self.navigationItem.rightBarButtonItem = addButton;
+//    [addButton release];
+    
+//     Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    NSArray *buttons = [[NSArray alloc]initWithObjects: self.editButtonItem, addButton, nil];
+    self.navigationItem.rightBarButtonItems = buttons;
+    
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     [self.tableView setAllowsSelectionDuringEditing:YES];
+    [self.tableView reloadData];
+    
+}
+
+-(void)addButton:(id)sender {
+    self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
+    [self.navigationController pushViewController: self.editProductViewController animated:YES];
+    
+}
+
+-(void)editButton:(id)sender {
+//    tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath();
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
@@ -125,14 +153,13 @@
 {
 
     if (self.tableView.editing == YES){
-    
-        self.editProductViewController = [[editProductViewController alloc]initWithNibName:@"editProductViewController" bundle:nil];
-        self.editProductViewController.productToEdit = [self.currentCompany.productArray objectAtIndex: indexPath.row];
-        
+        //assign product to editProductViewController.productToEdit
+        self.editProductViewController.productToEdit = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+        self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
         [self.navigationController pushViewController: self.editProductViewController animated:YES];
-//        self.editCompanyViewController.title = @"Edit Company";
 
     } else {
+        //initialize webkit view controller to show url of product
         Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
         
         // Create the next view controller.

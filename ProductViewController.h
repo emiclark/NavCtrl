@@ -17,11 +17,12 @@
 
 @interface ProductViewController : UITableViewController
 
-@property (retain, nonatomic) editProductViewController *editProductViewController;
+@property (retain, nonatomic) EditProductViewController *editProductViewController;
 
 @property (nonatomic, retain) WebViewController    *myWebViewCtlr;
 @property ( nonatomic,retain) NSString *titleOfCompany;
 @property (nonatomic,retain) Company *currentCompany;
 @property ( nonatomic, retain) DAO  *dao;
 
+-(void) addButton:(id)sender;
 @end
