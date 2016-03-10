@@ -2,9 +2,9 @@
 //  CompanyViewController.m
 //  NavCtrl
 //  ASSIGNMENT4
-//  DAO ADD Company + Product
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
-//  Created by Emiko Clark on 10/22/13.
+//  Created by Emiko Clark on 3/4/16.
 
 #import "CompanyViewController.h"
 #import "EditCompanyViewController.h"
@@ -28,7 +28,10 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [self setEditing: NO animated: NO];
+
 
 }
 
@@ -151,10 +154,17 @@
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+    self.dao.companyNo = indexPath.row;
+    
     if (self.tableView.editing == YES) {
         //edit mode - edit company
         //set new viewcontroller to editCompanyViewController
         self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        
+        //set title of view controller
+        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
         
         //pass in pointer of company selected to ediCompanyViewController.companyToedit
         self.editCompanyViewController.companyToEdit = [self.dao.companyList objectAtIndex: indexPath.row];
@@ -164,6 +174,7 @@
         //not in editing mode - show product details
         self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
         self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
+        self.productViewController.title = self.productViewController.titleOfCompany;
         [self.navigationController pushViewController:self.productViewController animated:YES];
     }
 }

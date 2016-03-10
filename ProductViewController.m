@@ -2,14 +2,14 @@
 //  ProductViewController.m
 //  NavCtrl
 //  ASSIGNMENT4
-//  DAO ADD Company + Product
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
-//
-//  Created by Emiko Clark on 3/2/16.
+//  Created by Emiko Clark on 3/4/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 #import "ProductViewController.h"
 #import "EditProductViewController.h"
+
 #import "DAO.h"
 
 @interface ProductViewController ()
@@ -24,22 +24,10 @@
     self.dao = [DAO sharedManager];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]
-                                   initWithTitle:@"Add New Product "
+                                   initWithTitle:@"Add New Product /"
                                    style:UIBarButtonItemStyleBordered
                                    target:self
                                   action:@selector(addButton:)];
-    
-//    UIBarButtonItem *editButton = [[UIBarButtonItem alloc]
-//                                  initWithTitle:@" / Edit"
-//                                  style:UIBarButtonItemStyleBordered
-//                                  target:self
-//                                   action:@selector(editButton:)];
-    
-//    self.navigationItem.rightBarButtonItem = addButton;
-//    [addButton release];
-    
-//     Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     NSArray *buttons = [[NSArray alloc]initWithObjects: self.editButtonItem, addButton, nil];
     self.navigationItem.rightBarButtonItems = buttons;
@@ -51,21 +39,19 @@
     
 }
 
--(void)addButton:(id)sender {
-    self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
-    [self.navigationController pushViewController: self.editProductViewController animated:YES];
-    
-}
-
--(void)editButton:(id)sender {
-//    tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath();
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {   // Pass the selected object to the new view controller.
+- (void)viewWillAppear:(BOOL)animated {
+    // Pass the selected object to the new view controller.
     
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    [self setEditing: NO animated: NO];
+}
+
+-(void)addButton:(id)sender {
+    self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
+    self.editProductViewController.productVC = self;
+    [self.navigationController pushViewController: self.editProductViewController animated:YES];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -100,7 +86,6 @@
     Product *tempProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
     
     cell.textLabel.text = tempProduct.name;
-    self.title = self.titleOfCompany;
     return cell;
 }
 
@@ -115,11 +100,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSLog(@"%@",[self.dao.companyList objectAtIndex:indexPath.row]);
         
         // Delete the row from the data source
         [self.currentCompany.productArray removeObjectAtIndex:indexPath.row];
-        //        [tableView reloadData];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -153,10 +136,21 @@
 {
 
     if (self.tableView.editing == YES){
-        //assign product to editProductViewController.productToEdit
+        //edit mode - edit product
+
+        //initialize EditProductViewController for editing
+        self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
+        NSString *tempStr   = [[[self.dao.companyList objectAtIndex:self.dao.companyNo].productArray objectAtIndex:indexPath.row ] name];
+
+        self.titleOfCompany = tempStr;
         self.editProductViewController.productToEdit = [self.currentCompany.productArray objectAtIndex:indexPath.row];
-        self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        
+        //set title of EditProductViewController
+        self.editProductViewController.title = self.editProductViewController.productToEdit.name;
+
+        self.editProductViewController.productVC = self;
         [self.navigationController pushViewController: self.editProductViewController animated:YES];
+        
 
     } else {
         //initialize webkit view controller to show url of product

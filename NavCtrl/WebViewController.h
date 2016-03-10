@@ -2,8 +2,7 @@
 //  WebViewController.m
 //  NavCtrl
 //  ASSIGNMENT4
-//  DAO ADD Company + Product
-//
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
 //  Created by Aditya Narayan on 2/22/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.

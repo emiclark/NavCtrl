@@ -2,7 +2,7 @@
 //  Company.h
 //  NavCtrl
 //  ASSIGNMENT4
-//  DAO ADD Company + Product
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
 //  Created by Emiko Clark on 2/26/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.

@@ -1,8 +1,10 @@
 //
 //  EditProductViewController.h
 //  NavCtrl
+//  ASSIGNMENT4
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
-//  Created by Aditya Narayan on 3/7/16.
+//  Created by Emiko Clark on 3/4/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
@@ -10,17 +12,25 @@
 #import "Product.h"
 #import "Company.h"
 #import "DAO.h"
+#import "ProductViewController.h"
+#import "CompanyViewController.h"
+@class ProductViewController;
 
 @interface EditProductViewController : UIViewController
 
-@property (retain, nonatomic) IBOutlet UITextField *addEditProductLabel;
+@property (retain, nonatomic) IBOutlet UILabel *productViewTitle;
 @property (retain, nonatomic) IBOutlet UITextField *productName;
 @property (retain, nonatomic) IBOutlet UITextField *productURL;
 @property (retain, nonatomic) IBOutlet UITextField *productLogo;
-@property (retain, nonatomic) IBOutlet UIButton *saveButton;
+
+@property (strong, nonatomic) ProductViewController * productVC;
+@property (strong, nonatomic) CompanyViewController * companyVC;
+
+@property (retain, nonatomic) IBOutlet UIButton *saveProductButton;
+
 @property (retain,nonatomic) Product *productToEdit;
-@property (retain, nonatomic) Product *productToAdd;
 @property  (retain,nonatomic) DAO *dao;
 
-- (IBAction)addSaveButtonTapped:(UIButton *)sender;
+- (IBAction)saveProductButtonTapped:(UIButton *)sender;
+
 @end

@@ -2,18 +2,17 @@
 //  ProductViewController.h
 //  NavCtrl
 //  ASSIGNMENT4
-//  DAO ADD Company + Product
+//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
 //
-//
-//  Created by Emiko Clark on 10/22/13.
+//  Created by Emiko Clark on 3/4/16.
 //  Copyright (c) 2013 Aditya Narayan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import "WebViewController.h"
 #import "DAO.h"
-#import "editProductViewController.h"
 #import "Product.h"
+@class EditProductViewController;
 
 @interface ProductViewController : UITableViewController
 
