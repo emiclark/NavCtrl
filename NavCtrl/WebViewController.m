@@ -22,8 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"WVC::viewDidLoad: product url:%@, title:%@", self.productURL, self.title);
-    
     //init WKWebView
     self.myWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
     
