@@ -1,10 +1,10 @@
 //
 //  Product.m
 //  NavCtrl
-//  ASSIGNMENT4
-//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
+//  ASSIGNMENT 5
+//  Use Yahoo finance API to get stock prices
 //
-//  Created by Emiko Clark on 2/26/16.
+//  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
@@ -18,7 +18,6 @@
         self.name = name;
         self.url  = url;
         self.logo = logo;
-//        NSLog(@"_init:%@",self);
         
     }
     return self;

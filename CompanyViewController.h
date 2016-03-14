@@ -1,9 +1,9 @@
 //  CompanyViewController.h
 //  NavCtrl
-//  ASSIGNMENT4
-//  DAO refactored: Add/Edit Company+Product, + reorder+delete rows
+//  ASSIGNMENT 5
+//  Use Yahoo finance API to get stock prices
 //
-//  Created by Emiko Clark on 2/24/16.
+//  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 #import <UIKit/UIKit.h>
@@ -19,6 +19,12 @@
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
 @property ( nonatomic, retain)  EditCompanyViewController *editCompanyViewController;
 @property ( nonatomic, retain) DAO  *dao;
+
+@property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, retain) NSMutableString *query;
+@property (nonatomic, strong) NSURL *dataURL;
+
+@property (nonatomic, strong) NSArray *stockPrices;
 
 - (void) addNewCompany;
 @end
