@@ -10,6 +10,8 @@
 #import "ProductViewController.h"
 #import "EditCompanyViewController.h"
 #import "DAO.h"
+#import "sqlite3.h"
+
 
 @class ProductViewController;
 @class EditCompanyViewController;
@@ -23,8 +25,11 @@
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, retain) NSMutableString *query;
 @property (nonatomic, strong) NSURL *dataURL;
+@property (nonatomic, strong) NSString *dbPath;
 
 @property (nonatomic, strong) NSArray *stockPrices;
 
 - (void) addNewCompany;
+- (void) createOrOpenDB;
+- (void) populateDAO;
 @end

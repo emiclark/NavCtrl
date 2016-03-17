@@ -10,10 +10,13 @@
 #import "CompanyViewController.h"
 #import "EditCompanyViewController.h"
 #import "Company.h"
+#import "Product.h"
 #import "DAO.h"
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
-
+{
+    sqlite3 *dao;
+}
 @end
 
 @implementation CompanyViewController
@@ -91,8 +94,14 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     self.stockPrices = [[NSArray alloc]init];
+//-
+    //check documents directory to see if dao.db exists,
+    //if so, populate arrays,
+    //if not, copy dao.db from resource folder in main bundle and ,
+    //finally, populate arrays
     
-    // Uncomment the following line to preserve selection between presentations.
+    [self createOrOpenDB];
+//-
     
     //create a config session
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -122,6 +131,77 @@
     [self.tableView reloadData];
     
 }
+
+- (void) createOrOpenDB{
+    //find documents directory for app
+    NSArray *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    //document path found in index:0
+    NSString *dirPathStr =  [dirPath objectAtIndex:0];
+    
+    //add filename to end of path
+    self.dbPath = [dirPathStr stringByAppendingPathComponent:@"dao.db"];
+    
+    //convert full pathname to dao.db to url
+    //NSURL *dbURL = [NSURL URLWithString:@"dbPath"];
+    
+    //instantiate nsfilemanager object
+    NSFileManager *filemgr = [NSFileManager defaultManager];
+    
+    //check if dao.db exists in document directory
+    BOOL success = [filemgr fileExistsAtPath:self.dbPath];
+    NSError *error;
+    
+    if (success) {
+        //dao.db exists
+        NSLog(@"dao.db exists in documents directory: %@",self.dbPath);
+        
+    }else {
+        //dao.db does not exist - copy dao.db from main bundle to documents directory
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"dao" ofType:@"db"];
+        success = [filemgr copyItemAtPath:path toPath:self.dbPath error:&error];
+        NSLog(@"dao.db copied to documents directory: %@",self.dbPath);
+    }
+    [self populateDAO];
+}
+
+- (void) populateDAO{
+    
+    sqlite3_stmt *statement ;
+    if (sqlite3_open([self.dbPath UTF8String], &dao)==SQLITE_OK)
+    {
+        [self.dao.companyList removeAllObjects];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM COMPANY"];
+        const char *query_sql = [querySQL UTF8String];
+        if (sqlite3_prepare(dao, query_sql, -1, &statement, NULL) == SQLITE_OK)
+        {
+            while (sqlite3_step(statement)== SQLITE_ROW)
+            {
+                NSString *name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                NSString *stockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                NSString *logo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+                
+                self.dao = [[DAO alloc]init];
+                Company *company = [[Company alloc]init];
+                Product *product = [[Product alloc]init];
+                
+                //add companies
+                [company.name setName:name];
+                [company.stockSymbol setName:stockSymbol];
+                [company.logo setName:logo];
+                //add corresponding products
+                //add products to the company
+                [company addObject: product];
+                
+                //dao add company to dao
+                [self.dao addObject:company];
+                
+            }
+        }
+    }
+    [[self myTableView]reloadData];
+}
+
 
 
  - (void) addNewCompany {

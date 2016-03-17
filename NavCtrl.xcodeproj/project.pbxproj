@@ -28,6 +28,7 @@
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA4C76881C97367800D32757 /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4C76871C97367800D32757 /* google.png */; };
+		AA75AEED1C9B4862006138E6 /* dao.db in Resources */ = {isa = PBXBuildFile; fileRef = AA75AEEC1C9B4862006138E6 /* dao.db */; };
 		AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF61C80E7D200DA7BB4 /* Company.m */; };
 		AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF91C80E97000DA7BB4 /* Product.m */; };
 		AADD59001C909756009AF845 /* EditProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AADD58FE1C909756009AF845 /* EditProductViewController.m */; };
@@ -77,6 +78,7 @@
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA4C76871C97367800D32757 /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = ../google.png; sourceTree = "<group>"; };
+		AA75AEEC1C9B4862006138E6 /* dao.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = dao.db; sourceTree = "<group>"; };
 		AA7CEDF51C80E7D200DA7BB4 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
 		AA7CEDF61C80E7D200DA7BB4 /* Company.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Company.m; sourceTree = "<group>"; };
 		AA7CEDF81C80E97000DA7BB4 /* Product.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Product.h; sourceTree = "<group>"; };
@@ -199,6 +201,7 @@
 				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
 				AAE05F9D1C7BDA60005B22DA /* WebViewController.m */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
+				AA75AEEB1C9B4862006138E6 /* resources */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
 			path = NavCtrl;
@@ -237,6 +240,14 @@
 				48A656D618163BF200746D36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AA75AEEB1C9B4862006138E6 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA75AEEC1C9B4862006138E6 /* dao.db */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,6 +339,7 @@
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
+				AA75AEED1C9B4862006138E6 /* dao.db in Resources */,
 				AADD59011C909756009AF845 /* EditProductViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
