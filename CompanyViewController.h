@@ -1,7 +1,7 @@
 //  CompanyViewController.h
 //  NavCtrl
-//  ASSIGNMENT 5
-//  Use Yahoo finance API to get stock prices
+// Assignment6-SQL
+// Integrate SQL
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -25,11 +25,9 @@
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, retain) NSMutableString *query;
 @property (nonatomic, strong) NSURL *dataURL;
-@property (nonatomic, strong) NSString *dbPath;
 
 @property (nonatomic, strong) NSArray *stockPrices;
 
 - (void) addNewCompany;
-- (void) createOrOpenDB;
-- (void) populateDAO;
+
 @end

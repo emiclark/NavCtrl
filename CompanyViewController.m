@@ -1,8 +1,8 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-//  ASSIGNMENT 5
-//  Use Yahoo finance API to get stock prices
+// Assignment6-SQL
+// Integrate SQL
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -11,11 +11,12 @@
 #import "EditCompanyViewController.h"
 #import "Company.h"
 #import "Product.h"
+#import "sqlite3.h"
 #import "DAO.h"
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 {
-    sqlite3 *dao;
+//    sqlite3 *sqliteDB;
 }
 @end
 
@@ -23,6 +24,7 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
+
     self = [super initWithStyle:style];
     
     if (self) {
@@ -32,6 +34,7 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    self.dao = [DAO sharedManager];
     
     // request for stock prices using Yahoo API
     
@@ -100,7 +103,10 @@
     //if not, copy dao.db from resource folder in main bundle and ,
     //finally, populate arrays
     
-    [self createOrOpenDB];
+    [self.dao createOrOpenDB];
+    [self.dao populateCompany];
+    
+    
 //-
     
     //create a config session
@@ -132,77 +138,118 @@
     
 }
 
-- (void) createOrOpenDB{
-    //find documents directory for app
-    NSArray *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    //document path found in index:0
-    NSString *dirPathStr =  [dirPath objectAtIndex:0];
-    
-    //add filename to end of path
-    self.dbPath = [dirPathStr stringByAppendingPathComponent:@"dao.db"];
-    
-    //convert full pathname to dao.db to url
-    //NSURL *dbURL = [NSURL URLWithString:@"dbPath"];
-    
-    //instantiate nsfilemanager object
-    NSFileManager *filemgr = [NSFileManager defaultManager];
-    
-    //check if dao.db exists in document directory
-    BOOL success = [filemgr fileExistsAtPath:self.dbPath];
-    NSError *error;
-    
-    if (success) {
-        //dao.db exists
-        NSLog(@"dao.db exists in documents directory: %@",self.dbPath);
-        
-    }else {
-        //dao.db does not exist - copy dao.db from main bundle to documents directory
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"dao" ofType:@"db"];
-        success = [filemgr copyItemAtPath:path toPath:self.dbPath error:&error];
-        NSLog(@"dao.db copied to documents directory: %@",self.dbPath);
-    }
-    [self populateDAO];
-}
-
-- (void) populateDAO{
-    
-    sqlite3_stmt *statement ;
-    if (sqlite3_open([self.dbPath UTF8String], &dao)==SQLITE_OK)
-    {
-        [self.dao.companyList removeAllObjects];
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM COMPANY"];
-        const char *query_sql = [querySQL UTF8String];
-        if (sqlite3_prepare(dao, query_sql, -1, &statement, NULL) == SQLITE_OK)
-        {
-            while (sqlite3_step(statement)== SQLITE_ROW)
-            {
-                NSString *name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                NSString *stockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *logo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-                
-                self.dao = [[DAO alloc]init];
-                Company *company = [[Company alloc]init];
-                Product *product = [[Product alloc]init];
-                
-                //add companies
-                [company.name setName:name];
-                [company.stockSymbol setName:stockSymbol];
-                [company.logo setName:logo];
-                //add corresponding products
-                //add products to the company
-                [company addObject: product];
-                
-                //dao add company to dao
-                [self.dao addObject:company];
-                
-            }
-        }
-    }
-    [[self myTableView]reloadData];
-}
-
-
+//- (void) createOrOpenDB{
+//    //find documents directory for app
+//    NSArray *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    
+//    //document path found in index:0
+//    NSString *dirPathStr =  [dirPath objectAtIndex:0];
+//    
+//    //add filename to end of path
+//    self.dbPath = [dirPathStr stringByAppendingPathComponent:@"sqliteDB.db"];
+//    
+//    //convert full pathname to dao.db to url
+//    //NSURL *dbURL = [NSURL URLWithString:@"dbPath"];
+//    
+//    //instantiate nsfilemanager object
+//    NSFileManager *filemgr = [NSFileManager defaultManager];
+//    
+//    //check if dao.db exists in document directory
+//    BOOL success = [filemgr fileExistsAtPath:self.dbPath];
+//    NSError *error;
+//    
+//    if (success) {
+//        //dao.db exists
+//        NSLog(@"sqliteDB.db exists in documents directory: %@",self.dbPath);
+//        
+//    }else {
+//        //dao.db does not exist - copy dao.db from main bundle to documents directory
+//        NSString *path = [[NSBundle mainBundle] pathForResource:@"sqliteDB" ofType:@"db"];
+//        success = [filemgr copyItemAtPath:path toPath:self.dbPath error:&error];
+//        NSLog(@"sqliteDB.db copied to documents directory: %@",self.dbPath);
+//    }
+//
+//}
+//
+//- (void) populateCompany{
+//    // populate company arrays with information from the sql database
+//    sqlite3_stmt *statement ;
+//    if (sqlite3_open([self.dbPath UTF8String], &sqliteDB)==SQLITE_OK)
+//    {
+//        [self.dao.companyList removeAllObjects];
+//        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM COMPANY"];
+//        
+//        const char *query_sql = [querySQL UTF8String];
+//        if (sqlite3_prepare(sqliteDB, query_sql, -1, &statement, NULL) == SQLITE_OK)
+//        {
+//            while (sqlite3_step(statement)== SQLITE_ROW)
+//            {
+//                //initialize arrays
+//                //for each company do..
+//                Company *company = [[Company alloc]init];
+//                    
+//                //get company fields from sql
+//                int companyNo = (int)[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+//                NSString *coName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+//                NSString *coStockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+//                NSString *coLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
+//                
+//                //add companies
+//                self.dao.companyNo = companyNo;
+//                company.name = coName;
+//                company.stockSymbol = coStockSymbol;
+//                company.logo = coLogo;
+//                
+//                //add products to the company
+//                [self.dao.companyList addObject: company];
+//                
+//                //dao add company to dao
+//                Company *tempCompanyList = [self.dao.companyList objectAtIndex: self.dao.companyNo];
+//                [tempCompanyList addObject: company];
+//                [tempCompanyList populateProductsForCompany:companyNo];
+//
+//            }
+//        }
+//    }
+//}
+//
+//- (void) populateProductsForCompany:(int)companyNo {
+//    // populate product arrays with information from the sql database
+//    sqlite3_stmt *statement ;
+//    if (sqlite3_open([self.dbPath UTF8String], &dao)==SQLITE_OK)
+//    {
+//     //   [productArray removeAllObjects];
+//        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM product WHERE company.id=product.company_id"];
+//        
+//        const char *query_sql = [querySQL UTF8String];
+//        if (sqlite3_prepare(dao, query_sql, -1, &statement, NULL) == SQLITE_OK)
+//        {
+//            //for each product do..
+//            while (sqlite3_step(statement)== SQLITE_ROW)  {
+//
+//                //initialize arrays
+//                Product *product = [[Product alloc]init];
+//                
+//                //get product fields from sql
+//                int companyID = (int)[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+//                NSString *prodName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+//                NSString *prodURL = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
+//                NSString *prodLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
+//                
+//                //add products
+//                self.dao.companyNo = companyID;
+//                product.name = prodName;
+//                product.url = prodURL;
+//                product.logo = prodLogo;
+//                
+//                //add products to the companyList at index
+//                Company *tempCompanyList = [self.dao.companyList objectAtIndex: companyID];
+//                [tempCompanyList addObject: product];
+//                
+//            }
+//        }
+//    }
+//}
 
  - (void) addNewCompany {
      
