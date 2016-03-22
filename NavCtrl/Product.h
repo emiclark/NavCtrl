@@ -11,6 +11,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Product : NSObject
+@property (nonatomic) NSInteger companyID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *logo;

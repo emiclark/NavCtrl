@@ -10,6 +10,8 @@
 
 #import "DAO.h"
 #import "sqlite3.h"
+#import "Company.h"
+#import "Product.h"
 
 static DAO *sharedMyManager = nil;
 
@@ -25,6 +27,9 @@ static DAO *sharedMyManager = nil;
     if (self = [super init]) {
         [self createOrOpenDB];
         [self populateCompany];
+        //populate all the products for the company
+//        [self populateProductsForCompany:self.companyNo];
+        
         //[self populateProductsForCompany:self.companyNo];
     }
     return self;
@@ -61,19 +66,21 @@ static DAO *sharedMyManager = nil;
     NSError *error;
     
     if (success) {
-        //dao.db exists
-        NSLog(@"sqliteDB.db exists in documents directory: %@",dbPath);
+        //sqliteDB.db exists
+        NSLog(@"sqliteDB.db exists in documents directory");
         
     }else {
-        //dao.db does not exist - copy dao.db from main bundle to documents directory
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"sqliteDB" ofType:@"db"];
+        //sqliteDB.db does not exist - copy dao.db from main bundle to documents directory
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"dao" ofType:@"db"];
+        
         success = [filemgr copyItemAtPath:path toPath:dbPath error:&error];
-        NSLog(@"sqliteDB.db copied to documents directory: %@",dbPath);
+        NSLog(@"\nsqliteDB.db copied to documents directory");
     }
     
 }
 
 - (void) populateCompany{
+    self.companyList  = [[NSMutableArray alloc]init];
     // populate company arrays with information from the sql database
     sqlite3_stmt *statement ;
     if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK)
@@ -91,36 +98,61 @@ static DAO *sharedMyManager = nil;
                 Company *company = [[Company alloc]init];
                 
                 //get company fields from sql
-                int companyNo = (int)[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                NSString *coName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *coStockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-                NSString *coLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
+                int companyNo = (int)[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+                NSString *coName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                NSString *coStockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                NSString *coLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
                 
                 //add companies
-                self.companyNo = companyNo;
+                company.companyID = companyNo;
                 company.name = coName;
                 company.stockSymbol = coStockSymbol;
                 company.logo = coLogo;
                 
-                //populate all the products for the company
-                [self populateProductsForCompany:self.companyNo];
-                
                 // add company to companyList
                 [self.companyList addObject: company];
-
-                
+            
             }
         }
+        
+        sqlite3_close(sqliteDB);
     }
+    
+    
+    // for loop  - iterating company list
+            // Company *company = companyList - index
+            // populateProductsForCompany - company.id
+    
+    
+    for (int i=0; i<self.companyList.count; i++) {
+        Company *companyPtr = self.companyList[i];
+        [self populateProductsForCompany:i];
+        [self.companyList addObject:companyPtr];
+    }
+    
+    
 }
 
-- (void) populateProductsForCompany:(NSUInteger)companyID {
+- (void) populateProductsForCompany:(NSInteger)companyNo {
+    
+    //initialize arrays
+    Company *matchingCompany;
+
+    for (int i=0; i<self.companyList.count; i++) {
+        if ([self.companyList[i] companyID ] == companyNo ){
+            matchingCompany = [self.companyList objectAtIndex:i];
+        }
+    }
+    
+    matchingCompany.productArray = [[NSMutableArray  alloc]init];
+    Product *product = [[Product alloc]init];
+    
     // populate product arrays with information from the sql database
     sqlite3_stmt *statement ;
     if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK)
     {
         //   [productArray removeAllObjects];
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM product WHERE company.id=product.company_id"];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM product  where company_id=%ld", (long)companyNo];
         
         const char *query_sql = [querySQL UTF8String];
         if (sqlite3_prepare(sqliteDB, query_sql, -1, &statement, NULL) == SQLITE_OK)
@@ -128,27 +160,29 @@ static DAO *sharedMyManager = nil;
             //for each product do..
             while (sqlite3_step(statement)== SQLITE_ROW)  {
                 
-                //initialize arrays
-                Product *product = [[Product alloc]init];
-                
                 //get product fields from sql
-                int companyID = (int)[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
-                NSString *prodName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
-                NSString *prodURL = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
-                NSString *prodLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
+                long companyID = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)] longLongValue];
+                NSString *prodName = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)];
+                NSString *prodURL = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
+                NSString *prodLogo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
                 
                 //add products
                 self.companyNo = companyID;
+                product.companyID = companyID;
                 product.name = prodName;
                 product.url = prodURL;
                 product.logo = prodLogo;
                 
                 //add products to the productsArray
-                [[self.companyList objectAtIndex: self.companyNo].productArray  addObject: product];
+                [matchingCompany.productArray addObject: product];
             }
         }
     }
+    NSLog(@"add to product:%@",matchingCompany.productArray);
+
+    sqlite3_close(sqliteDB);
 }
+
 
 - (id)copyWithZone:(NSZone *)zone {
     return self;

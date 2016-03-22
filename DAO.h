@@ -15,11 +15,11 @@
 @interface DAO : NSObject
 
 @property (nonatomic, retain) NSMutableArray <Company *>  *companyList;
-@property (nonatomic) NSUInteger companyNo;
+@property (nonatomic) NSInteger companyNo;
 
 + (id)sharedManager;
 
 - (void) createOrOpenDB;
 - (void) populateCompany;
-- (void) populateProductsForCompany:(NSUInteger)companyID;
+- (void) populateProductsForCompany:(NSInteger)companyID;
 @end
