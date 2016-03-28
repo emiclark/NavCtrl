@@ -24,26 +24,26 @@
     self.dao = [DAO sharedManager];
     
     //check if add or edit and set label
-    if (self.companyToEdit) {
+    if (self.currentCompany) {
         //edit mode
         //set label title
-        self.addEditCompanyLabel.text = [NSString stringWithFormat: @"Edit %@",self.companyToEdit.name];
-        self.editCompanyName.text = self.companyToEdit.name;
-        self.editCompanyLogo.text = self.companyToEdit.logo;
+        self.label.text = [NSString stringWithFormat: @"Edit %@",self.currentCompany.name];
+        self.name.text = self.currentCompany.name;
+        self.logo.text = self.currentCompany.logo;
         //set text of save button
         self.saveButton.titleLabel.text = @"Update Company";
     } else {
         //add mode
-        self.companyToAdd = [[Company alloc]init];
+        self.currentCompany = [[Company alloc]init];
         //set label title
-        self.addEditCompanyLabel.text = @"Add Company";
+        self.label.text = @"Add Company";
 
         //set focus
-        [self.editCompanyName performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
+        [self.name performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
         
         //set default image for logo
-        if ([self.editCompanyLogo.text  isEqual: @""]){
-            self.companyToAdd.logo = @"Sunflower.gif";
+        if ([self.logo.text  isEqual: @""]){
+            self.currentCompany.logo = @"Sunflower.gif";
         }
         //set text of save button
         self.saveButton.titleLabel.text = @"Save Company";
@@ -64,29 +64,21 @@
 - (IBAction)SaveButtonTapped:(UIButton *)sender {
 
     //edit mode - companytoEdit not nil
-    if (self.companyToEdit) {
-        self.companyToEdit.name = self.editCompanyName.text;
-        self.companyToEdit.logo = self.editCompanyLogo.text;
+    if (self.currentCompany) {
+        self.currentCompany.name = self.name.text;
+        self.currentCompany.stockSymbol = self.stockSymbol.text;
+        self.currentCompany.logo = self.logo.text;
     } else {
     //add mode
-        self.companyToAdd.name = self.editCompanyName.text;
-        self.companyToAdd.logo = self.editCompanyLogo.text;
-        
-        //set company name
-        if (self.companyToAdd.name) {
-            self.companyToAdd.name =  self.editCompanyName.text;
-        } else {
-            self.companyToAdd.name = @"Undefined Company";
-        }
-        
-        //set default image for logo
-        if ([self.editCompanyLogo.text  isEqual: @""]){
-            self.companyToAdd.logo = @"Sunflower.gif";
-        }
+        self.currentCompany.name = self.name.text;
+        self.currentCompany.stockSymbol = self.stockSymbol.text;
+        self.currentCompany.logo = self.logo.text;
+
         //allocate productArray
-        self.companyToAdd.productArray = [[NSMutableArray alloc]init];
-        //add new company to companyList
-        [self.dao.companyList addObject:self.companyToAdd];
+        self.currentCompany.productArray = [[NSMutableArray alloc]init];
+        
+        //save currentCompany to DAO/SQL
+//    [DAO saveCompany:self.currentCompany];
     }
     
     //return to rootViewController
@@ -110,10 +102,11 @@
 */
 
 - (void)dealloc {
-    [_editCompanyName release];
-    [_editCompanyLogo release];
-    [_addEditCompanyLabel release];
+    [_name release];
+    [_logo release];
+    [_label release];
     [_saveButton release];
+    [_stockSymbol release];
     [super dealloc];
 }
 @end

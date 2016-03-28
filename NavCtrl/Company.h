@@ -12,6 +12,8 @@
 #import "Product.h"
 
 @interface Company : NSObject
+
+@property (nonatomic) NSInteger row;
 @property (nonatomic) NSInteger companyID;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *stockSymbol;

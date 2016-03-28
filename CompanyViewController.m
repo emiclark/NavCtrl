@@ -13,10 +13,10 @@
 #import "Product.h"
 #import "sqlite3.h"
 #import "DAO.h"
+#import "SQLMethods.h"
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 {
-//    sqlite3 *sqliteDB;
 }
 @end
 
@@ -24,9 +24,8 @@
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
-
     self = [super initWithStyle:style];
-    
+
     if (self) {
         // Custom initialization
     }
@@ -34,32 +33,31 @@
 }
 
 -(void) viewWillAppear:(BOOL)animated{
-    self.dao = [DAO sharedManager];
     
     // request for stock prices using Yahoo API
     
     //create query string
-    self.query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
+    NSMutableString *query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
    
     NSString *temp = [[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]];
     NSLog(@"%ld, %@",self.dao.companyList.count, temp);
     
-    for (int i=0; i<self.dao.companyList.count-1; i++) {
+    for (int i=0; i < self.dao.companyList.count-1; i++) {
         //concatenate symbol names to end of url
-        [self.query appendString:self.dao.companyList[i].stockSymbol];
-        [self.query appendString:@"+"];
+        [query appendString:self.dao.companyList[i].stockSymbol];
+        [query appendString:@"+"];
     }
 
     int lastItem = (int)self.dao.companyList.count-1;
     
-    [self.query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
-     [self.query appendString:@"&f=l1"];
-     NSLog(@"query: %@",self.query);
+    [query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
+     [query appendString:@"&f=l1"];
+     NSLog(@"query: %@",query);
      
      //create url from query string
-     self.dataURL = [NSURL URLWithString:self.query];
+     NSURL *dataURL = [NSURL URLWithString:query];
      NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-               dataTaskWithURL:self.dataURL
+               dataTaskWithURL:dataURL
                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                    
                        // *price has stock prices in csv format
@@ -88,21 +86,16 @@
      [self setEditing: NO animated: NO];
      
      
-     }
+}
 
  - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
-    self.stockPrices = [[NSArray alloc]init];
-
-    //check documents directory to see if dao.db exists,
-    //if so, populate arrays,
-    //if not, copy dao.db from resource folder in main bundle and ,
-    //finally, populate arrays
+    //setup SQL and populate Data from SQL into the DAO
+    [[DAO sharedManager] initializeDAOsetupSQL];
     
-    [self.dao createOrOpenDB];
-    [self.dao populateCompany];
+    self.stockPrices = [[NSArray alloc]init];
 
     //create a config session
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -135,8 +128,13 @@
 
 
  - (void) addNewCompany {
-     
      self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+
+     self.editCompanyViewController.currentCompany = [[Company alloc]init];
+     
+     //assign new companyID and set companyIndex
+//     self.dao.currentCompanyIndex = self.dao.companyList.count;
+//     self.dao.currentCompany.companyID = self.dao.companyList.count+1;
      [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
  }
  
@@ -178,88 +176,89 @@
     cell.textLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] name];
     cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
      return cell;
-     }
+ }
      
-     // Override to support conditional editing of the table view.
-     - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-    {
-        // Return NO if you do not want the specified item to be editable.
-        return YES;
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+ 
+ 
+ 
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        // Delete the company row from the data source
+        [self.dao.companyList removeObjectAtIndex:indexPath.row];
+        
     }
-     
-     
-     
-     // Override to support editing the table view.
-     - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-    {
-        if (editingStyle == UITableViewCellEditingStyleDelete) {
-            
-            // Delete the company row from the data source
-            [self.dao.companyList removeObjectAtIndex:indexPath.row];
-            
-        }
-        else if (editingStyle == UITableViewCellEditingStyleInsert) {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-            
-        }
-        [tableView reloadData];
+    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        
     }
+    [tableView reloadData];
+}
+ 
+ 
+ 
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+     Company *companyToMove = [self.dao.companyList objectAtIndex:fromIndexPath.row];
+     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
+     [self.dao.companyList insertObject:companyToMove atIndex:toIndexPath.row];
      
+ }
+ 
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     // Return NO if you do not want the item to be re-orderable.
+     return YES;
+ }
+
      
-     
-     // Override to support rearranging the table view.
-     - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-     {
-         Company *companyToMove = [self.dao.companyList objectAtIndex:fromIndexPath.row];
-         [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
-         [self.dao.companyList insertObject:companyToMove atIndex:toIndexPath.row];
-         
-     }
-     
-     // Override to support conditional rearranging of the table view.
-     - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-     {
-         // Return NO if you do not want the item to be re-orderable.
-         return YES;
-     }
-     
-     
-     
+
 #pragma mark - Table view delegate
      
-     // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-     - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-    {
+ // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    self.dao = [DAO sharedManager ];
+    self.dao.currentCompanyIndex = indexPath.row;
+    
+    if (self.tableView.editing == YES) {
+        //edit mode - edit company
+        //set new viewcontroller to editCompanyViewController
+        self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
         
-        self.dao.companyNo = indexPath.row;
+        //set title of view controller
+        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
         
-        if (self.tableView.editing == YES) {
-            //edit mode - edit company
-            //set new viewcontroller to editCompanyViewController
-            self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
-            
-            //set title of view controller
-            self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
-            self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
-            
-            //pass in pointer of company selected to ediCompanyViewController.companyToedit
-            self.editCompanyViewController.companyToEdit = [self.dao.companyList objectAtIndex: indexPath.row];
-            [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
-            
-        } else {
-            //not in editing mode - show product details
-            self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
-            self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
-            self.productViewController.title = self.productViewController.titleOfCompany;
-            [self.navigationController pushViewController:self.productViewController animated:YES];
-        }
+        //pass in pointer of company selected to ediCompanyViewController.companyToedit
+        self.editCompanyViewController.currentCompany = [self.dao.companyList objectAtIndex: indexPath.row];
+        [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
+        
+    } else {
+        //not in editing mode - show product details
+        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
+        self.productViewController.title = self.productViewController.titleOfCompany;
+        [self.navigationController pushViewController:self.productViewController animated:YES];
     }
+}
      
      
-     - (void)dealloc {
-         [_productViewController release];
-         [super dealloc];
-     }
+- (void)dealloc {
+ [_productViewController release];
+ [super dealloc];
+}
 
 
 -(void) URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {

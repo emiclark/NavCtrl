@@ -15,6 +15,7 @@
 - (id) initWithName:(NSString*)name andStockSymbol:(NSString *)stockSymbol andLogo:(NSString*)logo{
     self=[super init];
     if (self) {
+        
         self.name = name;
         self.stockSymbol = stockSymbol;
         self.logo = logo;

@@ -140,13 +140,13 @@
 
         //initialize EditProductViewController for editing
         self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
-        NSString *tempStr   = [[[self.dao.companyList objectAtIndex:self.dao.companyNo].productArray objectAtIndex:indexPath.row ] name];
+        NSString *tempStr   = [[[self.dao.companyList objectAtIndex:self.dao.currentCompanyIndex].productArray objectAtIndex:indexPath.row ] name];
 
         self.titleOfCompany = tempStr;
-        self.editProductViewController.productToEdit = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+        self.editProductViewController.currentProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
         
         //set title of EditProductViewController
-        self.editProductViewController.title = self.editProductViewController.productToEdit.name;
+        self.editProductViewController.title = self.editProductViewController.currentProduct.name;
 
         self.editProductViewController.productVC = self;
         [self.navigationController pushViewController: self.editProductViewController animated:YES];

@@ -11,15 +11,39 @@
 #import <Foundation/Foundation.h>
 #import "Company.h"
 #import "Product.h"
+#import "sqlite3.h"
+#import "SQLMethods.h"
 
 @interface DAO : NSObject
 
+
+@property (nonatomic) NSInteger currentCompanyIndex;
+@property (nonatomic) NSInteger currentProductIndex;
+
+@property (nonatomic,strong) Company *currentCompany;
+@property (nonatomic,strong) Product *currentProduct;
+
+
 @property (nonatomic, retain) NSMutableArray <Company *>  *companyList;
-@property (nonatomic) NSInteger companyNo;
 
 + (id)sharedManager;
 
-- (void) createOrOpenDB;
+- (void) initializeDAOsetupSQL;
 - (void) populateCompany;
-- (void) populateProductsForCompany:(NSInteger)companyID;
+- (void) populateProducts:(Company  *)currentCompany ;
+
+- (void) saveCompany:(Company *)currentCompany;
+- (void) saveProduct:(Product *)currentProduct;
+
+//- (void) updateCompany:(Company *)currentCompany;
+//- (void) updateProduct:(Product *)currentProduct;
+
+//- (void) deleteCompany:(Company *)currentCompany;
+//- (void) deleteProduct:(Product *)currentProduct;
+//
+//- (void) moveCompany:(Company *)currentCompany;
+//- (void) moveProduct:(Product *)currentProduct;
+
 @end
+
+

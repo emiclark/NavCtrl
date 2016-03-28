@@ -9,27 +9,30 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Product.h"
-#import "Company.h"
 #import "DAO.h"
-#import "ProductViewController.h"
+#import "Company.h"
+#import "Product.h"
 #import "CompanyViewController.h"
+#import "ProductViewController.h"
+
 @class ProductViewController;
 
 @interface EditProductViewController : UIViewController
 
+@property  (retain,nonatomic) DAO *dao;
+@property (retain,nonatomic) Product *currentProduct;
+@property (retain,nonatomic )Company *currentCompany;
+
 @property (retain, nonatomic) IBOutlet UILabel *productViewTitle;
-@property (retain, nonatomic) IBOutlet UITextField *productName;
-@property (retain, nonatomic) IBOutlet UITextField *productURL;
-@property (retain, nonatomic) IBOutlet UITextField *productLogo;
+@property (retain, nonatomic) IBOutlet UITextField *name;
+@property (retain, nonatomic) IBOutlet UITextField *url;
+@property (retain, nonatomic) IBOutlet UITextField *logo;
 
 @property (strong, nonatomic) ProductViewController * productVC;
 @property (strong, nonatomic) CompanyViewController * companyVC;
 
 @property (retain, nonatomic) IBOutlet UIButton *saveProductButton;
 
-@property (retain,nonatomic) Product *productToEdit;
-@property  (retain,nonatomic) DAO *dao;
 
 - (IBAction)saveProductButtonTapped:(UIButton *)sender;
 
