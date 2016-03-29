@@ -19,6 +19,8 @@
 
 @property (nonatomic) NSInteger currentCompanyIndex;
 @property (nonatomic) NSInteger currentProductIndex;
+@property (nonatomic) NSInteger currentCompanyID;
+@property (nonatomic) NSInteger currentProductID;
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
@@ -29,18 +31,17 @@
 + (id)sharedManager;
 
 - (void) initializeDAOsetupSQL;
-- (void) populateCompany;
 - (void) populateProducts:(Company  *)currentCompany ;
 
-- (void) saveCompany:(Company *)currentCompany;
-- (void) saveProduct:(Product *)currentProduct;
+- (void) addCompany:(Company *)currentCompany;
+- (void) addProduct:(Product *)currentProduct;
+
+- (void) deleteCompany:(NSInteger)currentCompanyID atRow:(NSInteger)row;
+- (void) deleteProduct:(NSInteger)currentProductID atRow:(NSInteger)row;
 
 //- (void) updateCompany:(Company *)currentCompany;
 //- (void) updateProduct:(Product *)currentProduct;
 
-//- (void) deleteCompany:(Company *)currentCompany;
-//- (void) deleteProduct:(Product *)currentProduct;
-//
 //- (void) moveCompany:(Company *)currentCompany;
 //- (void) moveProduct:(Product *)currentProduct;
 

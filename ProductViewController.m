@@ -101,8 +101,10 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        // Delete the row from the data source
-        [self.currentCompany.productArray removeObjectAtIndex:indexPath.row];
+        self.dao.currentProductIndex = indexPath.row;
+        self.dao.currentProductID = self.dao.currentProduct.productID;
+        
+        [self.dao deleteProduct:self.dao.currentProductID atRow:self.dao.currentProductIndex];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

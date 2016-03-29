@@ -15,17 +15,23 @@
 
 @implementation SQLMethods
 
-//static SQLMethods *sharedSQLMethods = nil;
-
-static NSString *dbPath;
 static sqlite3 *sqliteDB;
 static NSString *dbPath;
 
+
++(void) deleteCompanyFromSQL:(NSInteger)companyID{
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%ld",(long)companyID];
+    [self execute_SQLwithQuery:query];
+}
+
++(void) deleteProductFromSQL:(NSInteger)productID {
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%ld",(long)productID];
+    [self execute_SQLwithQuery:query];
+}
+
 - (id)init {
     if ((self = [super init])) {
-        
         NSString *path = [[NSBundle mainBundle] pathForResource:@"dao" ofType:@"db"];
-
         if (sqlite3_open([path UTF8String], &sqliteDB) != SQLITE_OK) {
             NSLog(@"Failed to open database!");
         }
@@ -33,8 +39,7 @@ static NSString *dbPath;
     return self;
 }
 
-
-+ (void) createOrOpenDB{
++ (NSString *)getDBPath {
     //find documents directory for app
     NSArray *dirPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     
@@ -43,6 +48,13 @@ static NSString *dbPath;
     
     //add filename to end of path
     dbPath = [dirPathStr stringByAppendingPathComponent:@"sqliteDB.db"];
+
+    return dbPath;
+}
+
++ (void) createOrOpenDB{
+    //get dbPath for document directory
+    dbPath = [self getDBPath];
     
     //instantiate nsfilemanager object
     NSFileManager *filemgr = [NSFileManager defaultManager];
@@ -66,9 +78,9 @@ static NSString *dbPath;
 }
 
 
-+(void) populateCompanyFromSQL {
-
-    DAO *dao = [DAO sharedManager];
++(NSMutableArray*) populateCompanyFromSQL {
+    
+    NSMutableArray *companies = [[NSMutableArray alloc] init];
     // populate company arrays with information from the sql database
     sqlite3_stmt *statement = NULL ;
     if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK)
@@ -89,20 +101,19 @@ static NSString *dbPath;
                 company.logo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 5)];
                 
                 // add company to companyList
-                [dao.companyList addObject: company];
+                [companies addObject: company];
             }
         }
         
         sqlite3_close(sqliteDB);
-        NSLog(@"companyList:%@",dao.companyList);
     }
+    return companies;
 }
 
 
 
 +(NSMutableArray *) populateProductsFromSQL:(Company *)currentCompany {
     
-//    DAO *dao = [DAO sharedManager];
     NSMutableArray *tempProductArray = [[NSMutableArray alloc]init];
     
     // populate product arrays with information from the sql database
@@ -128,14 +139,12 @@ static NSString *dbPath;
             }
         }
     }
-    
     sqlite3_close(sqliteDB);
     return (tempProductArray);
 }
 
 
-+(void) saveCompanyToSQL:(Company *)currentCompany{
-//    DAO *dao = [DAO sharedManager];
++(void) addCompanyToSQL:(Company *)currentCompany{
 
     char *error;
     if(sqlite3_open([dbPath UTF8String], &sqliteDB) == SQLITE_OK) {
@@ -150,7 +159,7 @@ static NSString *dbPath;
     }
 }
 
-+(void) saveProductToSQL:(Product *)currentProduct {
++(void) addProductToSQL:(Product *)currentProduct {
     
     char *error;
     if(sqlite3_open([dbPath UTF8String], &sqliteDB) == SQLITE_OK) {
@@ -166,38 +175,21 @@ static NSString *dbPath;
 }
 
 
++ (void)execute_SQLwithQuery:(NSString *)query {
 
-//+ (void) initCompanyListFromDB : (NSMutableArray *) CompanyList {
-//
-//    DAO *dao = [DAO sharedManager];
-//    dao.companyList = [[NSMutableArray alloc] init];
-//
-//    sqlite3_stmt *statement ;
-//    if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK)
-//        {
-//
-//        NSString *querySQL = @"SELECT * FROM company";
-//
-//        if (sqlite3_prepare_v2(sqliteDB, [querySQL UTF8String], -1, &statement, nil)== SQLITE_OK) {
-//            while (sqlite3_step(statement) == SQLITE_ROW) {
-//                Company *company = [[[Company alloc]init] autorelease];
-//
-//                company.companyID = sqlite3_column_int(statement, 0);
-//                company.row =  (int)sqlite3_column_text(statement, 1);
-//                company.name = [[NSString alloc]initWithUTF8String:(const char *) sqlite3_column_text(statement, 2)];
-//                company.stockSymbol = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3) ];
-//                company.logo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4) ];
-//
-//                [dao.companyList addObject:company];
-//                [company release];
-//
-//            }
-//            sqlite3_finalize(statement);
-//        }
-//    }
-//}
-//
-//
+    dbPath = [self getDBPath];
+    if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK) {
+        char *errMsg;
+        if (sqlite3_exec(sqliteDB, [query UTF8String], NULL, NULL, &errMsg) != SQLITE_OK) {
+            NSLog(@"sqlite3_exec failed with query = %@",query);
+        }
+        sqlite3_close(sqliteDB);
+    }
+    else {
+        NSLog(@"Failed to open database");
+    }
+}
+
 
 - (void)dealloc {
     sqlite3_close(sqliteDB);

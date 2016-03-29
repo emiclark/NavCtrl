@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "DAO.m"
-            timestampString = "480896225.361447"
+            filePath = "SQLMethods.m"
+            timestampString = "480918413.284431"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "-initializeDAOsetupSQL"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "+execute_SQLwithQuery:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DAO.m"
-            timestampString = "480897435.153434"
+            timestampString = "480918492.104667"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "-populateProducts:"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "-deleteProduct:atRow:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SQLMethods.m"
+            timestampString = "480918498.034352"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "+deleteProductFromSQL:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

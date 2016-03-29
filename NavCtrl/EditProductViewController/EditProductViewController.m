@@ -62,7 +62,7 @@
         currentProduct.logo = self.logo.text;
         
         //save new product
-        [self.dao saveProduct:currentProduct];
+        [self.dao addProduct:currentProduct];
     }
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];

@@ -16,15 +16,17 @@ static DAO *sharedMyManager = nil;
 
 @implementation DAO
 
-//-(instancetype)init {
-//    
-//    self = [super init];
-//    if (self) {
-//        // do initializing work here
-//    }
-//    return self;
-//}
 
+- (void) deleteCompany:(NSInteger)currentCompanyID atRow:(NSInteger)row {
+    [self.companyList removeObjectAtIndex:row];
+    [SQLMethods deleteCompanyFromSQL: currentCompanyID];
+}
+
+- (void) deleteProduct:(NSInteger)currentProductID atRow:(NSInteger)row {
+    // Delete the row from the data source    
+    [[self.companyList objectAtIndex: row].productArray removeObjectAtIndex:row];
+    [SQLMethods deleteCompanyFromSQL: currentProductID];
+}
 
 #pragma mark Singleton Methods
 - (void)initializeDAOsetupSQL {
@@ -33,24 +35,19 @@ static DAO *sharedMyManager = nil;
     //if not, copy dao.db from resource folder in main bundle and ,
     //finally, populate arrays
    
-    DAO *dao = [DAO sharedManager];
     Company *currentCompany = [[Company alloc]init];
     
     [SQLMethods createOrOpenDB];
 
-    //populate all the products for each company
-    dao.companyList = [[NSMutableArray alloc ]init];
-    [SQLMethods populateCompanyFromSQL];
+    //populate all the products for each company from SQL
+    self.companyList = [SQLMethods populateCompanyFromSQL];
 
     //populate all the products for each company
-
-
-    
-    for (int i=0; i<dao.companyList.count; i++) {
-        currentCompany = dao.companyList[i];
-        dao.currentCompany.row = i;
-        dao.currentCompanyIndex = i;
-        dao.currentCompany.productArray= [[NSMutableArray alloc]init];
+    for (int i=0; i<self.companyList.count; i++) {
+        currentCompany = self.companyList[i];
+        self.currentCompany.row = i;
+        self.currentCompanyIndex = i;
+        self.currentCompany.productArray= [[NSMutableArray alloc]init];
 
         [[DAO sharedManager] populateProducts: currentCompany];
     }
@@ -77,13 +74,13 @@ static DAO *sharedMyManager = nil;
     return sharedMyManager;
 }
 
-- (void) saveCompany:(Company *)currentCompany{
+- (void) addCompany:(Company *)currentCompany{
     //assign new companyID and set companyIndex
     self.currentCompanyIndex = self.companyList.count;
     self.currentCompany.companyID = self.companyList.count+1;
     
     [self.companyList addObject:currentCompany];
-    [SQLMethods saveCompanyToSQL:currentCompany];
+    [SQLMethods addCompanyToSQL:currentCompany];
 }
 
 //
@@ -92,8 +89,8 @@ static DAO *sharedMyManager = nil;
 //}
 //
 //
-- (void) saveProduct:(Product *)currentProduct {
-    [SQLMethods saveProductToSQL:currentProduct];
+- (void) addProduct:(Product *)currentProduct {
+    [SQLMethods addProductToSQL:currentProduct];
 }
 //
 //- (void) updateProduct:(Product *)currentProduct{
@@ -124,7 +121,6 @@ static DAO *sharedMyManager = nil;
 
 - (void)dealloc {
     // Should never be called, but just here for clarity really.
-//    sqlite3_close(self.sqliteDB);
     [super dealloc];
 
 }

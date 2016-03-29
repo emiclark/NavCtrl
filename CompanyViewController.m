@@ -11,9 +11,8 @@
 #import "EditCompanyViewController.h"
 #import "Company.h"
 #import "Product.h"
-#import "sqlite3.h"
+//#import "sqlite3.h"
 #import "DAO.h"
-#import "SQLMethods.h"
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 {
@@ -133,8 +132,6 @@
      self.editCompanyViewController.currentCompany = [[Company alloc]init];
      
      //assign new companyID and set companyIndex
-//     self.dao.currentCompanyIndex = self.dao.companyList.count;
-//     self.dao.currentCompany.companyID = self.dao.companyList.count+1;
      [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
  }
  
@@ -191,10 +188,16 @@
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
+
+        self.dao = [DAO sharedManager];
+
         // Delete the company row from the data source
-        [self.dao.companyList removeObjectAtIndex:indexPath.row];
+        self.dao.currentCompanyIndex = indexPath.row;;
+        self.dao.currentCompanyID = [self.dao.companyList objectAtIndex:indexPath.row].companyID;
+
+        NSLog(@"index: %ld, %ld, %ld", indexPath.row, self.dao.currentCompanyIndex,self.dao.currentCompanyID );
         
+        [self.dao deleteCompany:self.dao.currentCompanyID atRow:indexPath.row];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

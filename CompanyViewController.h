@@ -23,10 +23,6 @@
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
 @property ( nonatomic, retain)  EditCompanyViewController *editCompanyViewController;
 
-//@property (nonatomic, strong) NSURLSession *session;
-//@property (nonatomic, retain) NSMutableString *query;
-//@property (nonatomic, strong) NSURL *dataURL;
-
 @property (nonatomic, strong) NSArray *stockPrices;
 
 //- (void) addNewCompany;

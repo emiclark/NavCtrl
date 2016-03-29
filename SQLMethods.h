@@ -16,10 +16,17 @@
 @interface SQLMethods : NSObject
 
 +(void) createOrOpenDB;
-+(void) populateCompanyFromSQL;
++(NSMutableArray*) populateCompanyFromSQL;
 +(NSMutableArray *) populateProductsFromSQL:(Company *)currentCompany;
 
-+(void) saveCompanyToSQL:(Company *)currentCompany;
-+(void) saveProductToSQL:(Product *)currentProduct;
++(NSString *)getDBPath;
 
++(void) addCompanyToSQL:(Company *)currentCompany;
++(void) addProductToSQL:(Product *)currentProduct;
+
++(void) deleteCompanyFromSQL:(NSInteger)companyID;
++(void) deleteProductFromSQL:(NSInteger)productID;
+
+//+(void) updateCompanyFromSQLWithCompanyID:(NSInteger)companyID forCompany:(Company *)currentCompany;
+//+(void) updateCompanyFromSQLWithProductID:(NSInteger)companyID forProduct:(Product *)currentProduct;
 @end
