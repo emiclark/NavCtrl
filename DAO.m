@@ -19,20 +19,13 @@ static DAO *sharedMyManager = nil;
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
     [self.companyList removeObjectAtIndex:row];
-    [SQLMethods deleteCompanyFromSQL: currentCompany.companyID];
+    [SQLMethods deleteCompanyFromSQL: currentCompany];
 }
 
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
     // Delete the row from the data source
     [self.currentCompany.productArray removeObjectAtIndex:row];
     [SQLMethods deleteProductFromSQL: currentProduct.productID];
-}
-
-- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
-    [self.companyList removeObjectAtIndex:fromIndex];
-    [self.companyList insertObject:currentCompany atIndex:index];
-//    [SQLMethods moveCompany:currentCompany fromIndex:fromIndex toIndex:index];
-    
 }
 
 - (void) addCompany:(Company *)currentCompany{
@@ -57,6 +50,14 @@ static DAO *sharedMyManager = nil;
     NSLog(@"updateProduct:%@, %ld",currentProduct, self.currentProductIndex);
     [SQLMethods updateProductToSQL:currentProduct];
 }
+
+- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
+    [self.companyList removeObjectAtIndex:fromIndex];
+    [self.companyList insertObject:currentCompany atIndex:index];
+    //    [SQLMethods moveCompany:currentCompany fromIndex:fromIndex toIndex:index];
+    
+}
+
 
 #pragma mark Singleton Methods
 - (void)initializeDAOsetupSQL {

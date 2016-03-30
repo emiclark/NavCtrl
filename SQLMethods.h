@@ -24,11 +24,12 @@
 +(void) addCompanyToSQL:(Company *)currentCompany;
 +(void) addProductToSQL:(Product *)currentProduct forCompany: (Company * )currentCompany;
 
-+(void) deleteCompanyFromSQL:(NSInteger)companyID;
-+(void) deleteProductFromSQL:(NSInteger)productID;
++(void) deleteCompanyFromSQL:(Company *)currentCompany;
++(void) deleteProductFromSQL:(Product *)currentProduct;
 
 +(void) updateCompanyToSQL:(Company *)currentCompany;
 +(void) updateProductToSQL:(Product *)currentProduct;
 
-//+(void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index;
- @end
++(void) MoveCompany:(Company *)currentCompany;
++(void) MoveProduct:(Product *)currentProduct;
+@end

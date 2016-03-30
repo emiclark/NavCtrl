@@ -182,6 +182,7 @@
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+//        [self.dao deleteCompany:self.currentCompany atRow: indexPath.row ];
         [self.dao deleteCompany:self.currentCompany atRow: indexPath.row ];
 
     }
@@ -196,7 +197,24 @@
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
      self.currentCompany = [self.dao.companyList objectAtIndex:fromIndexPath.row];
-     [self.dao moveCompany:self.currentCompany fromIndex:fromIndexPath.row toIndex:toIndexPath.row];
+     self.currentCompany.row = toIndexPath.row;
+ 
+     NSLog(@"average: from:%ld, to:%ld, count:%ld",fromIndexPath.row, toIndexPath.row, self.dao.companyList.count-1);
+ 
+ if (toIndexPath.row < self.dao.companyList.count-1) {
+         float rowToSwitchBefore = [self.dao.companyList objectAtIndex:toIndexPath.row].row;
+         float rowToSwitchAfter = [self.dao.companyList objectAtIndex:toIndexPath.row+1].row;
+         self.currentCompany.row = (rowToSwitchBefore + rowToSwitchAfter)/2;
+         NSLog(@"average:currentCompany.row:%f, from:%f, to:%f",self.currentCompany.row, rowToSwitchBefore, rowToSwitchAfter);
+     } else {
+         self.currentCompany.row = [self.dao.companyList objectAtIndex:toIndexPath.row].row +.5;
+         NSLog(@"average:currentCompany.row:%f",self.currentCompany.row);
+     }
+
+     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
+     [self.dao.companyList insertObject:self.currentCompany atIndex:toIndexPath.row];
+ 
+     [SQLMethods MoveCompany:self.currentCompany];
  }
  
  // Override to support conditional rearranging of the table view.

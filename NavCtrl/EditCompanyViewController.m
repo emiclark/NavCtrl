@@ -73,7 +73,7 @@
         self.dao.currentCompany = self.currentCompany;
         self.currentCompany.productArray = [[NSMutableArray alloc]init];
         self.currentCompany.name = self.name.text;
-//        self.currentCompany.row = [self.dao.companyList objectAtIndex:self.currentRow].productArray
+        self.currentCompany.row = self.dao.companyList.count+1;
         self.currentCompany.companyID = self.currentCompany.companyID;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;

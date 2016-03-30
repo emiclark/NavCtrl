@@ -19,40 +19,49 @@ static sqlite3 *sqliteDB;
 static NSString *dbPath;
 
 
-+(void) deleteCompanyFromSQL:(NSInteger)companyID{
-    NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%ld",(long)companyID];
++(void) deleteCompanyFromSQL:(Company *)currentCompany {
+    NSLog(@"delete company:companyID:%ld, company:%@",currentCompany.companyID, currentCompany);
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%ld",(long)currentCompany.companyID];
     [self execute_SQLwithQuery:query];
 }
 
-+(void) deleteProductFromSQL:(NSInteger)productID {
-    NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%ld",(long)productID];
++(void) deleteProductFromSQL:(Product *)currentProduct {
+    NSLog(@"delete product:ID:%ld, product:%@",currentProduct.productID, currentProduct);
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%ld",(long)currentProduct.productID];
     [self execute_SQLwithQuery:query];
 }
 
 +(void) updateCompanyToSQL:(Company *)currentCompany {
-    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set companyID=%i, row=%i, name='%@', stockSymbol='%@',logo='%@' WHERE  companyID=%i", (int)currentCompany.companyID , (int)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo,(int)currentCompany.companyID];
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set companyID=%i, row=%f, name='%@', stockSymbol='%@',logo='%@' WHERE  companyID=%i", (int)currentCompany.companyID , currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo,(int)currentCompany.companyID];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
 +(void) updateProductToSQL:(Product *)currentProduct {
-    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set  companyID='%i', row='%i', name='%@', url='%@',logo='%@' WHERE  productID=%i",  (int)currentProduct.companyID, (int)currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo,(int)currentProduct.productID];
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set  companyID='%i', row='%f', name='%@', url='%@',logo='%@' WHERE  productID=%i",  (int)currentProduct.companyID, currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo,(int)currentProduct.productID];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
 +(void) addCompanyToSQL:(Company *)currentCompany{
     
-    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%i','%@','%@','%@')", (int)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%f','%@','%@','%@')", currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
 +(void) addProductToSQL:(Product *)currentProduct forCompany:(Company *)currentCompany {
     NSLog(@"addprodSQL:%@, %ld ",currentCompany,currentCompany.companyID);
-    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO product (companyID, row, name, url,logo) VALUES ('%i', '%i','%@','%@','%@')", (int)currentCompany.companyID, (int)currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo];
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO product (companyID, row, name, url,logo) VALUES ('%i', '%f','%@','%@','%@')", (int)currentCompany.companyID, currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
-//+(void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
-//}
++(void) MoveCompany:(Company *)currentCompany {
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set row='%f' WHERE  companyID=%i",(float) currentCompany.row,(int)currentCompany.companyID];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
++(void) MoveProduct:(Product *)currentProduct {
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set row='%f' WHERE  productID=%i",(float) currentProduct.row,(int)currentProduct.productID];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
 
 
 + (void)execute_SQLwithQuery:(NSString *)query {
@@ -178,6 +187,7 @@ static NSString *dbPath;
                 product.name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
                 product.url = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)];
                 product.logo = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)];
+                product.row = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 5)] floatValue];
                 
                 //add products to the productsArray
                 [tempProductArray addObject: product];

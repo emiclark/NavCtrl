@@ -14,7 +14,7 @@
 @interface Company : NSObject
 
 @property (nonatomic) NSInteger companyID;
-@property (nonatomic) NSInteger row;
+@property (nonatomic) float row;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *stockSymbol;
 @property (nonatomic, strong) NSString *stockPrice;

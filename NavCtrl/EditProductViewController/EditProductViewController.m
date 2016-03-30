@@ -44,16 +44,17 @@
     
     if (self.currentProduct.productID !=  0) {
         //edit product mode
-        _currentProduct.name = self.name.text;
-        _currentProduct.url = self.url.text;
-        _currentProduct.logo = self.logo.text;
-        _currentProduct.row = self.currentRow;
+        self.currentProduct.name = self.name.text;
+        self.currentProduct.url = self.url.text;
+        self.currentProduct.logo = self.logo.text;
+        self.currentProduct.row = self.currentRow;
         [self.dao updateProduct:self.currentProduct AtIndex:self.currentRow];
                                                              
     } else {
         //add product mode
         Product *currentProduct = [[Product alloc]init];
-        _currentProduct.companyID = self.currentCompany.companyID;        
+        self.currentProduct.companyID = self.currentCompany.companyID;
+        currentProduct.row = self.dao.currentCompany.productArray.count+1;
         currentProduct.name = self.name.text;
         currentProduct.url = self.url.text;
         currentProduct.logo = self.logo.text;

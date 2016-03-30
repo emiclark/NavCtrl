@@ -43,8 +43,8 @@
 - (void) addCompany:(Company *)currentCompany;
 - (void) addProduct:(Product *)currentProduct;
 
-- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index;
-//- (void) moveProduct:(Product *)currentProduct;
+//- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index;
+////- (void) moveProduct:(Product *)currentProduct;
 
 @end
 

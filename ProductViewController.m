@@ -115,11 +115,22 @@
 
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
-     Product *productToMove = [self.currentCompany.productArray  objectAtIndex:fromIndexPath.row];
-     [self.currentCompany.productArray removeObjectAtIndex:fromIndexPath.row];
-     [self.currentCompany.productArray  insertObject:productToMove atIndex:toIndexPath.row];
- }
+{
+    self.currentProduct = [self.currentCompany.productArray objectAtIndex:fromIndexPath.row];
+    self.currentProduct.row = toIndexPath.row;
+    
+    if (toIndexPath.row < self.currentCompany.productArray.count-1) {
+        float rowToSwitchBefore = [self.currentCompany.productArray objectAtIndex:toIndexPath.row].row;
+        float rowToSwitchAfter = [self.currentCompany.productArray objectAtIndex:toIndexPath.row+1].row;
+        self.currentProduct.row = (rowToSwitchBefore + rowToSwitchAfter)/2;
+    } else {
+        self.currentProduct.row = [self.dao.companyList objectAtIndex:toIndexPath.row].row +.5;
+    }
+    
+    [self.currentCompany.productArray removeObjectAtIndex:fromIndexPath.row];
+    [self.currentCompany.productArray insertObject:self.currentProduct atIndex:toIndexPath.row];
+    [SQLMethods MoveProduct:self.currentProduct];
+}
 
  // Override to support conditional rearranging of the table view.
  - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

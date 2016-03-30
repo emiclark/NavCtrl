@@ -14,12 +14,10 @@
 
 @property (nonatomic) NSInteger productID;
 @property (nonatomic) NSInteger companyID;
-@property (nonatomic) NSInteger row;
-
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *logo;
-
+@property (nonatomic) float row;
 
 - (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo;
 @end
