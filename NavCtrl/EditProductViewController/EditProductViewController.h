@@ -20,8 +20,9 @@
 @interface EditProductViewController : UIViewController
 
 @property  (retain,nonatomic) DAO *dao;
-@property (retain,nonatomic) Product *currentProduct;
 @property (retain,nonatomic )Company *currentCompany;
+@property (retain,nonatomic) Product *currentProduct;
+@property (nonatomic) NSInteger currentRow;
 
 @property (retain, nonatomic) IBOutlet UILabel *productViewTitle;
 @property (retain, nonatomic) IBOutlet UITextField *name;

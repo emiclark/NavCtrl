@@ -19,16 +19,15 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
+    
     // Do any additional setup after loading the view from its nib.
     if (self.currentProduct) {
-
         //edit mode
         self.productViewTitle.text = [NSString stringWithFormat:@"Update %@",self.currentProduct.name];
-        self.logo.text = self.currentProduct.name;
+        self.name.text = self.currentProduct.name;
         self.url.text = self.currentProduct.url;
         self.logo.text = self.currentProduct.logo;
         [self.saveProductButton setTitle:@"Update Product" forState:UIControlStateNormal];
-        
     } else {
         
         //add product mode
@@ -38,30 +37,29 @@
         [self.name performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
         // set default text
         [self.saveProductButton setTitle:@"Save Product" forState:UIControlStateNormal];
-
     }
 }
 
-
-
 - (IBAction)saveProductButtonTapped:(UIButton *)sender {
-    self.dao = [DAO sharedManager];
     
-    
-    if (self.currentProduct.productID != (int) nil) {
+    if (self.currentProduct.productID !=  0) {
         //edit product mode
         _currentProduct.name = self.name.text;
         _currentProduct.url = self.url.text;
         _currentProduct.logo = self.logo.text;
-
+        _currentProduct.row = self.currentRow;
+        [self.dao updateProduct:self.currentProduct AtIndex:self.currentRow];
+                                                             
     } else {
-        Product *currentProduct = [[Product alloc]init];
         //add product mode
+        Product *currentProduct = [[Product alloc]init];
+        _currentProduct.companyID = self.currentCompany.companyID;        
         currentProduct.name = self.name.text;
         currentProduct.url = self.url.text;
         currentProduct.logo = self.logo.text;
         
         //save new product
+        NSLog(@"currentProduct:%@ , currentProduct:%@",self.currentProduct, self.currentProduct);
         [self.dao addProduct:currentProduct];
     }
     [self.productVC.tableView reloadData];

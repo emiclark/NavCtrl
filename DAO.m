@@ -17,15 +17,45 @@ static DAO *sharedMyManager = nil;
 @implementation DAO
 
 
-- (void) deleteCompany:(NSInteger)currentCompanyID atRow:(NSInteger)row {
+- (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
     [self.companyList removeObjectAtIndex:row];
-    [SQLMethods deleteCompanyFromSQL: currentCompanyID];
+    [SQLMethods deleteCompanyFromSQL: currentCompany.companyID];
 }
 
-- (void) deleteProduct:(NSInteger)currentProductID atRow:(NSInteger)row {
-    // Delete the row from the data source    
-    [[self.companyList objectAtIndex: row].productArray removeObjectAtIndex:row];
-    [SQLMethods deleteCompanyFromSQL: currentProductID];
+- (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
+    // Delete the row from the data source
+    [self.currentCompany.productArray removeObjectAtIndex:row];
+    [SQLMethods deleteProductFromSQL: currentProduct.productID];
+}
+
+- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
+    [self.companyList removeObjectAtIndex:fromIndex];
+    [self.companyList insertObject:currentCompany atIndex:index];
+//    [SQLMethods moveCompany:currentCompany fromIndex:fromIndex toIndex:index];
+    
+}
+
+- (void) addCompany:(Company *)currentCompany{
+    //assign new companyID and set companyIndex
+//    self.currentCompanyIndex = self.companyList.count;
+    [self.companyList addObject:currentCompany];
+    [SQLMethods addCompanyToSQL:currentCompany];
+}
+
+- (void) addProduct:(Product *)currentProduct {
+    [self.currentCompany.productArray addObject:currentProduct];
+    NSLog(@"%ld",self.currentCompany.companyID);
+    [SQLMethods addProductToSQL:currentProduct forCompany: self.currentCompany];
+}
+
+- (void) updateCompany:(Company *)currentCompany AtIndex:(NSInteger)index{
+    NSLog(@"updateCompany:%@",currentCompany);
+    [SQLMethods updateCompanyToSQL:currentCompany];
+}
+
+- (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index {
+    NSLog(@"updateProduct:%@, %ld",currentProduct, self.currentProductIndex);
+    [SQLMethods updateProductToSQL:currentProduct];
 }
 
 #pragma mark Singleton Methods
@@ -38,7 +68,7 @@ static DAO *sharedMyManager = nil;
     Company *currentCompany = [[Company alloc]init];
     
     [SQLMethods createOrOpenDB];
-
+    
     //populate all the products for each company from SQL
     self.companyList = [SQLMethods populateCompanyFromSQL];
 
@@ -74,28 +104,6 @@ static DAO *sharedMyManager = nil;
     return sharedMyManager;
 }
 
-- (void) addCompany:(Company *)currentCompany{
-    //assign new companyID and set companyIndex
-    self.currentCompanyIndex = self.companyList.count;
-    self.currentCompany.companyID = self.companyList.count+1;
-    
-    [self.companyList addObject:currentCompany];
-    [SQLMethods addCompanyToSQL:currentCompany];
-}
-
-//
-//- (void) updateCompany:(Company *)currentCompany{
-//    
-//}
-//
-//
-- (void) addProduct:(Product *)currentProduct {
-    [SQLMethods addProductToSQL:currentProduct];
-}
-//
-//- (void) updateProduct:(Product *)currentProduct{
-//    
-//}
 
 
 - (id)copyWithZone:(NSZone *)zone {

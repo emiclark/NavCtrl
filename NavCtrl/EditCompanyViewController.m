@@ -24,11 +24,12 @@
     self.dao = [DAO sharedManager];
     
     //check if add or edit and set label
-    if (self.currentCompany) {
+    if (self.currentCompany.companyID !=0) {
         //edit mode
         //set label title
         self.label.text = [NSString stringWithFormat: @"Edit %@",self.currentCompany.name];
         self.name.text = self.currentCompany.name;
+        self.stockSymbol.text = self.currentCompany.stockSymbol;
         self.logo.text = self.currentCompany.logo;
         //set text of save button
         self.saveButton.titleLabel.text = @"Update Company";
@@ -51,8 +52,6 @@
 
 }
 
-
-
 - (void)viewWillAppear:(BOOL)animated {
     // Pass the selected object to the new view controller.
     
@@ -62,23 +61,27 @@
 }
 
 - (IBAction)SaveButtonTapped:(UIButton *)sender {
-
+    NSLog(@"save:currentCompany%@",self.currentCompany);
     //edit mode - companytoEdit not nil
-    if (self.currentCompany) {
+    if (self.currentCompany.companyID != 0) {
         self.currentCompany.name = self.name.text;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
-    } else {
-    //add mode
+        [self.dao  updateCompany:self.currentCompany AtIndex: (long)self.currentRow];
+    } else  {
+        //add mode
+        self.dao.currentCompany = self.currentCompany;
+        self.currentCompany.productArray = [[NSMutableArray alloc]init];
         self.currentCompany.name = self.name.text;
+//        self.currentCompany.row = [self.dao.companyList objectAtIndex:self.currentRow].productArray
+        self.currentCompany.companyID = self.currentCompany.companyID;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
 
-        //allocate productArray
-        self.currentCompany.productArray = [[NSMutableArray alloc]init];
+        NSLog(@"%@",self.currentCompany);
         
         //save currentCompany to DAO/SQL
-//    [DAO saveCompany:self.currentCompany];
+        [self.dao addCompany:self.currentCompany];
     }
     
     //return to rootViewController

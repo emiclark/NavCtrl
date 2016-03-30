@@ -48,6 +48,7 @@
 }
 
 -(void)addButton:(id)sender {
+    
     self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
     self.editProductViewController.productVC = self;
     [self.navigationController pushViewController: self.editProductViewController animated:YES];
@@ -99,12 +100,11 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.editProductViewController.currentRow = indexPath.row;
+    self.editProductViewController.currentProduct =  [self.dao.currentCompany.productArray objectAtIndex:indexPath.row];
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        self.dao.currentProductIndex = indexPath.row;
-        self.dao.currentProductID = self.dao.currentProduct.productID;
-        
-        [self.dao deleteProduct:self.dao.currentProductID atRow:self.dao.currentProductIndex];
+        [self.dao deleteProduct:[self.currentCompany.productArray objectAtIndex:indexPath.row] atRow:indexPath.row ];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -136,23 +136,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
+    //edit mode - edit product
     if (self.tableView.editing == YES){
-        //edit mode - edit product
-
         //initialize EditProductViewController for editing
         self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
-        NSString *tempStr   = [[[self.dao.companyList objectAtIndex:self.dao.currentCompanyIndex].productArray objectAtIndex:indexPath.row ] name];
-
-        self.titleOfCompany = tempStr;
-        self.editProductViewController.currentProduct = [self.currentCompany.productArray objectAtIndex:indexPath.row];
+        self.editProductViewController.currentRow = indexPath.row;
+        self.editProductViewController.currentProduct.row = indexPath.row;
+        self.editProductViewController.currentProduct = [[self currentCompany].productArray objectAtIndex:indexPath.row];
         
+        self.titleOfCompany =  self.currentProduct.name;
         //set title of EditProductViewController
         self.editProductViewController.title = self.editProductViewController.currentProduct.name;
-
         self.editProductViewController.productVC = self;
         [self.navigationController pushViewController: self.editProductViewController animated:YES];
-        
 
     } else {
         //initialize webkit view controller to show url of product

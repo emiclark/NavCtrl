@@ -22,11 +22,13 @@
 +(NSString *)getDBPath;
 
 +(void) addCompanyToSQL:(Company *)currentCompany;
-+(void) addProductToSQL:(Product *)currentProduct;
++(void) addProductToSQL:(Product *)currentProduct forCompany: (Company * )currentCompany;
 
 +(void) deleteCompanyFromSQL:(NSInteger)companyID;
 +(void) deleteProductFromSQL:(NSInteger)productID;
 
-//+(void) updateCompanyFromSQLWithCompanyID:(NSInteger)companyID forCompany:(Company *)currentCompany;
-//+(void) updateCompanyFromSQLWithProductID:(NSInteger)companyID forProduct:(Product *)currentProduct;
-@end
++(void) updateCompanyToSQL:(Company *)currentCompany;
++(void) updateProductToSQL:(Product *)currentProduct;
+
+//+(void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index;
+ @end

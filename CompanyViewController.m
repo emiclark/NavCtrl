@@ -11,7 +11,6 @@
 #import "EditCompanyViewController.h"
 #import "Company.h"
 #import "Product.h"
-//#import "sqlite3.h"
 #import "DAO.h"
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
@@ -24,7 +23,6 @@
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
-
     if (self) {
         // Custom initialization
     }
@@ -33,58 +31,56 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
-    // request for stock prices using Yahoo API
+//    // request for stock prices using Yahoo API
+//    
+//    //create query string
+//    NSMutableString *query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
+//   
+//    NSString *temp = [[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]];
+//    NSLog(@"%ld, %@",self.dao.companyList.count, temp);
+//    
+//    for (int i=0; i < self.dao.companyList.count-1; i++) {
+//        //concatenate symbol names to end of url
+//        [query appendString:self.dao.companyList[i].stockSymbol];
+//        [query appendString:@"+"];
+//    }
+//
+//    int lastItem = (int)self.dao.companyList.count-1;
+//    
+//    [query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
+//     [query appendString:@"&f=l1"];
+//     NSLog(@"query: %@",query);
+//     
+//     //create url from query string
+//     NSURL *dataURL = [NSURL URLWithString:query];
+//     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+//               dataTaskWithURL:dataURL
+//               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                   
+//                       // *price has stock prices in csv format
+//                       NSString *price =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//                       //stockPrices is an array of stock Prices
+//                       self.stockPrices = [price componentsSeparatedByString: @"\n"];
+//                       
+//                       NSLog(@"%@",self.stockPrices);
+//                       //update the UI on the main thread
+//                       dispatch_async(dispatch_get_main_queue(), ^(void){
+//                       Company *tempCo = [[Company alloc]init];
+//                       
+//                       // set company prices in company class
+//                       for (int i = 0; i< self.dao.companyList.count; i++) {
+//                           tempCo = [self.dao.companyList objectAtIndex:i];
+//                           tempCo.stockPrice = self.stockPrices[i];
+//                       }
+//                       
+//                       [self.tableView reloadData];
+//                       });
+//               }];
+//     [downloadTask resume];
     
-    //create query string
-    NSMutableString *query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
-   
-    NSString *temp = [[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]];
-    NSLog(@"%ld, %@",self.dao.companyList.count, temp);
-    
-    for (int i=0; i < self.dao.companyList.count-1; i++) {
-        //concatenate symbol names to end of url
-        [query appendString:self.dao.companyList[i].stockSymbol];
-        [query appendString:@"+"];
-    }
-
-    int lastItem = (int)self.dao.companyList.count-1;
-    
-    [query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
-     [query appendString:@"&f=l1"];
-     NSLog(@"query: %@",query);
-     
-     //create url from query string
-     NSURL *dataURL = [NSURL URLWithString:query];
-     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-               dataTaskWithURL:dataURL
-               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                   
-                       // *price has stock prices in csv format
-                       NSString *price =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-                       //stockPrices is an array of stock Prices
-                       self.stockPrices = [price componentsSeparatedByString: @"\n"];
-                       
-                       NSLog(@"%@",self.stockPrices);
-                       //update the UI on the main thread
-                       dispatch_async(dispatch_get_main_queue(), ^(void){
-                       Company *tempCo = [[Company alloc]init];
-                       
-                       // set company prices in company class
-                       for (int i = 0; i< self.dao.companyList.count; i++) {
-                           tempCo = [self.dao.companyList objectAtIndex:i];
-                           tempCo.stockPrice = self.stockPrices[i];
-                       }
-                       
-                       [self.tableView reloadData];
-                       });
-               }];
-     [downloadTask resume];
-     
      [super viewWillAppear:animated];
      [self.tableView reloadData];
      [self setEditing: NO animated: NO];
-     
-     
 }
 
  - (void)viewDidLoad
@@ -96,17 +92,17 @@
     
     self.stockPrices = [[NSArray alloc]init];
 
-    //create a config session
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    // declare this method as the delegate
-    [NSURLSession sessionWithConfiguration:sessionConfig
-                                  delegate: self
-                             delegateQueue:nil];
-    
-    
-    self.clearsSelectionOnViewWillAppear = NO;
-    
+//    //create a config session
+//    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    
+//    // declare this method as the delegate
+//    [NSURLSession sessionWithConfiguration:sessionConfig
+//                                  delegate: self
+//                             delegateQueue:nil];
+//    
+//    
+//    self.clearsSelectionOnViewWillAppear = NO;
+//    
     self.productViewController = [[ProductViewController alloc] init];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -128,10 +124,7 @@
 
  - (void) addNewCompany {
      self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
-
      self.editCompanyViewController.currentCompany = [[Company alloc]init];
-     
-     //assign new companyID and set companyIndex
      [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
  }
  
@@ -188,16 +181,9 @@
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        self.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        [self.dao deleteCompany:self.currentCompany atRow: indexPath.row ];
 
-        self.dao = [DAO sharedManager];
-
-        // Delete the company row from the data source
-        self.dao.currentCompanyIndex = indexPath.row;;
-        self.dao.currentCompanyID = [self.dao.companyList objectAtIndex:indexPath.row].companyID;
-
-        NSLog(@"index: %ld, %ld, %ld", indexPath.row, self.dao.currentCompanyIndex,self.dao.currentCompanyID );
-        
-        [self.dao deleteCompany:self.dao.currentCompanyID atRow:indexPath.row];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -205,16 +191,12 @@
     }
     [tableView reloadData];
 }
- 
- 
- 
+
  // Override to support rearranging the table view.
  - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
  {
-     Company *companyToMove = [self.dao.companyList objectAtIndex:fromIndexPath.row];
-     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
-     [self.dao.companyList insertObject:companyToMove atIndex:toIndexPath.row];
-     
+     self.currentCompany = [self.dao.companyList objectAtIndex:fromIndexPath.row];
+     [self.dao moveCompany:self.currentCompany fromIndex:fromIndexPath.row toIndex:toIndexPath.row];
  }
  
  // Override to support conditional rearranging of the table view.
@@ -231,9 +213,7 @@
  // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    self.dao = [DAO sharedManager ];
-    self.dao.currentCompanyIndex = indexPath.row;
+    self.dao.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
     
     if (self.tableView.editing == YES) {
         //edit mode - edit company
@@ -249,9 +229,10 @@
         [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
         
     } else {
-        //not in editing mode - show product details
+        //show product details
+        self.productViewController.currentCompany = [[Company alloc]init];
         self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
-        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
+        self.productViewController.titleOfCompany = self.currentCompany.name;
         self.productViewController.title = self.productViewController.titleOfCompany;
         [self.navigationController pushViewController:self.productViewController animated:YES];
     }

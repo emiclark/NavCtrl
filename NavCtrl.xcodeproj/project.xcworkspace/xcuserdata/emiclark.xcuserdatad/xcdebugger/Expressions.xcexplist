@@ -3,6 +3,18 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "+[DAO initDAOsetupSQL]:DAO.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[EditProductViewController saveProductButtonTapped:]:EditProductViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "+[DAO initializeDAOsetupSQL]:DAO.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[DAO updateProduct:AtIndex:]:DAO.m">
+      </ContextState>
+      <ContextState
          contextName = "+[SQLMethods populateCompanyFromSQL]:SQLMethods.m">
          <PersistentStrings>
             <PersistentString
@@ -11,10 +23,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[DAO initDAOsetupSQL]:DAO.m">
+         contextName = "+[SQLMethods execute_SQLwithQuery:]:SQLMethods.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "sqlStatus">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "+[DAO initializeDAOsetupSQL]:DAO.m">
+         contextName = "-[CompanyViewController tableView:didSelectRowAtIndexPath:]:CompanyViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

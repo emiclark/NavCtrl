@@ -14,7 +14,7 @@
 
 @property (nonatomic) NSInteger productID;
 @property (nonatomic) NSInteger companyID;
-@property (nonatomic) NSInteger Row;
+@property (nonatomic) NSInteger row;
 
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *url;

@@ -21,7 +21,9 @@
 @property ( nonatomic, retain) DAO  *dao;
 
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
-@property ( nonatomic, retain)  EditCompanyViewController *editCompanyViewController;
+@property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
+@property ( nonatomic, retain) Company   *currentCompany;
+@property ( nonatomic) NSInteger currentRow;
 
 @property (nonatomic, strong) NSArray *stockPrices;
 

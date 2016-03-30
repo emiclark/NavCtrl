@@ -20,7 +20,8 @@
 
 @property (nonatomic, retain) WebViewController    *myWebViewCtlr;
 @property ( nonatomic,retain) NSString *titleOfCompany;
-@property (nonatomic,retain) Company *currentCompany;
+@property ( nonatomic,retain)  Company *currentCompany;
+@property ( nonatomic, retain) Product *currentProduct;
 @property ( nonatomic, retain) DAO  *dao;
 
 -(void) addButton:(id)sender;

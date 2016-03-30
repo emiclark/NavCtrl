@@ -18,6 +18,7 @@
 
 @property (retain,nonatomic) DAO *dao;
 @property (retain, nonatomic) Company *currentCompany;
+@property (nonatomic) NSInteger currentRow;
 
 @property (retain, nonatomic) CompanyViewController *companyViewController;
 

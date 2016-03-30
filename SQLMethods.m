@@ -29,6 +29,51 @@ static NSString *dbPath;
     [self execute_SQLwithQuery:query];
 }
 
++(void) updateCompanyToSQL:(Company *)currentCompany {
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set companyID=%i, row=%i, name='%@', stockSymbol='%@',logo='%@' WHERE  companyID=%i", (int)currentCompany.companyID , (int)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo,(int)currentCompany.companyID];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
++(void) updateProductToSQL:(Product *)currentProduct {
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set  companyID='%i', row='%i', name='%@', url='%@',logo='%@' WHERE  productID=%i",  (int)currentProduct.companyID, (int)currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo,(int)currentProduct.productID];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
++(void) addCompanyToSQL:(Company *)currentCompany{
+    
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%i','%@','%@','%@')", (int)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
++(void) addProductToSQL:(Product *)currentProduct forCompany:(Company *)currentCompany {
+    NSLog(@"addprodSQL:%@, %ld ",currentCompany,currentCompany.companyID);
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO product (companyID, row, name, url,logo) VALUES ('%i', '%i','%@','%@','%@')", (int)currentCompany.companyID, (int)currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
+//+(void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
+//}
+
+
++ (void)execute_SQLwithQuery:(NSString *)query {
+    
+    dbPath = [self getDBPath];
+    int sqlStatus = sqlite3_open([dbPath UTF8String], &sqliteDB);
+    if (sqlStatus == SQLITE_OK) {
+        char *errMsg;
+        if (sqlite3_exec(sqliteDB, [query UTF8String], NULL, NULL, &errMsg) == SQLITE_OK) {
+            NSLog(@"sqlite3_exec success - with query = %@",query);
+        }
+        sqlite3_close(sqliteDB);
+    }
+    else {
+        NSLog(@"Failed to open database");
+    }
+    sqlite3_close(sqliteDB);
+}
+//==========================
+
+
 - (id)init {
     if ((self = [super init])) {
         NSString *path = [[NSBundle mainBundle] pathForResource:@"dao" ofType:@"db"];
@@ -141,53 +186,6 @@ static NSString *dbPath;
     }
     sqlite3_close(sqliteDB);
     return (tempProductArray);
-}
-
-
-+(void) addCompanyToSQL:(Company *)currentCompany{
-
-    char *error;
-    if(sqlite3_open([dbPath UTF8String], &sqliteDB) == SQLITE_OK) {
-
-        NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, companyID, name, stockSymbol,logo) VALUES ('%i', '%i','%@','%@''%@')",(int)currentCompany.row, (int)currentCompany.companyID , currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
-
-        if (sqlite3_exec(sqliteDB, [querySQL UTF8String], NULL, NULL, &error) == SQLITE_OK)
-            {
-
-            }
-        sqlite3_close(sqliteDB);
-    }
-}
-
-+(void) addProductToSQL:(Product *)currentProduct {
-    
-    char *error;
-    if(sqlite3_open([dbPath UTF8String], &sqliteDB) == SQLITE_OK) {
-        
-        NSString *insertStmt = [NSString stringWithFormat:@"INSERT INTO product (productID, companyID, name, url,logo) VALUES ('%i', '%i','%@','%@''%@')",(int) currentProduct.productID, (int) currentProduct.companyID, currentProduct.name, currentProduct.url, currentProduct.logo];
-        
-        if (sqlite3_exec(sqliteDB, [insertStmt UTF8String], NULL, NULL, &error) == SQLITE_OK)
-            {
-            
-            }
-        sqlite3_close(sqliteDB);
-    }
-}
-
-
-+ (void)execute_SQLwithQuery:(NSString *)query {
-
-    dbPath = [self getDBPath];
-    if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK) {
-        char *errMsg;
-        if (sqlite3_exec(sqliteDB, [query UTF8String], NULL, NULL, &errMsg) != SQLITE_OK) {
-            NSLog(@"sqlite3_exec failed with query = %@",query);
-        }
-        sqlite3_close(sqliteDB);
-    }
-    else {
-        NSLog(@"Failed to open database");
-    }
 }
 
 
