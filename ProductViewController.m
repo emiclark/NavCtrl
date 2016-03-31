@@ -50,6 +50,7 @@
 -(void)addButton:(id)sender {
     
     self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
+    self.editProductViewController.currentCompany = self.currentCompany;
     self.editProductViewController.productVC = self;
     [self.navigationController pushViewController: self.editProductViewController animated:YES];
     

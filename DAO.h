@@ -26,8 +26,6 @@
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
-@property (nonatomic) float *nextCompanyRowNumber;
-@property (nonatomic) float *nextProductRowNumber;
 
 @property (nonatomic, retain) NSMutableArray <Company *>  *companyList;
 

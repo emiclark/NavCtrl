@@ -61,7 +61,6 @@ static DAO *sharedMyManager = nil;
     //finally, populate arrays
    
     Company *currentCompany = [[Company alloc]init];
-    self.nextCompanyRowNumber = 0;
     [SQLMethods createOrOpenDB];
     
     //populate all the products for each company from SQL

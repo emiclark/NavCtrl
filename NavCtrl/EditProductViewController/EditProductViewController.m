@@ -52,16 +52,17 @@
                                                              
     } else {
         //add product mode
-        Product *currentProduct = [[Product alloc]init];
+        self.currentProduct = [[Product alloc]init];
         self.currentProduct.companyID = self.currentCompany.companyID;
-        currentProduct.row = self.dao.currentCompany.productArray.count+1;
-        currentProduct.name = self.name.text;
-        currentProduct.url = self.url.text;
-        currentProduct.logo = self.logo.text;
+        self.currentProduct.name = self.name.text;
+        self.currentProduct.url = self.url.text;
+        self.currentProduct.logo = self.logo.text;
+        long indexOfLastElement = self.currentCompany.productArray.count-1;
+        self.currentProduct.row = self.currentCompany.productArray[indexOfLastElement].row + 1.0;
         
         //save new product
-        self.dao.currentProduct = currentProduct;
-        [self.dao addProduct:currentProduct];
+        self.dao.currentProduct = self.currentProduct;
+        [self.dao addProduct:self.currentProduct];
     }
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];

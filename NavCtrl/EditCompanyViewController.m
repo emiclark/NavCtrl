@@ -38,7 +38,8 @@
         self.currentCompany = [[Company alloc]init];
         //set label title
         self.label.text = @"Add Company";
-
+        self.currentCompany.row = self.dao.companyList[self.dao.companyList.count-1].row + 1.0;
+        NSLog(@"self.current.row:%f",self.currentCompany.row);
         //set focus
         [self.name performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
         

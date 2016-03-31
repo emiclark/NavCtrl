@@ -50,33 +50,33 @@
     [query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
      [query appendString:@"&f=l1"];
      NSLog(@"query: %@",query);
-     
-     //create url from query string
-     NSURL *dataURL = [NSURL URLWithString:query];
-     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-               dataTaskWithURL:dataURL
-               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                   
-                       // *price has stock prices in csv format
-                       NSString *price =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-                       //stockPrices is an array of stock Prices
-                       self.stockPrices = [price componentsSeparatedByString: @"\n"];
-                       
-                       NSLog(@"%@",self.stockPrices);
-                       //update the UI on the main thread
-                       dispatch_async(dispatch_get_main_queue(), ^(void){
-                       Company *tempCo = [[Company alloc]init];
-                       
-                       // set company prices in company class
-                       for (int i = 0; i< self.dao.companyList.count; i++) {
-                           tempCo = [self.dao.companyList objectAtIndex:i];
-                           tempCo.stockPrice = self.stockPrices[i];
-                       }
-                       
-                       [self.tableView reloadData];
-                       });
-               }];
-     [downloadTask resume];
+//     
+//     //create url from query string
+//     NSURL *dataURL = [NSURL URLWithString:query];
+//     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
+//               dataTaskWithURL:dataURL
+//               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                   
+//                       // *price has stock prices in csv format
+//                       NSString *price =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//                       //stockPrices is an array of stock Prices
+//                       self.stockPrices = [price componentsSeparatedByString: @"\n"];
+//                       
+//                       NSLog(@"%@",self.stockPrices);
+//                       //update the UI on the main thread
+//                       dispatch_async(dispatch_get_main_queue(), ^(void){
+//                       Company *tempCo = [[Company alloc]init];
+//                       
+//                       // set company prices in company class
+//                       for (int i = 0; i< self.dao.companyList.count; i++) {
+//                           tempCo = [self.dao.companyList objectAtIndex:i];
+//                           tempCo.stockPrice = self.stockPrices[i];
+//                       }
+//                       
+//                       [self.tableView reloadData];
+//                       });
+//               }];
+//     [downloadTask resume];
     
      [super viewWillAppear:animated];
      [self.tableView reloadData];
@@ -204,10 +204,6 @@
          self.currentCompany.row = [self.dao.companyList objectAtIndex:toIndexPath.row].row +.5;
      }
  
-//    if (self.dao.nextCompanyRowNumber < self.currentCompany.row ) {
-//         self.dao.nextCompanyRowNumber = self.currentCompany.row;
-//     }
-//     self.dao.nextCompanyRowNumber = self.currentCompany.row;
      [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
      [self.dao.companyList insertObject:self.currentCompany atIndex:toIndexPath.row];
      [SQLMethods MoveCompany:self.currentCompany];
