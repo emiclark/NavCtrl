@@ -27,6 +27,4 @@
 
 @property (nonatomic, strong) NSArray *stockPrices;
 
-//- (void) addNewCompany;
-
 @end

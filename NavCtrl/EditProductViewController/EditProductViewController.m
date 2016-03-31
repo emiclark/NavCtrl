@@ -60,7 +60,7 @@
         currentProduct.logo = self.logo.text;
         
         //save new product
-        NSLog(@"currentProduct:%@ , currentProduct:%@",self.currentProduct, self.currentProduct);
+        self.dao.currentProduct = currentProduct;
         [self.dao addProduct:currentProduct];
     }
     [self.productVC.tableView reloadData];

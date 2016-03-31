@@ -147,6 +147,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.dao.currentProduct = [self.dao.currentCompany.productArray objectAtIndex:indexPath.row];
+    self.editProductViewController.currentCompany = self.dao.currentCompany;
+    
     //edit mode - edit product
     if (self.tableView.editing == YES){
         //initialize EditProductViewController for editing

@@ -70,7 +70,6 @@
         [self.dao  updateCompany:self.currentCompany AtIndex: (long)self.currentRow];
     } else  {
         //add mode
-        self.dao.currentCompany = self.currentCompany;
         self.currentCompany.productArray = [[NSMutableArray alloc]init];
         self.currentCompany.name = self.name.text;
         self.currentCompany.row = self.dao.companyList.count+1;

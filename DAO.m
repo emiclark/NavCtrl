@@ -19,18 +19,18 @@ static DAO *sharedMyManager = nil;
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
     [self.companyList removeObjectAtIndex:row];
+    NSLog(@"%@\n",self.currentCompany);
     [SQLMethods deleteCompanyFromSQL: currentCompany];
 }
 
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
     // Delete the row from the data source
     [self.currentCompany.productArray removeObjectAtIndex:row];
-    [SQLMethods deleteProductFromSQL: currentProduct.productID];
+    NSLog(@"co:%@, \nprod:%@",self.currentCompany, currentProduct);
+    [SQLMethods deleteProductFromSQL: currentProduct];
 }
 
 - (void) addCompany:(Company *)currentCompany{
-    //assign new companyID and set companyIndex
-//    self.currentCompanyIndex = self.companyList.count;
     [self.companyList addObject:currentCompany];
     [SQLMethods addCompanyToSQL:currentCompany];
 }
@@ -51,12 +51,6 @@ static DAO *sharedMyManager = nil;
     [SQLMethods updateProductToSQL:currentProduct];
 }
 
-- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index {
-    [self.companyList removeObjectAtIndex:fromIndex];
-    [self.companyList insertObject:currentCompany atIndex:index];
-    //    [SQLMethods moveCompany:currentCompany fromIndex:fromIndex toIndex:index];
-    
-}
 
 
 #pragma mark Singleton Methods
@@ -67,7 +61,7 @@ static DAO *sharedMyManager = nil;
     //finally, populate arrays
    
     Company *currentCompany = [[Company alloc]init];
-    
+    self.nextCompanyRowNumber = 0;
     [SQLMethods createOrOpenDB];
     
     //populate all the products for each company from SQL

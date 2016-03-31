@@ -20,13 +20,13 @@ static NSString *dbPath;
 
 
 +(void) deleteCompanyFromSQL:(Company *)currentCompany {
-    NSLog(@"delete company:companyID:%ld, company:%@",currentCompany.companyID, currentCompany);
+//    NSLog(@"delete company:companyID:%ld, company:%@",currentCompany.companyID, currentCompany);
     NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%ld",(long)currentCompany.companyID];
     [self execute_SQLwithQuery:query];
 }
 
 +(void) deleteProductFromSQL:(Product *)currentProduct {
-    NSLog(@"delete product:ID:%ld, product:%@",currentProduct.productID, currentProduct);
+//    NSLog(@"delete product:ID:%ld, product:%@",currentProduct.productID, currentProduct);
     NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%ld",(long)currentProduct.productID];
     [self execute_SQLwithQuery:query];
 }
@@ -48,7 +48,7 @@ static NSString *dbPath;
 }
 
 +(void) addProductToSQL:(Product *)currentProduct forCompany:(Company *)currentCompany {
-    NSLog(@"addprodSQL:%@, %ld ",currentCompany,currentCompany.companyID);
+//    NSLog(@"addprodSQL:%@, %ld ",currentCompany,currentCompany.companyID);
     NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO product (companyID, row, name, url,logo) VALUES ('%i', '%f','%@','%@','%@')", (int)currentCompany.companyID, currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
@@ -80,8 +80,6 @@ static NSString *dbPath;
     }
     sqlite3_close(sqliteDB);
 }
-//==========================
-
 
 - (id)init {
     if ((self = [super init])) {
@@ -139,7 +137,10 @@ static NSString *dbPath;
     sqlite3_stmt *statement = NULL ;
     if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM company"];
+    //--> SELECT rowName FROM tableName order by rowName
+    NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM company order by row"];
+
+//    NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM company "];
         if (sqlite3_prepare(sqliteDB,  [querySQL UTF8String], -1, &statement, NULL) == SQLITE_OK)
             {
             while (sqlite3_step(statement)== SQLITE_ROW) {
@@ -164,8 +165,6 @@ static NSString *dbPath;
     return companies;
 }
 
-
-
 +(NSMutableArray *) populateProductsFromSQL:(Company *)currentCompany {
     
     NSMutableArray *tempProductArray = [[NSMutableArray alloc]init];
@@ -174,7 +173,7 @@ static NSString *dbPath;
     sqlite3_stmt *statement ;
     if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK) {
         
-        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM product  where companyID=%ld", currentCompany.companyID];
+        NSString *querySQL = [NSString stringWithFormat:@"SELECT * FROM product  where companyID=%ld order by row", currentCompany.companyID];
         
         const char *query_sql = [querySQL UTF8String];
         if (sqlite3_prepare(sqliteDB, query_sql, -1, &statement, NULL) == SQLITE_OK)

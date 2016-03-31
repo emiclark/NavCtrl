@@ -16,16 +16,18 @@
 
 @interface DAO : NSObject
 
-
+//** refactor to eliminate properties between the ** **
 @property (nonatomic) NSInteger currentCompanyIndex;
 @property (nonatomic) NSInteger currentProductIndex;
 @property (nonatomic) NSInteger currentCompanyID;
 @property (nonatomic) NSInteger currentProductID;
 @property (nonatomic) int newCompanyID;
+//** refactor to eliminate properties between the ** **
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
-
+@property (nonatomic) float *nextCompanyRowNumber;
+@property (nonatomic) float *nextProductRowNumber;
 
 @property (nonatomic, retain) NSMutableArray <Company *>  *companyList;
 
@@ -33,6 +35,7 @@
 
 - (void) initializeDAOsetupSQL;
 - (void) populateProducts:(Company  *)currentCompany ;
+
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
@@ -43,8 +46,6 @@
 - (void) addCompany:(Company *)currentCompany;
 - (void) addProduct:(Product *)currentProduct;
 
-//- (void) moveCompany:(Company *)currentCompany fromIndex:(NSInteger)fromIndex toIndex:(NSInteger)index;
-////- (void) moveProduct:(Product *)currentProduct;
 
 @end
 
