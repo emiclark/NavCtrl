@@ -1,12 +1,11 @@
 //
 //  EditCompanyViewController.h
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 #import "DAO.h"

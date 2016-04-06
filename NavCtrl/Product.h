@@ -1,12 +1,12 @@
 //
 //  Product.h
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
 
@@ -14,10 +14,12 @@
 
 @property (nonatomic) NSInteger productID;
 @property (nonatomic) NSInteger companyID;
+@property (nonatomic) float row;
+
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *logo;
-@property (nonatomic) float row;
 
-- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo;
+- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(NSInteger)companyID andRow:(float)row;
+
 @end

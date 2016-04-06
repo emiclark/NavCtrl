@@ -1,12 +1,12 @@
 //
 //  SQLMethods.h
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
-//  Created by Emiko Clark on 3/26/16.
+//  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
+
 
 #import <Foundation/Foundation.h>
 #import "sqlite3.h"
@@ -31,5 +31,6 @@
 +(void) updateProductToSQL:(Product *)currentProduct;
 
 +(void) MoveCompany:(Company *)currentCompany;
-+(void) MoveProduct:(Product *)currentProduct;
++(void) MoveProduct:(Product *)currentProduct toIndex:(float)newIndex;
+
 @end

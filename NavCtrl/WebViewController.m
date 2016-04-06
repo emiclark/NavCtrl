@@ -1,12 +1,11 @@
 //
 //  WebViewController.m
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
 
 #import "WebViewController.h"
 
@@ -23,7 +22,7 @@
     [super viewDidLoad];
     
     //init WKWebView
-    self.myWebView = [[WKWebView alloc] initWithFrame:self.view.frame];
+    self.myWebView = [[[WKWebView alloc] initWithFrame:self.view.frame] autorelease];
     
     NSURL *url  = [NSURL URLWithString:self.productURL];
     

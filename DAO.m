@@ -1,12 +1,13 @@
 //
 //  DAO.m
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
+
 
 #import "DAO.h"
 #import "SQLMethods.h"
@@ -37,7 +38,7 @@ static DAO *sharedMyManager = nil;
 
 - (void) addProduct:(Product *)currentProduct {
     [self.currentCompany.productArray addObject:currentProduct];
-    NSLog(@"%ld",self.currentCompany.companyID);
+    NSLog(@"%d",self.currentCompany.companyID);
     [SQLMethods addProductToSQL:currentProduct forCompany: self.currentCompany];
 }
 
@@ -47,11 +48,9 @@ static DAO *sharedMyManager = nil;
 }
 
 - (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index {
-    NSLog(@"updateProduct:%@, %ld",currentProduct, self.currentProductIndex);
+    //    NSLog(@"updateProduct:%@, %ld",currentProduct, self.currentProductIndex);
     [SQLMethods updateProductToSQL:currentProduct];
 }
-
-
 
 #pragma mark Singleton Methods
 - (void)initializeDAOsetupSQL {
@@ -59,34 +58,28 @@ static DAO *sharedMyManager = nil;
     //if so, populate arrays,
     //if not, copy dao.db from resource folder in main bundle and ,
     //finally, populate arrays
-   
-    Company *currentCompany = [[Company alloc]init];
+    
     [SQLMethods createOrOpenDB];
     
-    //populate all the products for each company from SQL
+    //    populate all the products for each company from SQL
     self.companyList = [SQLMethods populateCompanyFromSQL];
-
+    
     //populate all the products for each company
     for (int i=0; i<self.companyList.count; i++) {
-        currentCompany = self.companyList[i];
+        self.currentCompany = self.companyList[i];
         self.currentCompany.row = i;
-        self.currentCompanyIndex = i;
-        self.currentCompany.productArray= [[NSMutableArray alloc]init];
-
-        [[DAO sharedManager] populateProducts: currentCompany];
+        self.currentCompany.productArray= [[[NSMutableArray alloc]init]autorelease];
+        
+        [[DAO sharedManager] populateProducts: self.currentCompany];
+        
     }
+    self.newCompanyID = self.companyList.count+1;
+    
 }
 
 - (void) populateProducts:(Company  *)currentCompany {
     //populate DAO with Products from SQL
-    DAO *dao = [[DAO alloc]init];
-    NSMutableArray *resultProductArray = [[NSMutableArray alloc]init];
-    resultProductArray = [SQLMethods populateProductsFromSQL:currentCompany];
-    
-    //add productArray to companyList
-    [dao.companyList objectAtIndex: dao.currentCompanyIndex].productArray = resultProductArray;
-    [dao.companyList objectAtIndex:dao.currentCompanyIndex].productArray = currentCompany.productArray;
-    
+    self.currentCompany.productArray = [SQLMethods populateProductsFromSQL:currentCompany];
 }
 
 + (id)sharedManager {
@@ -124,7 +117,7 @@ static DAO *sharedMyManager = nil;
 - (void)dealloc {
     // Should never be called, but just here for clarity really.
     [super dealloc];
-
+    
 }
 
 @end

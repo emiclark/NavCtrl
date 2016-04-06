@@ -1,8 +1,8 @@
 //
 //  DAO.h
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -14,26 +14,24 @@
 #import "sqlite3.h"
 #import "SQLMethods.h"
 
-@interface DAO : NSObject
+#import <Foundation/Foundation.h>
+#import "Company.h"
+#import "Product.h"
+#import "sqlite3.h"
+#import "SQLMethods.h"
 
-//** refactor to eliminate properties between the ** **
-@property (nonatomic) NSInteger currentCompanyIndex;
-@property (nonatomic) NSInteger currentProductIndex;
-@property (nonatomic) NSInteger currentCompanyID;
-@property (nonatomic) NSInteger currentProductID;
-@property (nonatomic) int newCompanyID;
-//** refactor to eliminate properties between the ** **
+@interface DAO : NSObject
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
+@property (nonatomic) NSInteger newCompanyID;
 
-@property (nonatomic, retain) NSMutableArray <Company *>  *companyList;
+@property (nonatomic, retain) NSMutableArray *companyList;
 
 + (id)sharedManager;
 
 - (void) initializeDAOsetupSQL;
 - (void) populateProducts:(Company  *)currentCompany ;
-
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;

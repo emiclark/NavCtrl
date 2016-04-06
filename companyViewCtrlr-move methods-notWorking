@@ -1,0 +1,85 @@
+//>>>>>> this method funky - not working <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+
+    Company *itemToMove = [[Company alloc]init];
+    itemToMove = (Company*)[self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    [self.dao.companyList insertObject:itemToMove atIndex:destinationIndexPath.row];
+
+    //loop through and reset the rows of companyList in SQL
+    //    for (int i = 0; i < self.dao.companyList.count; i++){
+    //        [self.dao.companyList[i] setRow:i];
+    //        [SQLMethods MoveCompany:self.dao.companyList[i]];
+    //    }
+
+    //    for (Company*company in self.dao.companyList) {
+    //        NSLog(@"After the move: %@",company.name);
+    //    }
+
+
+
+
+    //    self.currentCompany = [self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    //
+    //    if (sourceIndexPath.row == 0)
+    //    {
+    //        //move from top
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row == 0)
+    //    {
+    //        //move to top
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row == self.dao.companyList.count-1)
+    //    {
+    //        //move to bottom
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
+    //    {
+    //        //move down
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
+    //    } else if (destinationIndexPath.row < sourceIndexPath.row)
+    //    {
+    //        //move up
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    }
+
+    //    if (sourceIndexPath.row == 0 || destinationIndexPath.row == 0 || (destinationIndexPath.row == self.dao.companyList.count-1) || destinationIndexPath.row < sourceIndexPath.row)
+    //    {
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
+    //    {
+    //        //move down
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
+    //    }
+
+}
+//>>>>>> this method funky - not working <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+
+//>>>> records duplicate row  indexes... not entirely working<<<<<<<<<<<<<<<<<<<<<<<<<<<
+// Override to support rearranging the table view.
+// - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+// {
+//     self.currentCompany = [self.dao.companyList objectAtIndex:fromIndexPath.row];
+//
+//     if (toIndexPath.row < self.dao.companyList.count-1) {
+//         float rowToSwitchBefore = (float)[self.dao.companyList objectAtIndex:toIndexPath.row].row;
+//         float rowToSwitchAfter = (float)[self.dao.companyList objectAtIndex:toIndexPath.row+1].row;
+//         self.currentCompany.row = (float)(rowToSwitchBefore + rowToSwitchAfter)/2.0;
+//      } else {
+//         self.currentCompany.row = [self.dao.companyList objectAtIndex:toIndexPath.row].row +.5;
+//     }
+//
+//     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
+//     [self.dao.companyList insertObject:self.currentCompany atIndex:toIndexPath.row];
+//     [SQLMethods MoveCompany:self.currentCompany];
+// }
+//>>>> records duplicate row  indexes... not entirely working<<<<<<<<<<<<<<<<<<<<<<<<<<<

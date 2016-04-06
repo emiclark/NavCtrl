@@ -1,11 +1,12 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
+
 
 #import "CompanyViewController.h"
 #import "EditCompanyViewController.h"
@@ -31,67 +32,72 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
+    [super viewWillAppear:animated];
+    //    [self updateStockPrices];
+    [self.tableView reloadData];
+    [self setEditing: NO animated: NO];
+}
+
+-(void)updateStockPrices {
+    
     // request for stock prices using Yahoo API
     
     //create query string
-    NSMutableString *query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
-   
-    NSString *temp = [[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]];
+    NSMutableString *query = [[[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="]autorelease];
+    
+    NSString *temp = [[[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]]autorelease];
     NSLog(@"%ld, %@",self.dao.companyList.count, temp);
     
     for (int i=0; i < self.dao.companyList.count-1; i++) {
         //concatenate symbol names to end of url
-        [query appendString:self.dao.companyList[i].stockSymbol];
+        [query appendString:[(Company*)self.dao.companyList[i] stockSymbol]];
         [query appendString:@"+"];
     }
-
+    
     int lastItem = (int)self.dao.companyList.count-1;
     
-    [query appendString:[self.dao.companyList objectAtIndex:lastItem].stockSymbol];
-     [query appendString:@"&f=l1"];
-     NSLog(@"query: %@",query);
-//     
-//     //create url from query string
-//     NSURL *dataURL = [NSURL URLWithString:query];
-//     NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession]
-//               dataTaskWithURL:dataURL
-//               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                   
-//                       // *price has stock prices in csv format
-//                       NSString *price =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-//                       //stockPrices is an array of stock Prices
-//                       self.stockPrices = [price componentsSeparatedByString: @"\n"];
-//                       
-//                       NSLog(@"%@",self.stockPrices);
-//                       //update the UI on the main thread
-//                       dispatch_async(dispatch_get_main_queue(), ^(void){
-//                       Company *tempCo = [[Company alloc]init];
-//                       
-//                       // set company prices in company class
-//                       for (int i = 0; i< self.dao.companyList.count; i++) {
-//                           tempCo = [self.dao.companyList objectAtIndex:i];
-//                           tempCo.stockPrice = self.stockPrices[i];
-//                       }
-//                       
-//                       [self.tableView reloadData];
-//                       });
-//               }];
-//     [downloadTask resume];
+    [query appendString:[(Company*)[self.dao.companyList objectAtIndex:lastItem] stockSymbol]];
+    [query appendString:@"&f=l1"];
+    NSLog(@"query: %@",query);
     
-     [super viewWillAppear:animated];
-     [self.tableView reloadData];
-     [self setEditing: NO animated: NO];
+    //create url from query string
+    NSURL *dataURL = [NSURL URLWithString:query];
+    NSURLSessionDataTask *downloadTask =
+    [[NSURLSession sharedSession]
+     dataTaskWithURL:dataURL
+     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+         
+         // *price has stock prices in csv format
+         NSString *price =[[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+         //stockPrices is an array of stock Prices
+         self.stockPrices = [price componentsSeparatedByString: @"\n"];
+         
+         NSLog(@"%@",self.stockPrices);
+         //update the UI on the main thread
+         dispatch_async(dispatch_get_main_queue(), ^(void){
+             self.currentCompany = [[[Company alloc]init] autorelease];
+             // set company prices in company class
+             for (int i = 0; i< self.dao.companyList.count; i++) {
+                 self.currentCompany = [self.dao.companyList objectAtIndex:i];
+                 self.currentCompany.stockPrice = self.stockPrices[i];
+             }
+             
+             [self.tableView reloadData];
+         });
+     }];
+    [downloadTask resume];
+    [self.tableView reloadData];
 }
 
- - (void)viewDidLoad
+- (void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     //setup SQL and populate Data from SQL into the DAO
     [[DAO sharedManager] initializeDAOsetupSQL];
     
-    self.stockPrices = [[NSArray alloc]init];
-
+    self.stockPrices = [[[NSArray alloc]init]autorelease];
+    
     //create a config session
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
     
@@ -100,10 +106,9 @@
                                   delegate: self
                              delegateQueue:nil];
     
-    
     self.clearsSelectionOnViewWillAppear = NO;
     
-    self.productViewController = [[ProductViewController alloc] init];
+    self.productViewController = [[[ProductViewController alloc] init] autorelease];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -118,67 +123,64 @@
     self.title = @"Mobile device makers";
     
     [self.tableView reloadData];
-    
 }
 
 
- - (void) addNewCompany {
-     self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
-     self.editCompanyViewController.currentCompany = [[Company alloc]init];
-     [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
- }
- 
- - (void)didReceiveMemoryWarning
+- (void) addNewCompany {
+    self.editCompanyViewController = [[[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil] autorelease];
+    self.editCompanyViewController.currentCompany = [[[Company alloc]init]autorelease];
+    [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
+}
+
+- (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
- 
+
 #pragma mark - Table view data source
- 
- - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
     return 1;
 }
- 
- - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     return [self.dao.companyList count];
 }
- 
- - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier]autorelease];
     }
     
     // Configure the cell...
     //add company logos
     cell.imageView.image  = [UIImage imageNamed:[[self.dao.companyList objectAtIndex:[indexPath row]] logo]];
     
-    
     //format tableview with company name + stockprices
     cell.textLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] name];
     cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
-     return cell;
- }
-     
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+    return cell;
+}
+
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
- 
- 
- 
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
@@ -191,50 +193,99 @@
     [tableView reloadData];
 }
 
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
- {
-     self.currentCompany = [self.dao.companyList objectAtIndex:fromIndexPath.row];
- 
-     if (toIndexPath.row < self.dao.companyList.count-1) {
-         float rowToSwitchBefore = (float)[self.dao.companyList objectAtIndex:toIndexPath.row].row;
-         float rowToSwitchAfter = (float)[self.dao.companyList objectAtIndex:toIndexPath.row+1].row;
-         self.currentCompany.row = (float)(rowToSwitchBefore + rowToSwitchAfter)/2.0;
-      } else {
-         self.currentCompany.row = [self.dao.companyList objectAtIndex:toIndexPath.row].row +.5;
-     }
- 
-     [self.dao.companyList removeObjectAtIndex:fromIndexPath.row];
-     [self.dao.companyList insertObject:self.currentCompany atIndex:toIndexPath.row];
-     [SQLMethods MoveCompany:self.currentCompany];
- }
- 
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
- {
-     // Return NO if you do not want the item to be re-orderable.
-     return YES;
- }
+// Override to support rearranging the table view.
 
-     
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    
+    Company *itemToMove = [[Company alloc]init];
+    itemToMove = (Company*)[self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    [self.dao.companyList insertObject:itemToMove atIndex:destinationIndexPath.row];
+    
+    //loop through and reset the rows of companyList in SQL
+    //    for (int i = 0; i < self.dao.companyList.count; i++){
+    //        [self.dao.companyList[i] setRow:i];
+    //        [SQLMethods MoveCompany:self.dao.companyList[i]];
+    //    }
+    
+    //    for (Company*company in self.dao.companyList) {
+    //        NSLog(@"After the move: %@",company.name);
+    //    }
+    
+    
+    
+    
+    //    self.currentCompany = [self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    //
+    //    if (sourceIndexPath.row == 0)
+    //    {
+    //        //move from top
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row == 0)
+    //    {
+    //        //move to top
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row == self.dao.companyList.count-1)
+    //    {
+    //        //move to bottom
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
+    //    {
+    //        //move down
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
+    //    } else if (destinationIndexPath.row < sourceIndexPath.row)
+    //    {
+    //        //move up
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    }
+    
+    //    if (sourceIndexPath.row == 0 || destinationIndexPath.row == 0 || (destinationIndexPath.row == self.dao.companyList.count-1) || destinationIndexPath.row < sourceIndexPath.row)
+    //    {
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
+    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
+    //    {
+    //        //move down
+    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
+    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
+    //    }
+    
+    
+    
+}
+
+
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+
+
 
 #pragma mark - Table view delegate
-     
- // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
+
+// In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.dao.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
     self.currentCompany = self.dao.currentCompany;
-    self.editCompanyViewController.currentCompany = self.currentCompany; 
+    //    self.editCompanyViewController.currentCompany = self.currentCompany;
     
     if (self.tableView.editing == YES) {
         //edit mode - edit company
         //set new viewcontroller to editCompanyViewController
-        self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        self.editCompanyViewController = [[[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil]autorelease];
         
         //set title of view controller
-        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
-        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name];
+        self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row] ;
+        self.productViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name] ;
         
         //pass in pointer of company selected to ediCompanyViewController.companyToedit
         self.editCompanyViewController.currentCompany = [self.dao.companyList objectAtIndex: indexPath.row];
@@ -242,18 +293,16 @@
         
     } else {
         //show product details
-        self.productViewController.currentCompany = [[Company alloc]init];
+        self.productViewController.currentCompany = [[[Company alloc]init] autorelease];
         self.productViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
         self.productViewController.titleOfCompany = self.currentCompany.name;
         self.productViewController.title = self.productViewController.titleOfCompany;
         [self.navigationController pushViewController:self.productViewController animated:YES];
     }
 }
-     
-     
+
 - (void)dealloc {
- [_productViewController release];
- [super dealloc];
+    [super dealloc];
 }
 
 

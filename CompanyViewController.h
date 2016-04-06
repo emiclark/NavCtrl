@@ -1,11 +1,11 @@
 //  CompanyViewController.h
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
+
 #import <UIKit/UIKit.h>
 #import "ProductViewController.h"
 #import "EditCompanyViewController.h"
@@ -23,8 +23,10 @@
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
 @property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
 @property ( nonatomic, retain) Company   *currentCompany;
-@property ( nonatomic) NSInteger currentRow;
+@property int currentRow;
 
 @property (nonatomic, strong) NSArray *stockPrices;
+
+-(void)updateStockPrices;
 
 @end

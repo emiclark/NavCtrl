@@ -1,12 +1,12 @@
 //
 //  EditProductViewController.m
 //  NavCtrl
-// Assignment6-SQL
-// Integrate SQL
+// Assignment7-MMM
+// Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-//
+
 
 #import "EditProductViewController.h"
 
@@ -49,16 +49,20 @@
         self.currentProduct.logo = self.logo.text;
         self.currentProduct.row = self.currentRow;
         [self.dao updateProduct:self.currentProduct AtIndex:self.currentRow];
-                                                             
+        
     } else {
         //add product mode
-        self.currentProduct = [[Product alloc]init];
+        self.currentProduct = [[[Product alloc]init] autorelease];
         self.currentProduct.companyID = self.currentCompany.companyID;
         self.currentProduct.name = self.name.text;
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
         long indexOfLastElement = self.currentCompany.productArray.count-1;
-        self.currentProduct.row = self.currentCompany.productArray[indexOfLastElement].row + 1.0;
+        if (indexOfLastElement < 0 ) {
+            self.currentProduct.row =  1.0;
+        } else {
+            self.currentProduct.row = self.currentCompany.productArray[indexOfLastElement].row + 1.0;
+        }
         
         //save new product
         self.dao.currentProduct = self.currentProduct;
@@ -67,7 +71,6 @@
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];
     
-    [self.currentProduct release];
 }
 
 
@@ -77,14 +80,14 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 - (void)dealloc {
     
