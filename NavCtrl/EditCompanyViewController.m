@@ -1,11 +1,12 @@
 //
 //  EditCompanyViewController.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
+//
 
 #import "EditCompanyViewController.h"
 #import "CompanyViewController.h"
@@ -38,7 +39,7 @@
         self.currentCompany = [[[Company alloc]init] autorelease];
         //set label title
         self.label.text = @"Add Company";
-        self.currentCompany.companyID = self.dao.newCompanyID;
+        self.currentCompany.companyID = (int)self.dao.newCompanyID;
         //set focus
         [self.name performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
         
@@ -74,7 +75,7 @@
         //add mode
         self.currentCompany.productArray = [[[NSMutableArray alloc]init] autorelease];
         self.currentCompany.name = self.name.text;
-        self.currentCompany.companyID = self.dao.newCompanyID++;
+        self.currentCompany.companyID = (int)self.dao.newCompanyID++;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
         
@@ -83,11 +84,8 @@
             self.currentCompany.row =  1.0;
         } else {
             self.currentCompany.row = [(Company*)[self.dao.companyList objectAtIndex:indexOfLastElement] row];
-            self.currentCompany.row = self.currentCompany.row +1;
-            NSLog(@" CC:%ld, %ld",(long)self.currentCompany.row,(long)[(Company*)[self.dao.companyList objectAtIndex:indexOfLastElement] row]);
+            self.currentCompany.row = self.currentCompany.row + 1.0;
         }
-        
-        NSLog(@"%@",self.currentCompany);
         
         //save currentCompany to DAO/SQL
         [self.dao addCompany:self.currentCompany];

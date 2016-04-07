@@ -1,12 +1,11 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-
 
 #import "CompanyViewController.h"
 #import "EditCompanyViewController.h"
@@ -197,66 +196,20 @@
 
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
-    Company *itemToMove = [[Company alloc]init];
+    Company *itemToMove;
     itemToMove = (Company*)[self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    [itemToMove retain];
     [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
     [self.dao.companyList insertObject:itemToMove atIndex:destinationIndexPath.row];
     
-    //loop through and reset the rows of companyList in SQL
-    //    for (int i = 0; i < self.dao.companyList.count; i++){
-    //        [self.dao.companyList[i] setRow:i];
-    //        [SQLMethods MoveCompany:self.dao.companyList[i]];
-    //    }
-    
-    //    for (Company*company in self.dao.companyList) {
-    //        NSLog(@"After the move: %@",company.name);
-    //    }
-    
-    
-    
-    
-    //    self.currentCompany = [self.dao.companyList objectAtIndex:sourceIndexPath.row];
-    //
-    //    if (sourceIndexPath.row == 0)
-    //    {
-    //        //move from top
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row == 0)
-    //    {
-    //        //move to top
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row == self.dao.companyList.count-1)
-    //    {
-    //        //move to bottom
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
-    //    {
-    //        //move down
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
-    //    } else if (destinationIndexPath.row < sourceIndexPath.row)
-    //    {
-    //        //move up
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
-    //    }
-    
-    //    if (sourceIndexPath.row == 0 || destinationIndexPath.row == 0 || (destinationIndexPath.row == self.dao.companyList.count-1) || destinationIndexPath.row < sourceIndexPath.row)
-    //    {
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
-    //    {
-    //        //move down
-    //        [self.dao.companyList insertObject:self.currentCompany atIndex:destinationIndexPath.row+1];
-    //        [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row-1];
-    //    }
-    
-    
-    
+    NSLog(@"Company List.....................");
+    for (int i = 0; i < self.dao.companyList.count; i++){
+        Company *company = self.dao.companyList[i];
+        [company setRow:i];
+        NSLog(@"%@", company.name);
+        [SQLMethods MoveCompany:company];
+    }
+    [itemToMove release];
 }
 
 

@@ -1,11 +1,12 @@
 //
 //  SQLMethods.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
-//  Created by Emiko Clark on 2/29/16.
+//  Created by Emiko Clark on 3/26/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
+//
 
 #import "SQLMethods.h"
 #import "DAO.h"
@@ -19,27 +20,27 @@ static NSString *dbPath;
 
 
 +(void) deleteCompanyFromSQL:(Company *)currentCompany {
-    NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%ld",(long)currentCompany.companyID];
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM company WHERE companyID=%i",(int)currentCompany.companyID];
     [self execute_SQLwithQuery:query];
 }
 
 +(void) deleteProductFromSQL:(Product *)currentProduct {
-    NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%ld",(long)currentProduct.productID];
+    NSString *query = [NSString stringWithFormat: @"DELETE FROM product WHERE productID=%i",(int)currentProduct.productID];
     [self execute_SQLwithQuery:query];
 }
 
 +(void) updateCompanyToSQL:(Company *)currentCompany {
-    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set companyID=%i, row=%ld, name='%@', stockSymbol='%@',logo='%@' WHERE  companyID=%i", (int)currentCompany.companyID , (long)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo,(int)currentCompany.companyID];
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set companyID=%i, row=%f, name='%@', stockSymbol='%@',logo='%@' WHERE  companyID=%i", (int)currentCompany.companyID , (float)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo,(int)currentCompany.companyID];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
 +(void) updateProductToSQL:(Product *)currentProduct {
-    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set  companyID='%i', row='%f', name='%@', url='%@',logo='%@' WHERE  productID=%i",  (int)currentProduct.companyID, currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo,(int)currentProduct.productID];
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE product Set  companyID='%i', row='%f', name='%@', url='%@',logo='%@' WHERE  productID=%i",  (int)currentProduct.companyID, (float)currentProduct.row, currentProduct.name, currentProduct.url, currentProduct.logo,(int)currentProduct.productID];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
 +(void) addCompanyToSQL:(Company *)currentCompany{
-    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%ld','%@','%@','%@')", (long)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%f','%@','%@','%@')", (float)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
@@ -50,7 +51,7 @@ static NSString *dbPath;
 
 +(void) MoveCompany:(Company *)currentCompany {
     //    NSLog(@"company: %@", currentCompany);
-    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set row='%ld' WHERE  companyID=%ld",(long)currentCompany.row,(long)currentCompany.companyID];
+    NSString *querySQL = [NSString stringWithFormat:@"UPDATE company Set row='%f' WHERE  companyID=%i",(float)currentCompany.row,(int)currentCompany.companyID];
     NSString *string = [NSString stringWithString:querySQL];
     [SQLMethods execute_SQLwithQuery:string];
 }
@@ -60,8 +61,7 @@ static NSString *dbPath;
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
-
-+ (void)execute_SQLwithQuery:(NSString *)query {
++(void)execute_SQLwithQuery:(NSString *)query {
     
     dbPath = [self getDBPath];
     int sqlStatus = sqlite3_open([dbPath UTF8String], &sqliteDB);
@@ -154,7 +154,6 @@ static NSString *dbPath;
                 [companies addObject: company];
             }
             }
-        
         sqlite3_close(sqliteDB);
         }
     return companies;
@@ -162,7 +161,7 @@ static NSString *dbPath;
 
 +(NSMutableArray *) populateProductsFromSQL:(Company *)currentCompany {
     
-    NSMutableArray *tempProductArray = [[[NSMutableArray alloc]init]autorelease];
+    NSMutableArray *tempProductArray = [[[NSMutableArray alloc]init] autorelease];
     
     // populate product arrays with information from the sql database
     sqlite3_stmt *statement ;
@@ -175,8 +174,8 @@ static NSString *dbPath;
             //for each product do..
             while (sqlite3_step(statement)== SQLITE_ROW)  {
                 Product *product = [[[Product alloc]init] autorelease];
-                product.productID = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)] integerValue];
-                product.companyID = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)] integerValue];
+                product.productID = (int)[[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 0)] integerValue];
+                product.companyID = (int)[[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 1)] integerValue];
                 product.name = [[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 2)];
                 product.url = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 3)]autorelease];
                 product.logo = [[[NSString alloc]initWithUTF8String:(const char *)sqlite3_column_text(statement, 4)] autorelease];
@@ -191,6 +190,35 @@ static NSString *dbPath;
     return (tempProductArray);
 }
 
+
++(int) GetNoOfProductsCount
+{
+    //count the number of total products in products array and set value to newProductID
+    int count = 0;
+    sqlite3_stmt *statement ;
+    if (sqlite3_open([dbPath UTF8String], &sqliteDB)==SQLITE_OK) {
+        
+        NSString *querySQL = [[NSString stringWithFormat:@"select count(*) from product"] autorelease];
+        
+        if (sqlite3_prepare(sqliteDB, [querySQL UTF8String], -1, &statement, NULL) == SQLITE_OK)
+            {
+            //Loop through all the returned rows (should be just one)
+            while( sqlite3_step(statement) == SQLITE_ROW )
+                {
+                count = sqlite3_column_int(statement, 0);
+                }
+            }
+        else
+            {
+            NSLog( @"Failed from sqlite3_prepare_v2. Error is:  %s", sqlite3_errmsg(sqliteDB) );
+            }
+        
+        // Finalize and close database.
+        sqlite3_finalize(statement);
+        sqlite3_close(sqliteDB);
+    }
+    return count;
+}
 
 - (void)dealloc {
     [super dealloc];

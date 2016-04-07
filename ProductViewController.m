@@ -1,13 +1,12 @@
 //
 //  ProductViewController.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-
-
+//
 #import "ProductViewController.h"
 #import "EditProductViewController.h"
 
@@ -116,87 +115,44 @@
     [tableView reloadData];
 }
 
+
 // Override to support rearranging the table view.
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
+    
     self.currentProduct = [self.currentCompany.productArray objectAtIndex:sourceIndexPath.row];
     
-    
-    float rowAfter  = 0.0;
-    float rowBefore = 0.0;
     if (self.currentCompany.productArray.count > 0){
-        //more than 1 element
         
+        //more than 1 element
         if (destinationIndexPath.row == self.currentCompany.productArray.count-1) {
             //move to bottom, increment row +1.0 of last product and assign to currentProduct
-            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex: destinationIndexPath.row].row + 1.0;
             
+            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex: destinationIndexPath.row].row + 1.0;
         } else if (destinationIndexPath.row == 0){
             //move to top, divide/2 the product.row index in position 1 and set to currentProduct.row
-            //            rowAfter = destinationIndexPath.row+1.0;
-            
-            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row+1].row / 2.0;
-            
-        } else {
-            
-            rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row-1].row;
-            rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row+1].row;
-            //            NSLog(@"B4:%f, after:%f",rowBefore, rowAfter);
+            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row / 2.0;
+        } else if (sourceIndexPath.row > destinationIndexPath.row){
+            // move up
+            float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row-1].row;
+            float rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
+            self.currentProduct.row = (rowBefore + rowAfter) / 2.0;
+        } else if (sourceIndexPath.row < destinationIndexPath.row){
+            //move down
+            float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
+            float rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row+1].row;
             self.currentProduct.row = (rowBefore + rowAfter) / 2.0;
         }
+    } else {
+        //add 1st product for company
+        self.currentProduct.row = 1.0;
     }
     
-    //    [self.currentCompany.productArray removeObjectAtIndex:sourceIndexPath.row];
-    //    [self.currentCompany.productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    NSLog(@"self.currentProduct.row:%f",self.currentProduct.row);
     [SQLMethods MoveProduct:self.currentProduct toIndex:self.currentProduct.row];
     
-    
-    //
-    //    NSMutableArray *productArray = [[NSMutableArray alloc]init];
-    //    productArray = self.currentCompany.productArray;
-    //
-    //    if (sourceIndexPath.row == 0)
-    //    {
-    //        //move from top
-    //        [productArray removeObjectAtIndex:sourceIndexPath.row];
-    //        [productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row == 0)
-    //    {
-    //        //move to top
-    //        [productArray removeObjectAtIndex:sourceIndexPath.row];
-    //        [productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row == self.dao.companyList.count-1)
-    //    {
-    //        //move to bottom
-    //        [productArray removeObjectAtIndex:sourceIndexPath.row];
-    //        [productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    //    } else if (destinationIndexPath.row > sourceIndexPath.row)
-    //    {
-    //        //move down
-    //        [productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row+1];
-    //        [productArray removeObjectAtIndex:sourceIndexPath.row-1];
-    //    } else if (destinationIndexPath.row < sourceIndexPath.row)
-    //    {
-    //        //move up
-    //        [productArray removeObjectAtIndex:sourceIndexPath.row];
-    //        [productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    //    }
-    //
-    //    //loop through and reset the rows of companyList in SQL
-    //    for (int i = 0; i < productArray.count; i++){
-    //        [SQLMethods MoveCompany:productArray[i] toIndex:i];
-    //    }
-    //
-    //    NSLog(@"After the move:");
-    //    for (Product *prods in productArray) {
-    //        NSLog(@"%@ ",prods);
-    //
-    //    }
-    //    [productArray release];
-    
-    //    self.currentProduct.row = sourceIndexPath.row;
-    
+    [self.currentCompany.productArray removeObjectAtIndex:sourceIndexPath.row];
+    [self.currentCompany.productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
+    //    [self.tableView reloadData];
 }
 
 // Override to support conditional rearranging of the table view.

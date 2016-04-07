@@ -1,11 +1,11 @@
 //  CompanyViewController.h
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-
+//
 #import <UIKit/UIKit.h>
 #import "ProductViewController.h"
 #import "EditCompanyViewController.h"

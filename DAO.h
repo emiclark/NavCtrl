@@ -14,24 +14,19 @@
 #import "sqlite3.h"
 #import "SQLMethods.h"
 
-#import <Foundation/Foundation.h>
-#import "Company.h"
-#import "Product.h"
-#import "sqlite3.h"
-#import "SQLMethods.h"
-
 @interface DAO : NSObject
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
-@property (nonatomic) NSInteger newCompanyID;
+@property (nonatomic) int newCompanyID;
+@property (nonatomic) int newProductID;
 
 @property (nonatomic, retain) NSMutableArray *companyList;
 
 + (id)sharedManager;
 
 - (void) initializeDAOsetupSQL;
-- (void) populateProducts:(Company  *)currentCompany ;
+- (NSMutableArray *) populateProducts:(Company  *)currentCompany ;
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
@@ -44,5 +39,7 @@
 
 
 @end
+
+
 
 

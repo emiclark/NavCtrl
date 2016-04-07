@@ -1,12 +1,12 @@
 //
 //  SQLMethods.h
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
-//  Created by Emiko Clark on 2/29/16.
+//  Created by Emiko Clark on 3/26/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-
+//
 
 #import <Foundation/Foundation.h>
 #import "sqlite3.h"
@@ -32,5 +32,8 @@
 
 +(void) MoveCompany:(Company *)currentCompany;
 +(void) MoveProduct:(Product *)currentProduct toIndex:(float)newIndex;
+
++(int) GetNoOfProductsCount;
+
 
 @end

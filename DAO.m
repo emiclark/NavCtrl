@@ -1,13 +1,12 @@
 //
 //  DAO.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
-
 
 #import "DAO.h"
 #import "SQLMethods.h"
@@ -59,9 +58,12 @@ static DAO *sharedMyManager = nil;
     //if not, copy dao.db from resource folder in main bundle and ,
     //finally, populate arrays
     
+    self.newCompanyID = 0;
+    self.newProductID = 0;
+    
     [SQLMethods createOrOpenDB];
     
-    //    populate all the products for each company from SQL
+    //populate all the products for each company from SQL
     self.companyList = [SQLMethods populateCompanyFromSQL];
     
     //populate all the products for each company
@@ -73,14 +75,18 @@ static DAO *sharedMyManager = nil;
         [[DAO sharedManager] populateProducts: self.currentCompany];
         
     }
-    self.newCompanyID = self.companyList.count+1;
+    self.newCompanyID = (int)self.companyList.count+1;
+    self.newProductID = [SQLMethods GetNoOfProductsCount];
     
 }
 
-- (void) populateProducts:(Company  *)currentCompany {
+- (NSMutableArray *) populateProducts:(Company  *)currentCompany {
     //populate DAO with Products from SQL
     self.currentCompany.productArray = [SQLMethods populateProductsFromSQL:currentCompany];
+    return self.currentCompany.productArray;
 }
+
+
 
 + (id)sharedManager {
     //ensures object is created only once

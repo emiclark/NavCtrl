@@ -1,12 +1,12 @@
 //
 //  EditProductViewController.m
 //  NavCtrl
-// Assignment7-MMM
+// Assignment7
 // Manual Memory Management
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
-
+//
 
 #import "EditProductViewController.h"
 
@@ -51,9 +51,12 @@
         [self.dao updateProduct:self.currentProduct AtIndex:self.currentRow];
         
     } else {
+        NSLog(@"newProductID=%i",self.dao.newProductID);
+        
         //add product mode
         self.currentProduct = [[[Product alloc]init] autorelease];
         self.currentProduct.companyID = self.currentCompany.companyID;
+        self.currentProduct.productID = ++self.dao.newProductID;
         self.currentProduct.name = self.name.text;
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
