@@ -1,11 +1,8 @@
 //
 //  SQLMethods.h
 //  NavCtrl
-// Assignment7
-// Manual Memory Management
-//
-//  Created by Emiko Clark on 3/26/16.
-//  Copyright © 2016 Aditya Narayan. All rights reserved.
+// Assignment8
+// CoreData
 //
 
 #import <Foundation/Foundation.h>

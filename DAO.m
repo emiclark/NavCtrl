@@ -1,8 +1,8 @@
 //
 //  DAO.m
 //  NavCtrl
-// Assignment7
-// Manual Memory Management
+// Assignment8
+// CoreData
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -10,6 +10,7 @@
 
 #import "DAO.h"
 #import "SQLMethods.h"
+#import "coreDataMethods.h"
 
 
 static DAO *sharedMyManager = nil;
@@ -32,7 +33,7 @@ static DAO *sharedMyManager = nil;
 
 - (void) addCompany:(Company *)currentCompany{
     [self.companyList addObject:currentCompany];
-    [SQLMethods addCompanyToSQL:currentCompany];
+    [coreDataMethods addCompany:currentCompany];
 }
 
 - (void) addProduct:(Product *)currentProduct {
@@ -52,33 +53,9 @@ static DAO *sharedMyManager = nil;
 }
 
 #pragma mark Singleton Methods
-- (void)initializeDAOsetupSQL {
-    //check documents directory to see if dao.db exists,
-    //if so, populate arrays,
-    //if not, copy dao.db from resource folder in main bundle and ,
-    //finally, populate arrays
-    
-    self.newCompanyID = 0;
-    self.newProductID = 0;
-    
-    [SQLMethods createOrOpenDB];
-    
-    //populate all the products for each company from SQL
-    self.companyList = [SQLMethods populateCompanyFromSQL];
-    
-    //populate all the products for each company
-    for (int i=0; i<self.companyList.count; i++) {
-        self.currentCompany = self.companyList[i];
-        self.currentCompany.row = i;
-        self.currentCompany.productArray= [[[NSMutableArray alloc]init]autorelease];
-        
-        [[DAO sharedManager] populateProducts: self.currentCompany];
-        
-    }
-    self.newCompanyID = (int)self.companyList.count+1;
-    self.newProductID = [SQLMethods GetNoOfProductsCount];
-    
-}
+//- (void)initializeDAO {
+//   self.companyList = [[NSMutableArray alloc]init];
+//}
 
 - (NSMutableArray *) populateProducts:(Company  *)currentCompany {
     //populate DAO with Products from SQL
@@ -93,7 +70,7 @@ static DAO *sharedMyManager = nil;
     @synchronized(self) {
         if(sharedMyManager == nil)
             sharedMyManager = [[super allocWithZone:NULL] init];
-    }
+        }
     return sharedMyManager;
 }
 

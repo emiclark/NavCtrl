@@ -1,14 +1,15 @@
 //
 //  CompanyViewController.m
 //  NavCtrl
-// Assignment7
-// Manual Memory Management
+// Assignment8
+// CoreData
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 
 #import "CompanyViewController.h"
 #import "EditCompanyViewController.h"
+#import "coreDataMethods.h"
 #import "Company.h"
 #import "Product.h"
 #import "DAO.h"
@@ -92,9 +93,17 @@
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
-    //setup SQL and populate Data from SQL into the DAO
-    [[DAO sharedManager] initializeDAOsetupSQL];
     
+//    [[DAO sharedManager] initializeDAO];
+ 
+    //setup coreData
+    [coreDataMethods initModelContext];
+    
+    //setup DAO with coreData
+    [coreDataMethods loadAllCompanies];
+    [self.tableView reloadData];
+
+
     self.stockPrices = [[[NSArray alloc]init]autorelease];
     
     //create a config session

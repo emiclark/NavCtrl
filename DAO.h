@@ -1,8 +1,8 @@
 //
 //  DAO.h
 //  NavCtrl
-// Assignment7-MMM
-// Manual Memory Management
+// Assignment8
+// CoreData
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -25,7 +25,7 @@
 
 + (id)sharedManager;
 
-- (void) initializeDAOsetupSQL;
+//- (void) initializeDAO;
 - (NSMutableArray *) populateProducts:(Company  *)currentCompany ;
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;

@@ -28,6 +28,13 @@
 		AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */; };
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
+		AA34CE631CB723CF005D9587 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE611CB723CF005D9587 /* Model.xcdatamodeld */; };
+		AA34CE651CB723EC005D9587 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA34CE641CB723EC005D9587 /* CoreData.framework */; };
+		AA34CE6E1CB725A4005D9587 /* ProductMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE671CB725A4005D9587 /* ProductMO+CoreDataProperties.m */; };
+		AA34CE6F1CB725A4005D9587 /* ProductMO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE691CB725A4005D9587 /* ProductMO.m */; };
+		AA34CE701CB725A4005D9587 /* CompanyMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE6B1CB725A4005D9587 /* CompanyMO+CoreDataProperties.m */; };
+		AA34CE711CB725A4005D9587 /* CompanyMO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE6D1CB725A4005D9587 /* CompanyMO.m */; };
+		AA34CE751CB72690005D9587 /* coreDataMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = AA34CE741CB72690005D9587 /* coreDataMethods.m */; };
 		AA4C76881C97367800D32757 /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4C76871C97367800D32757 /* google.png */; };
 		AA75AEED1C9B4862006138E6 /* dao.db in Resources */ = {isa = PBXBuildFile; fileRef = AA75AEEC1C9B4862006138E6 /* dao.db */; };
 		AA75AEEF1C9CB993006138E6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */; };
@@ -81,6 +88,18 @@
 		AA0A615B1C84F0E5009ACEB0 /* DAO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DAO.h; path = ../DAO.h; sourceTree = "<group>"; };
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		AA34CE621CB723CF005D9587 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		AA34CE641CB723EC005D9587 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AA34CE661CB725A4005D9587 /* ProductMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ProductMO+CoreDataProperties.h"; sourceTree = "<group>"; };
+		AA34CE671CB725A4005D9587 /* ProductMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ProductMO+CoreDataProperties.m"; sourceTree = "<group>"; };
+		AA34CE681CB725A4005D9587 /* ProductMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductMO.h; sourceTree = "<group>"; };
+		AA34CE691CB725A4005D9587 /* ProductMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductMO.m; sourceTree = "<group>"; };
+		AA34CE6A1CB725A4005D9587 /* CompanyMO+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CompanyMO+CoreDataProperties.h"; sourceTree = "<group>"; };
+		AA34CE6B1CB725A4005D9587 /* CompanyMO+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CompanyMO+CoreDataProperties.m"; sourceTree = "<group>"; };
+		AA34CE6C1CB725A4005D9587 /* CompanyMO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanyMO.h; sourceTree = "<group>"; };
+		AA34CE6D1CB725A4005D9587 /* CompanyMO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanyMO.m; sourceTree = "<group>"; };
+		AA34CE731CB72690005D9587 /* coreDataMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coreDataMethods.h; path = NavCtrl/coreDataMethods.h; sourceTree = "<group>"; };
+		AA34CE741CB72690005D9587 /* coreDataMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = coreDataMethods.m; path = NavCtrl/coreDataMethods.m; sourceTree = "<group>"; };
 		AA4C76871C97367800D32757 /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = ../google.png; sourceTree = "<group>"; };
 		AA75AEEC1C9B4862006138E6 /* dao.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = dao.db; sourceTree = "<group>"; };
 		AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -106,6 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA34CE651CB723EC005D9587 /* CoreData.framework in Frameworks */,
 				AA75AEEF1C9CB993006138E6 /* libsqlite3.0.tbd in Frameworks */,
 				AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */,
 				48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */,
@@ -158,6 +178,7 @@
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
+				AA34CE721CB725AF005D9587 /* coreData */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
 				48A656B318163BF200746D36 /* Frameworks */,
@@ -177,6 +198,7 @@
 		48A656B318163BF200746D36 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AA34CE641CB723EC005D9587 /* CoreData.framework */,
 				AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */,
 				AA0C51951C7E21FD00E55086 /* WebKit.framework */,
 				48A656B418163BF200746D36 /* Foundation.framework */,
@@ -249,6 +271,24 @@
 				48A656D618163BF200746D36 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AA34CE721CB725AF005D9587 /* coreData */ = {
+			isa = PBXGroup;
+			children = (
+				AA34CE611CB723CF005D9587 /* Model.xcdatamodeld */,
+				AA34CE661CB725A4005D9587 /* ProductMO+CoreDataProperties.h */,
+				AA34CE671CB725A4005D9587 /* ProductMO+CoreDataProperties.m */,
+				AA34CE681CB725A4005D9587 /* ProductMO.h */,
+				AA34CE691CB725A4005D9587 /* ProductMO.m */,
+				AA34CE6A1CB725A4005D9587 /* CompanyMO+CoreDataProperties.h */,
+				AA34CE6B1CB725A4005D9587 /* CompanyMO+CoreDataProperties.m */,
+				AA34CE6C1CB725A4005D9587 /* CompanyMO.h */,
+				AA34CE6D1CB725A4005D9587 /* CompanyMO.m */,
+				AA34CE731CB72690005D9587 /* coreDataMethods.h */,
+				AA34CE741CB72690005D9587 /* coreDataMethods.m */,
+			);
+			name = coreData;
 			sourceTree = "<group>";
 		};
 		AA75AEEB1C9B4862006138E6 /* resources */ = {
@@ -374,11 +414,17 @@
 				AADD59001C909756009AF845 /* EditProductViewController.m in Sources */,
 				AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */,
 				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
+				AA34CE701CB725A4005D9587 /* CompanyMO+CoreDataProperties.m in Sources */,
 				AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
+				AA34CE711CB725A4005D9587 /* CompanyMO.m in Sources */,
+				AA34CE751CB72690005D9587 /* coreDataMethods.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
 				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
 				AA002BEC1C8E1B1400A31BBD /* EditCompanyViewController.m in Sources */,
+				AA34CE6F1CB725A4005D9587 /* ProductMO.m in Sources */,
+				AA34CE6E1CB725A4005D9587 /* ProductMO+CoreDataProperties.m in Sources */,
+				AA34CE631CB723CF005D9587 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -602,6 +648,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AA34CE611CB723CF005D9587 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AA34CE621CB723CF005D9587 /* Model.xcdatamodel */,
+			);
+			currentVersion = AA34CE621CB723CF005D9587 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 48A656A918163BF200746D36 /* Project object */;
 }
