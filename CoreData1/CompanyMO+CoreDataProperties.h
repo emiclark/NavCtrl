@@ -2,7 +2,7 @@
 //  CompanyMO+CoreDataProperties.h
 //  NavCtrl
 //
-//  Created by Aditya Narayan on 4/7/16.
+//  Created by Aditya Narayan on 4/9/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -10,26 +10,23 @@
 //
 
 #import "CompanyMO.h"
-#import "coreDataMethods.h"
+#import "ProductMO.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CompanyMO (CoreDataProperties)
 
-@property NSNumber* companyID;
-@property NSNumber* row;
-@property (nullable, nonatomic, retain) NSString *name;
-@property (nullable, nonatomic, retain) NSString *stockSymbol;
+@property (nullable, nonatomic, retain) NSNumber *companyID;
 @property (nullable, nonatomic, retain) NSString *logo;
+@property (nullable, nonatomic, retain) NSString *name;
+@property (nullable, nonatomic, retain) NSNumber *row;
+@property (nullable, nonatomic, retain) NSNumber *stockPrice;
+@property (nullable, nonatomic, retain) NSString *stockSymbol;
 @property (nullable, nonatomic, retain) NSSet<ProductMO *> *productArray;
-
-@property(nonatomic) NSManagedObjectContext *context;
-@property(nonatomic) NSManagedObjectModel *model;
 
 @end
 
 @interface CompanyMO (CoreDataGeneratedAccessors)
-
 
 - (void)addProductArrayObject:(ProductMO *)value;
 - (void)removeProductArrayObject:(ProductMO *)value;

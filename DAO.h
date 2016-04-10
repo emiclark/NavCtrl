@@ -18,14 +18,17 @@
 
 @property (nonatomic,strong) Company *currentCompany;
 @property (nonatomic,strong) Product *currentProduct;
+
 @property (nonatomic) int newCompanyID;
 @property (nonatomic) int newProductID;
+
+@property (nullable, nonatomic, retain) NSNumber *newCompanyRow;
+@property (nullable, nonatomic, retain) NSNumber *newProductRow;
 
 @property (nonatomic, retain) NSMutableArray *companyList;
 
 + (id)sharedManager;
 
-//- (void) initializeDAO;
 - (NSMutableArray *) populateProducts:(Company  *)currentCompany ;
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;

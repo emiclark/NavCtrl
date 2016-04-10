@@ -11,7 +11,10 @@
 #import "EditCompanyViewController.h"
 #import "DAO.h"
 #import "sqlite3.h"
-
+#import "coreDataMethods.h"
+#import "Company.h"
+#import "Product.h"
+#import "SQLMethods.h"
 
 @class ProductViewController;
 @class EditCompanyViewController;

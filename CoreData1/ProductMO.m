@@ -2,11 +2,12 @@
 //  ProductMO.m
 //  NavCtrl
 //
-//  Created by Aditya Narayan on 4/7/16.
+//  Created by Aditya Narayan on 4/9/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
 #import "ProductMO.h"
+#import "CompanyMO.h"
 
 @implementation ProductMO
 

@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "Company.h"
 #import "Product.h"
 #import "DAO.h"
-#import <CoreData/CoreData.h>
 
 
 @interface coreDataMethods : NSObject
@@ -19,11 +19,13 @@
 
 
 +(void) initModelContext;
++(void)loadOrCreateCoreData;
++(void)addCompanyAndProductsToCoreData;
+
 +(void) addCompany:(Company *)currentCompany;
-+(void) addProduct:(Product *)currentProduct;
++(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 
 +(void) saveChanges;
-+(void)loadAllCompanies;
 
 //+(void) deleteCompany:(Company *)currentCompany;
 //+(void) deleteProduct:(Product *)currentProduct;

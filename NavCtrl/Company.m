@@ -12,6 +12,19 @@
 
 @implementation Company
 
+- (id) initWithName:(NSString*)name andStockSymbol:(NSString *)stockSymbol andLogo:(NSString*)logo andRow:(float)row
+ {
+    self=[super init];
+    if (self) {
+        self.name = name;
+        self.stockSymbol = stockSymbol;
+        self.logo = logo;
+        self.row = row;
+        self.productArray = [[[NSMutableArray alloc]init] autorelease];
+    }
+    return self;
+}
+
 - (id) initWithName:(NSString*)name andStockSymbol:(NSString *)stockSymbol andLogo:(NSString*)logo andRow:(float)row andCompanyID:(int)companyID {
     self=[super init];
     if (self) {

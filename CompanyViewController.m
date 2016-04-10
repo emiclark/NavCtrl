@@ -8,11 +8,7 @@
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 
 #import "CompanyViewController.h"
-#import "EditCompanyViewController.h"
-#import "coreDataMethods.h"
-#import "Company.h"
-#import "Product.h"
-#import "DAO.h"
+
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 {
@@ -20,6 +16,49 @@
 @end
 
 @implementation CompanyViewController
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.dao = [DAO sharedManager];
+    
+    //setup coreData
+    [coreDataMethods initModelContext];
+    
+    //setup DAO with coreData if exits, else init with hardcoded data
+    [coreDataMethods loadOrCreateCoreData];
+
+    [self.tableView reloadData];
+    
+    
+    self.stockPrices = [[[NSArray alloc]init]autorelease];
+    
+    //create a config session
+    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    // declare this method as the delegate
+    [NSURLSession sessionWithConfiguration:sessionConfig
+                                  delegate: self
+                             delegateQueue:nil];
+    
+    self.clearsSelectionOnViewWillAppear = NO;
+    
+    self.productViewController = [[[ProductViewController alloc] init] autorelease];
+    
+    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    //add button on LHS
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
+    addButton.action = @selector(addNewCompany);
+    addButton.title = @"Add New Company";
+    addButton.target = self;
+    self.navigationItem.leftBarButtonItem = addButton;
+    
+    self.title = @"Mobile device makers";
+    
+    [self.tableView reloadData];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -86,50 +125,6 @@
          });
      }];
     [downloadTask resume];
-    [self.tableView reloadData];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    self.dao = [DAO sharedManager];
-    
-//    [[DAO sharedManager] initializeDAO];
- 
-    //setup coreData
-    [coreDataMethods initModelContext];
-    
-    //setup DAO with coreData
-    [coreDataMethods loadAllCompanies];
-    [self.tableView reloadData];
-
-
-    self.stockPrices = [[[NSArray alloc]init]autorelease];
-    
-    //create a config session
-    NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    // declare this method as the delegate
-    [NSURLSession sessionWithConfiguration:sessionConfig
-                                  delegate: self
-                             delegateQueue:nil];
-    
-    self.clearsSelectionOnViewWillAppear = NO;
-    
-    self.productViewController = [[[ProductViewController alloc] init] autorelease];
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //add button on LHS
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
-    addButton.action = @selector(addNewCompany);
-    addButton.title = @"Add New Company";
-    addButton.target = self;
-    self.navigationItem.leftBarButtonItem = addButton;
-    
-    self.title = @"Mobile device makers";
-    
     [self.tableView reloadData];
 }
 

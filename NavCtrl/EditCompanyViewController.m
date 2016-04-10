@@ -64,7 +64,6 @@
 - (IBAction)SaveButtonTapped:(UIButton *)sender {
     //    Company *currentCompany = self.dao.currentCompany;
     
-    NSLog(@"save:currentCompany%@",self.currentCompany);
     //edit mode - companytoEdit not nil
     if (self.currentCompany.companyID < self.dao.newCompanyID) {
         self.currentCompany.name = self.name.text;
@@ -87,6 +86,9 @@
             self.currentCompany.row = self.currentCompany.row + 1.0;
         }
         
+        
+            NSLog(@"ECVC:save:currentCompany:%@",self.currentCompany);
+
         //save currentCompany to DAO/SQL
         [self.dao addCompany:self.currentCompany];
     }

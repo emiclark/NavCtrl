@@ -9,13 +9,14 @@
 //
 
 #import "DAO.h"
-#import "SQLMethods.h"
 #import "coreDataMethods.h"
 
 
 static DAO *sharedMyManager = nil;
 
 @implementation DAO
+
+
 
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
@@ -32,6 +33,8 @@ static DAO *sharedMyManager = nil;
 }
 
 - (void) addCompany:(Company *)currentCompany{
+    NSLog(@"DAO:save:currentCompany%@",currentCompany);
+
     [self.companyList addObject:currentCompany];
     [coreDataMethods addCompany:currentCompany];
 }
