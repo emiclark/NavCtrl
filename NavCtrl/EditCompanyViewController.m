@@ -62,19 +62,22 @@
 }
 
 - (IBAction)SaveButtonTapped:(UIButton *)sender {
-    //    Company *currentCompany = self.dao.currentCompany;
-    
+    DAO *dao = [DAO sharedManager];
+        
     //edit mode - companytoEdit not nil
     if (self.currentCompany.companyID < self.dao.newCompanyID) {
         self.currentCompany.name = self.name.text;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
-        [self.dao  updateCompany:self.currentCompany AtIndex: (long)self.currentRow];
+        [self.dao  updateCompany:self.currentCompany];
+        
+
     } else  {
         //add mode
         self.currentCompany.productArray = [[[NSMutableArray alloc]init] autorelease];
+        self.currentCompany.row = dao.newCompanyRow;
         self.currentCompany.name = self.name.text;
-        self.currentCompany.companyID = (int)self.dao.newCompanyID++;
+        self.currentCompany.companyID = self.dao.newCompanyID;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
         
@@ -85,12 +88,10 @@
             self.currentCompany.row = [(Company*)[self.dao.companyList objectAtIndex:indexOfLastElement] row];
             self.currentCompany.row = self.currentCompany.row + 1.0;
         }
-        
-        
-            NSLog(@"ECVC:save:currentCompany:%@",self.currentCompany);
-
-        //save currentCompany to DAO/SQL
+        //save currentCompany to DAO/CoreData
         [self.dao addCompany:self.currentCompany];
+        [self.companyViewController.tableView reloadData];
+        
     }
     
     //return to rootViewController

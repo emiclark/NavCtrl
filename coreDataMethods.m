@@ -39,21 +39,20 @@ static NSString *path;
         [NSException raise:@"Open failed" format:@"Reason: %@", [error localizedDescription]];
     }
     
-    NSLog(@"%@\n",storeURL);
+    NSLog(@"%@\n\n",storeURL);
     
     context = [[NSManagedObjectContext alloc] init];
     
     //Add an undo manager
-    context.undoManager = [[NSUndoManager alloc] init];
+//    context.undoManager = [[NSUndoManager alloc] init];
+//    [coreDataMethods setUndoManager:context.undoManager];
+
     
     //3. Now the context points to the SQLite store
     [context setPersistentStoreCoordinator:psc];
-    //    [coreDataMethods setUndoManager:context.undoManager];
-    
 }
 
 +(void)loadOrCreateCoreData {
-    DAO *dao = [DAO sharedManager];
     
     // Loads all companies from Core Data Company table into tableview datasource.
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
@@ -75,119 +74,148 @@ static NSString *path;
     //This gets data only from context, not from store
     NSArray *result = [context executeFetchRequest:request error:&error];
     
-    NSLog(@"result.count: %ld, %@",result.count, result);
+    NSLog(@"companies:result.count>>: %ld",result.count);
     if(!result){
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }else if (result.count > 0) {
-        dao.companyList  = [[NSMutableArray alloc]initWithArray:result];
+        [coreDataMethods loadCoreData:result ];
+
     }else if (result.count == 0) {
         [coreDataMethods addCompanyAndProductsToCoreData];
     }
 }
 
-+(void)addCompanyAndProductsToCoreData{
++ (void) loadCoreData: (NSArray *)MOresultArray {
+
+    //load all MO objects from coreData to DAO
     DAO *dao = [DAO sharedManager];
-    float newCompanyRow = 1.0;
-    float newProductRow = 1.0;
-    //initialize companies and products
-    Company *apple = [[Company alloc] initWithName:@"Apple" andStockSymbol:@"AAPL" andLogo:@"apple.png" andRow:newProductRow];
-    [coreDataMethods addCompany:apple];
-
-    Product *iPad = [[Product alloc] initWithName:@"iPad" andUrl:@"http://www.apple.com/ipad/" andLogo: @"apple.png"];
-    [apple.productArray addObject: iPad ];
-    [coreDataMethods addProduct:iPad toCompany:apple];
-
-    Product *iPod = [[Product alloc] initWithName:@"iPod Touch" andUrl:@"http://www.apple.com/ipod-touch/" andLogo: @"apple.png"];
-    [apple.productArray addObject: iPod ];
-    [coreDataMethods addProduct:iPod toCompany:apple];
-
-    Product *iPhone = [[Product alloc] initWithName:@"iPhone" andUrl:@"http://www.apple.com/iphone/" andLogo: @"apple.png"];
-    [apple.productArray addObject: iPhone ];
-    [coreDataMethods addProduct:iPhone toCompany:apple];
-
-    //samsung
-    Company *samsung = [[Company alloc] initWithName:@"Samsung" andStockSymbol:@"SSNLF" andLogo:@"samsung.png"];
-    [coreDataMethods addCompany:samsung];
-    dao.currentCompany = samsung;
-
-    Product *S4 = [[Product alloc] initWithName:@"Galaxy S4" andUrl:@"http://www.samsung.com/global/microsite/galaxys4/" andLogo: @"samsung.png"];
-    [samsung.productArray addObject: S4 ];
-    [coreDataMethods addProduct:S4 toCompany:samsung];
-    
-    Product *Note = [[Product alloc] initWithName:@"Galaxy Note" andUrl:@"http://www.samsung.com/us/mobile/galaxy-note/" andLogo: @"samsung.png"];
-    [samsung.productArray addObject: Note ];
-    [coreDataMethods addProduct:Note toCompany:samsung];
-
-    Product *Tab = [[Product alloc] initWithName:@"Galaxy Tab" andUrl:@"http://www.samsung.com/us/mobile/galaxy-tab/" andLogo: @"samsung.png"];
-    [samsung.productArray addObject: Tab ];
-    [coreDataMethods addProduct:Tab toCompany:samsung];
-
-    //google
-    Company *google = [[Company alloc] initWithName:@"Google" andStockSymbol:@"GOOG" andLogo:@"google.png"];
-    [coreDataMethods addCompany:google];
-    dao.currentCompany = google;
-
-    Product *pixelC = [[Product alloc] initWithName:@"Pixel C" andUrl:@"https://pixel.google.com/pixel-c/" andLogo: @"google.png"];
-    [google.productArray addObject: pixelC ];
-    [coreDataMethods addProduct:pixelC toCompany:google];
-
-    Product *chromebook = [[Product alloc] initWithName:@"Chromebook" andUrl:@"https://www.google.com/chromebook/" andLogo: @"google.png"];
-    [google.productArray addObject: chromebook ];
-    [coreDataMethods addProduct:chromebook toCompany:google];
-
-    Product *Nexus6P = [[Product alloc] initWithName:@"Nexus 6P" andUrl:@"https://www.google.com/nexus/6p/" andLogo: @"google.png"];
-    [google.productArray addObject: Nexus6P ];
-    [coreDataMethods addProduct:Nexus6P toCompany:google];
-
-    //microsoft
-    Company *microsoft =  [[Company alloc] initWithName:@"Microsoft" andStockSymbol:@"MSFT" andLogo:@"microsoft.png"];
-    [coreDataMethods addCompany:microsoft];
-    dao.currentCompany = microsoft;
-
-    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo: @"microsoft.png"];
-    [microsoft.productArray addObject: Lumina ];
-    [coreDataMethods addProduct:Lumina toCompany:microsoft];
-
-    Product *Lenovo = [[Product alloc] initWithName:@"Lenovo ideapad MIIX 700" andUrl:@"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/" andLogo: @"microsoft.png"];
-    [microsoft.productArray addObject: Lenovo ];
-    [coreDataMethods addProduct:Lenovo toCompany:microsoft];
-
-    Product *Surface = [[Product alloc] initWithName:@"Surface Pro 4" andUrl:@"http://www.microsoft.com/surface/en-us/devices/surface-pro-4" andLogo: @"microsoft.png"];
-    [microsoft.productArray addObject: Surface ];
-    [coreDataMethods addProduct:Surface toCompany:microsoft];
-
-    
     dao.companyList = [[NSMutableArray alloc]init];
-    [dao.companyList addObject:apple];
-    [dao.companyList addObject:samsung];
-    [dao.companyList addObject:google];
-    [dao.companyList addObject:microsoft];
+
+    //initialize newcompanyID
+    dao.newCompanyID = (int)MOresultArray.count;
     
+    //convert companyMO to company
+    for (CompanyMO *companyMO in MOresultArray) {
+        Company *company = [[Company alloc]init];
+        
+        long companyID = [companyMO.companyID integerValue];
+        float row = [companyMO.row floatValue ];
+        
+        company.companyID = (int) companyID;
+        company.row  = row;
+        company.name = companyMO.name;
+        company.stockSymbol = companyMO.stockSymbol;
+        company.logo = companyMO.logo;
+        
+        company.productArray = [[NSMutableArray alloc]init];
+        
+        NSArray *allProductsArray = [coreDataMethods fetchProductsForCompany];
+        if (allProductsArray.count > 0) {
+
+            //initialize/convert product array for each company
+            for (ProductMO *productMO in allProductsArray) {
+                if (companyMO.companyID == productMO.companyID) {
+                    Product *product = [[Product alloc ]init];
+                    product.name   = productMO.name;
+                    product.row = [productMO.row floatValue];
+                    product.companyID = (int)[productMO.companyID integerValue];
+                    product.url = productMO.url;
+                    product.logo = productMO.logo;
+                    
+                    [company.productArray addObject:product];
+                    
+                    //set newProductID
+                    dao.newProductID = product.productID;
+                }
+            }
+            [dao.companyList addObject:company];
+        }
+    }
+    //initialize newcompanyID and newproductID for next company and products
+    [coreDataMethods getNewCompanyIDandProductID];
 }
 
 
-+(void) addCompany:(Company *)currentCompany{
-    DAO *dao=[DAO sharedManager];
-    
-    // Generating primary key using timestamp.
-    NSNumber *pk = [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
-    
-    //Add this object to the context. Nothing happens till it is saved
-    CompanyMO *company = [NSEntityDescription insertNewObjectForEntityForName: @"CompanyMO" inManagedObjectContext: context];
-    
-    [company setCompanyID:pk ];
-    [company setName:currentCompany.name];
-    [company setStockSymbol:currentCompany.stockSymbol];
-    [company setLogo:currentCompany.logo];
-    [company setRow: currentCompany.row];
-    [context insertObject:company];
-    
-    [coreDataMethods saveChanges];
++(NSArray *) fetchProductsForCompany {
 
-    NSLog(@"DAO:save:currentCompany%@",currentCompany);
-
+    // fetch all products from Core Data
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
+                                   initWithKey:@"productID" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(!result){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    return result;
     
 }
+
++(void) getNewCompanyIDandProductID {
+    DAO *dao = [DAO sharedManager];
+    
+    //get newCompanyID
+    // fetch all companies from Core Data
+    NSFetchRequest *requestCompany = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
+                                  initWithKey:@"companyID" ascending:YES];
+    
+    [requestCompany setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
+    [requestCompany setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *Companyresult = [context executeFetchRequest:requestCompany error:&error];
+    
+    if(!Companyresult){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    CompanyMO *companyMO = [Companyresult lastObject];
+    
+     long companyID = [companyMO.companyID integerValue];
+     dao.newCompanyID = (int)companyID+1;
+    
+//==   get newProductID   ==========================================
+    
+    // fetch all companies from Core Data
+    NSFetchRequest *requestProducts = [[NSFetchRequest alloc]init];
+
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey2 = [[NSSortDescriptor alloc]
+                                   initWithKey:@"productID" ascending:YES];
+    
+    [requestProducts setSortDescriptors:[NSArray arrayWithObject:sortByKey2]];
+    
+    NSEntityDescription *e2 = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [requestProducts setEntity:e2];
+    NSError *error2 = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *Productresult = [context executeFetchRequest:requestProducts error:&error2];
+    
+    if(!Productresult){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    ProductMO *productMO = [Productresult lastObject];
+    
+    long productID = [productMO.productID integerValue];
+    dao.newProductID = (int)productID+1;
+}
+
 
 // On calling this, actual saving is done in the Core Data table
 +(void) saveChanges
@@ -198,16 +226,38 @@ static NSString *path;
     {
         NSLog(@"Error saving: %@", [err localizedDescription]);
     }
-    NSLog(@"Data Saved");
+}
+
+
++(void) addCompany:(Company *)currentCompany {
+    DAO *dao = [DAO sharedManager];
+    NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:currentCompany.companyID];
+    NSNumber *tempRow = [[NSNumber alloc]initWithFloat:currentCompany.row];
+    
+    //Add this object to the context. Nothing happens till it is saved
+    CompanyMO *company = [NSEntityDescription insertNewObjectForEntityForName: @"CompanyMO" inManagedObjectContext: context];
+    
+    [company setCompanyID:tempCompanyID];
+    [company setName:currentCompany.name];
+    [company setRow: tempRow];
+    [company setStockSymbol:currentCompany.stockSymbol];
+    [company setLogo:currentCompany.logo];
+    [context insertObject:company];
+    
+    [coreDataMethods saveChanges];
+    ++dao.newCompanyID;
+    ++dao.newCompanyRow;
 }
 
 
 +(void) addProduct:(Product *)currentProduct  toCompany:(Company*)currentCompany {
+    DAO *dao = [DAO sharedManager];
     
-    // Generating primary key using timestamp.
-    NSNumber *pk = [NSNumber numberWithInt:[[NSDate date] timeIntervalSince1970]];
-
-    //get companyID
+    // get primary key, row number, companyID
+    NSNumber *pk = [NSNumber numberWithInteger:dao.newProductID];
+    NSNumber *tempRow = [[NSNumber alloc]initWithFloat: dao.newProductRow];
+    NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:dao.currentCompany.companyID];
+    
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
     
     //A predicate template can also be used
@@ -236,20 +286,190 @@ static NSString *path;
     ProductMO *product = [NSEntityDescription insertNewObjectForEntityForName: @"ProductMO" inManagedObjectContext: context];
     
     [product setProductID: pk ];
+    [product setCompanyID:tempCompanyID];
+    [product setRow:tempRow];
     [product setName: currentProduct.name];
-//    [product setCompanyID: currentCompany.companyID];
     [product setUrl:currentProduct.url];
     [product setLogo:currentProduct.logo];
-   // [product setCompanyID:companyMO]
+
+    [coreDataMethods saveChanges];
+    ++dao.newProductID;
+    ++dao.newProductRow;
+}
+
++(void) updateCompany:(Company *)currentCompany {
+    DAO *dao = [DAO sharedManager];
+    NSNumber *row = [[NSNumber alloc]initWithFloat:currentCompany.row];
+    NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentCompany.companyID];
     
+    CompanyMO *company = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyMO" inManagedObjectContext:context];
     
+    [company setName:currentCompany.name];
+    [company setCompanyID:companyID];
+    [company setRow:row];
+    [company setStockSymbol:currentCompany.stockSymbol];
+    [company setLogo:currentCompany.logo];
     
     [coreDataMethods saveChanges];
     
-  //  [dao.productArray addObject:product];
+    //reload from context
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    //A predicate template can also be used
+    NSPredicate *p = [NSPredicate predicateWithFormat:@"companyID >=0 and companyID MATCHES '%i'",currentCompany.companyID];
+    [request setPredicate:p];
+
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc]
+                                    initWithKey:@"row" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(!result)
+    {
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    
+    dao.companyList = [[NSMutableArray alloc] initWithArray:result];
     
 }
 
++(void) updateProduct:(Product *)currentProduct {
+    DAO *dao = [DAO sharedManager];
+    NSNumber *row = [[NSNumber alloc]initWithFloat:currentProduct.row];
+    NSNumber *productID = [[NSNumber alloc]initWithInteger:currentProduct.productID];
+    
+    CompanyMO *company = [NSEntityDescription insertNewObjectForEntityForName:@"CompanyMO" inManagedObjectContext:context];
+    
+    [company setName:currentProduct.name];
+    [company setCompanyID:productID];
+    [company setRow:row];
+    [company setStockSymbol:currentProduct.url];
+    [company setLogo:currentProduct.logo];
+    
+    [coreDataMethods saveChanges];
+    
+    //reload from context
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    //A predicate template can also be used
+    NSPredicate *p = [NSPredicate predicateWithFormat:@"productID >=0 and productID MATCHES '%i'",currentProduct.productID];
+    [request setPredicate:p];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc]
+                                   initWithKey:@"row" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(!result)
+    {
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    
+    dao.currentCompany.productArray = [[NSMutableArray alloc] initWithArray:result];
+
+
+}
+
++(void)addCompanyAndProductsToCoreData{
+    DAO *dao = [DAO sharedManager];
+    dao.newCompanyRow = 1.0;
+    dao.newProductRow = 1.0;
+    dao.newCompanyID  = 1.0;
+    dao.newProductID  = 1.0;
+    dao.companyList = [[NSMutableArray alloc]init];
+    
+    //initialize companies and products
+    
+    Company *apple = [[Company alloc] initWithName:@"Apple" andStockSymbol:@"AAPL" andLogo:@"apple.png" andRow:dao.newCompanyRow andCompanyID:dao.newCompanyID];
+    dao.currentCompany = apple;
+    [dao.companyList addObject:apple];
+    [coreDataMethods addCompany:apple];
+    
+    Product *iPad  = [[Product alloc] initWithName: @"iPad" andUrl:@"http://www.apple.com/ipad/" andLogo:@"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [apple.productArray addObject: iPad ];
+    [coreDataMethods addProduct:iPad toCompany:apple];
+    
+    Product *iPod = [[Product alloc] initWithName:@"iPod Touch" andUrl:@"http://www.apple.com/ipod-touch/" andLogo: @"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [apple.productArray addObject: iPod ];
+    [coreDataMethods addProduct:iPod toCompany:apple];
+    
+    Product *iPhone = [[Product alloc] initWithName:@"iPhone" andUrl:@"http://www.apple.com/iphone/" andLogo: @"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [apple.productArray addObject: iPhone ];
+    [coreDataMethods addProduct:iPhone toCompany:apple];
+    
+    //samsung
+    Company *samsung = [[Company alloc] initWithName:@"Samsung" andStockSymbol:@"SSNLF" andLogo:@"samsung.png" andRow:dao.newCompanyRow andCompanyID:dao.newCompanyID];
+    dao.currentCompany = samsung;
+    [dao.companyList addObject:samsung];
+    [coreDataMethods addCompany:samsung];
+    
+    Product *S4 = [[Product alloc] initWithName:@"Galaxy S4" andUrl:@"http://www.samsung.com/global/microsite/galaxys4/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [samsung.productArray addObject: S4 ];
+    [coreDataMethods addProduct:S4 toCompany:samsung];
+    
+    Product *Note = [[Product alloc] initWithName:@"Galaxy Note" andUrl:@"http://www.samsung.com/us/mobile/galaxy-note/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [samsung.productArray addObject: Note ];
+    [coreDataMethods addProduct:Note toCompany:samsung];
+    
+    Product *Tab = [[Product alloc] initWithName:@"Galaxy Tab" andUrl:@"http://www.samsung.com/us/mobile/galaxy-tab/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [samsung.productArray addObject: Tab ];
+    [coreDataMethods addProduct:Tab toCompany:samsung];
+    
+    //google
+    Company *google = [[Company alloc] initWithName:@"Google" andStockSymbol:@"GOOG" andLogo:@"google.png" andRow:dao.newCompanyRow andCompanyID:dao.newCompanyID];
+    dao.currentCompany = google;
+    [dao.companyList addObject:google];
+    [coreDataMethods addCompany:google];
+    
+    Product *pixelC = [[Product alloc] initWithName:@"Pixel C" andUrl:@"https://pixel.google.com/pixel-c/" andLogo: @"google.png"andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [google.productArray addObject: pixelC ];
+    [coreDataMethods addProduct:pixelC toCompany:google];
+    
+    Product *chromebook = [[Product alloc] initWithName:@"Chromebook" andUrl:@"https://www.google.com/chromebook/" andLogo:@"google.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [google.productArray addObject: chromebook ];
+    [coreDataMethods addProduct:chromebook toCompany:google];
+    
+    Product *Nexus6P = [[Product alloc] initWithName:@"Nexus 6P" andUrl:@"https://www.google.com/nexus/6p/" andLogo: @"google.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [google.productArray addObject: Nexus6P ];
+    [coreDataMethods addProduct:Nexus6P toCompany:google];
+    
+    //microsoft
+    Company *microsoft =  [[Company alloc] initWithName:@"Microsoft" andStockSymbol:@"MSFT" andLogo:@"microsoft.png" andRow:dao.newCompanyRow andCompanyID:dao.newCompanyID];
+    dao.currentCompany = microsoft;
+    [dao.companyList addObject:microsoft];
+    [coreDataMethods addCompany:microsoft];
+    
+    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [microsoft.productArray addObject: Lumina ];
+    [coreDataMethods addProduct:Lumina toCompany:microsoft];
+    
+    Product *Lenovo = [[Product alloc] initWithName:@"Lenovo ideapad MIIX 700" andUrl:@"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [microsoft.productArray addObject: Lenovo ];
+    [coreDataMethods addProduct:Lenovo toCompany:microsoft];
+    
+    Product *Surface = [[Product alloc] initWithName:@"Surface Pro 4" andUrl:@"http://www.microsoft.com/surface/en-us/devices/surface-pro-4" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    [microsoft.productArray addObject: Surface ];
+    [coreDataMethods addProduct:Surface toCompany:microsoft];
+
+}
 
 
 
@@ -263,14 +483,10 @@ static NSString *path;
 //    
 //}
 //
-//+(void) updateCompany:(Company *)currentCompany {
-//    
-//}
+
 //
 //
-//+(void) updateProduct:(Product *)currentProduct {
-//    
-//}
+
 //
 //
 //+(void) MoveCompany:(Company *)currentCompany {

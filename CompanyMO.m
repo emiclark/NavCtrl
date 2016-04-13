@@ -1,15 +1,15 @@
 //
-//  ProductMO.m
+//  CompanyMO.m
 //  NavCtrl
 //
-//  Created by Aditya Narayan on 4/9/16.
+//  Created by Aditya Narayan on 4/12/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
-#import "ProductMO.h"
 #import "CompanyMO.h"
+#import "ProductMO.h"
 
-@implementation ProductMO
+@implementation CompanyMO
 
 // Insert code here to add functionality to your managed object subclass
 

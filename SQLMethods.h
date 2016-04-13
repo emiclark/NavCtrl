@@ -19,6 +19,7 @@
 +(NSString *)getDBPath;
 
 +(void) addCompanyToSQL:(Company *)currentCompany;
++(void) addCompanyToSQL:(Company *)currentCompany andRow:(float)row;
 +(void) addProductToSQL:(Product *)currentProduct forCompany: (Company * )currentCompany;
 
 +(void) deleteCompanyFromSQL:(Company *)currentCompany;

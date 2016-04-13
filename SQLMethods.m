@@ -39,6 +39,11 @@ static NSString *dbPath;
     [SQLMethods execute_SQLwithQuery:querySQL];
 }
 
++(void) addCompanyToSQL:(Company *)currentCompany andRow:(float)row {
+    NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%f','%@','%@','%@')", (float)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
+    [SQLMethods execute_SQLwithQuery:querySQL];
+}
+
 +(void) addCompanyToSQL:(Company *)currentCompany{
     NSString *querySQL = [NSString stringWithFormat:@"INSERT INTO company (row, name, stockSymbol,logo) VALUES ('%f','%@','%@','%@')", (float)currentCompany.row, currentCompany.name, currentCompany.stockSymbol, currentCompany.logo];
     [SQLMethods execute_SQLwithQuery:querySQL];

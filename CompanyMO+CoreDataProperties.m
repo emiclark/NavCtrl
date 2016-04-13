@@ -1,23 +1,23 @@
 //
-//  ProductMO+CoreDataProperties.m
+//  CompanyMO+CoreDataProperties.m
 //  NavCtrl
 //
-//  Created by Aditya Narayan on 4/9/16.
+//  Created by Aditya Narayan on 4/12/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
 //  to delete and recreate this implementation file for your updated model.
 //
 
-#import "ProductMO+CoreDataProperties.h"
+#import "CompanyMO+CoreDataProperties.h"
 
-@implementation ProductMO (CoreDataProperties)
+@implementation CompanyMO (CoreDataProperties)
 
-@dynamic productID;
-@dynamic name;
+@dynamic companyID;
 @dynamic logo;
-@dynamic url;
+@dynamic name;
 @dynamic row;
-@dynamic productMO;
+@dynamic stockSymbol;
+@dynamic productArray;
 
 @end

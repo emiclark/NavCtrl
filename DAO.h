@@ -22,8 +22,8 @@
 @property (nonatomic) int newCompanyID;
 @property (nonatomic) int newProductID;
 
-@property (nullable, nonatomic, retain) NSNumber *newCompanyRow;
-@property (nullable, nonatomic, retain) NSNumber *newProductRow;
+@property ( nonatomic) float newCompanyRow;
+@property ( nonatomic) float newProductRow;
 
 @property (nonatomic, retain) NSMutableArray *companyList;
 
@@ -31,14 +31,20 @@
 
 - (NSMutableArray *) populateProducts:(Company  *)currentCompany ;
 
+- (void) addCompany:(Company *)currentCompany;
+- (void) addProduct:(Product *)currentProduct;
+
+- (void) updateCompany:(Company *)currentCompany;
+- (void) updateProduct:(Product *)currentProduct;
+//- (void) updateCompany:(Company *)currentCompany AtIndex:(NSInteger)index;
+//- (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index;
+
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
 
-- (void) updateCompany:(Company *)currentCompany AtIndex:(NSInteger)index;
-- (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index;
 
-- (void) addCompany:(Company *)currentCompany;
-- (void) addProduct:(Product *)currentProduct;
+
+
 
 
 @end

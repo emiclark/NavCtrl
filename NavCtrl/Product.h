@@ -20,6 +20,9 @@
 @property (nonatomic, strong) NSString *url;
 @property (nonatomic, strong) NSString *logo;
 
+
 - (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo;
-- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(int)companyID andRow:(float)row;
+- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andRow:(float)row;
+- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(int)companyID andRow:(float)row andProductID:(int)productID;
+
 @end

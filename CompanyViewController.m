@@ -56,7 +56,7 @@
     self.navigationItem.leftBarButtonItem = addButton;
     
     self.title = @"Mobile device makers";
-    
+
     [self.tableView reloadData];
 }
 
@@ -169,7 +169,7 @@
     
     //format tableview with company name + stockprices
     cell.textLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] name];
-    cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
+   // cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
     return cell;
 }
 

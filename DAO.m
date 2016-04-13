@@ -17,43 +17,38 @@ static DAO *sharedMyManager = nil;
 @implementation DAO
 
 
-
-
-- (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
-    [self.companyList removeObjectAtIndex:row];
-    NSLog(@"%@\n",self.currentCompany);
-    [SQLMethods deleteCompanyFromSQL: currentCompany];
-}
-
-- (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
-    // Delete the row from the data source
-    [self.currentCompany.productArray removeObjectAtIndex:row];
-    NSLog(@"co:%@, \nprod:%@",self.currentCompany, currentProduct);
-    [SQLMethods deleteProductFromSQL: currentProduct];
-}
-
 - (void) addCompany:(Company *)currentCompany{
-    NSLog(@"DAO:save:currentCompany%@",currentCompany);
-
     [self.companyList addObject:currentCompany];
     [coreDataMethods addCompany:currentCompany];
 }
 
 - (void) addProduct:(Product *)currentProduct {
     [self.currentCompany.productArray addObject:currentProduct];
-    NSLog(@"%d",self.currentCompany.companyID);
-    [SQLMethods addProductToSQL:currentProduct forCompany: self.currentCompany];
+    [coreDataMethods addProduct:currentProduct toCompany: self.currentCompany];
 }
 
-- (void) updateCompany:(Company *)currentCompany AtIndex:(NSInteger)index{
-    NSLog(@"updateCompany:%@",currentCompany);
-    [SQLMethods updateCompanyToSQL:currentCompany];
+- (void) updateCompany:(Company *)currentCompany {
+    [coreDataMethods updateCompany:currentCompany];
 }
 
-- (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index {
-    //    NSLog(@"updateProduct:%@, %ld",currentProduct, self.currentProductIndex);
-    [SQLMethods updateProductToSQL:currentProduct];
+
+- (void) updateProduct:(Product *)currentProduct{
+    [coreDataMethods updateProduct:currentProduct];
 }
+
+
+- (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
+     [self.companyList removeObjectAtIndex:row];
+    [SQLMethods deleteCompanyFromSQL: currentCompany];
+}
+
+- (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
+    // Delete the row from the data source
+    [self.currentCompany.productArray removeObjectAtIndex:row];
+    [SQLMethods deleteProductFromSQL: currentProduct];
+}
+
+
 
 #pragma mark Singleton Methods
 //- (void)initializeDAO {

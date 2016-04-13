@@ -20,18 +20,23 @@
 
 +(void) initModelContext;
 +(void)loadOrCreateCoreData;
++(void) loadCoreData:(NSArray *)MOresultArray;
++(void) getNewCompanyIDandProductID;
++(NSArray *) fetchProductsForCompany;
 +(void)addCompanyAndProductsToCoreData;
 
 +(void) addCompany:(Company *)currentCompany;
 +(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
+
++(void) updateCompany:(Company *)currentCompany;
++(void) updateProduct:(Product *)currentProduct;
 
 +(void) saveChanges;
 
 //+(void) deleteCompany:(Company *)currentCompany;
 //+(void) deleteProduct:(Product *)currentProduct;
 //
-//+(void) updateCompany:(Company *)currentCompany;
-//+(void) updateProduct:(Product *)currentProduct;
+
 //
 //+(void) MoveCompany:(Company *)currentCompany;
 //+(void) MoveProduct:(Product *)currentProduct toIndex:(float)newIndex;

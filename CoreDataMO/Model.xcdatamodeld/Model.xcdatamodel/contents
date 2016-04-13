@@ -5,11 +5,11 @@
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="row" optional="YES" attributeType="Float" defaultValueString="0" syncable="YES"/>
-        <attribute name="stockPrice" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="stockSymbol" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="productArray" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ProductMO" inverseName="productMO" inverseEntity="ProductMO" syncable="YES"/>
     </entity>
     <entity name="ProductMO" representedClassName="ProductMO" syncable="YES">
+        <attribute name="companyID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="logo" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="productID" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -18,7 +18,7 @@
         <relationship name="productMO" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CompanyMO" inverseName="productArray" inverseEntity="CompanyMO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="CompanyMO" positionX="-135" positionY="45" width="128" height="148"/>
-        <element name="ProductMO" positionX="153" positionY="72" width="128" height="133"/>
+        <element name="CompanyMO" positionX="-135" positionY="45" width="128" height="135"/>
+        <element name="ProductMO" positionX="153" positionY="72" width="128" height="150"/>
     </elements>
 </model>

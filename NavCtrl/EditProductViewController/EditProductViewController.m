@@ -19,7 +19,6 @@
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
-    
     // Do any additional setup after loading the view from its nib.
     if (self.currentProduct) {
         //edit mode
@@ -48,32 +47,31 @@
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
         self.currentProduct.row = self.currentRow;
-        [self.dao updateProduct:self.currentProduct AtIndex:self.currentRow];
+        [self.dao updateProduct:self.currentProduct];
         
     } else {
-        NSLog(@"newProductID=%i",self.dao.newProductID);
-        
+
         //add product mode
         self.currentProduct = [[[Product alloc]init] autorelease];
         self.currentProduct.companyID = self.currentCompany.companyID;
-        self.currentProduct.productID = ++self.dao.newProductID;
+        self.currentProduct.productID = self.dao.newProductID;
         self.currentProduct.name = self.name.text;
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
+        
+        //set row number
         long indexOfLastElement = self.currentCompany.productArray.count-1;
         if (indexOfLastElement < 0 ) {
             self.currentProduct.row =  1.0;
         } else {
-            self.currentProduct.row = self.currentCompany.productArray[indexOfLastElement].row + 1.0;
+            self.currentProduct.row = self.dao.newProductRow + 1.0;
         }
-        
         //save new product
         self.dao.currentProduct = self.currentProduct;
         [self.dao addProduct:self.currentProduct];
     }
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 
