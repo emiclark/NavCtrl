@@ -47,7 +47,7 @@
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
         self.currentProduct.row = self.currentRow;
-        [self.dao updateProduct:self.currentProduct];
+        [DAO updateProduct:self.currentProduct];
         
     } else {
 

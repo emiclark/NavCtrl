@@ -17,29 +17,30 @@
 
 @property (nonatomic, retain) NSString *archivePath;
 
-
+// setup methods
 +(void) initModelContext;
-+(void)loadOrCreateCoreData;
++(void) loadOrCreateCoreData;
 +(void) loadCoreData:(NSArray *)MOresultArray;
 +(void) getNewCompanyIDandProductID;
 +(NSArray *) fetchProductsForCompany;
-+(void)addCompanyAndProductsToCoreData;
++(void) addCompanyAndProductsToCoreData;
 
+// Company CRUD functions
 +(void) addCompany:(Company *)currentCompany;
-+(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
-
 +(void) updateCompany:(Company *)currentCompany;
++(void) deleteCompany:(Company *)currentCompany;
+
+// Product CRUD functions
++(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 +(void) updateProduct:(Product *)currentProduct;
++(void) deleteProduct:(Product *)currentProduct;
 
+#pragma mark utility functions
 +(void) saveChanges;
-
-//+(void) deleteCompany:(Company *)currentCompany;
-//+(void) deleteProduct:(Product *)currentProduct;
++(void) setUndoManager:(NSManagedObjectContext *)contextMgr;
 //
 
 //
-//+(void) MoveCompany:(Company *)currentCompany;
-//+(void) MoveProduct:(Product *)currentProduct toIndex:(float)newIndex;
 //
 //+(int) GetNoOfProductsCount;
 //

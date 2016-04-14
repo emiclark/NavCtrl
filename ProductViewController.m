@@ -119,9 +119,8 @@
 // Override to support rearranging the table view.
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
 {
-    
     self.currentProduct = [self.currentCompany.productArray objectAtIndex:sourceIndexPath.row];
-    
+
     if (self.currentCompany.productArray.count > 0){
         
         //more than 1 element
@@ -132,11 +131,13 @@
         } else if (destinationIndexPath.row == 0){
             //move to top, divide/2 the product.row index in position 1 and set to currentProduct.row
             self.currentProduct.row = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row / 2.0;
+        
         } else if (sourceIndexPath.row > destinationIndexPath.row){
             // move up
             float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row-1].row;
             float rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
             self.currentProduct.row = (rowBefore + rowAfter) / 2.0;
+        
         } else if (sourceIndexPath.row < destinationIndexPath.row){
             //move down
             float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
@@ -148,11 +149,11 @@
         self.currentProduct.row = 1.0;
     }
     
-    [SQLMethods MoveProduct:self.currentProduct toIndex:self.currentProduct.row];
+    [DAO updateProduct:self.currentProduct];
     
     [self.currentCompany.productArray removeObjectAtIndex:sourceIndexPath.row];
     [self.currentCompany.productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
-    //    [self.tableView reloadData];
+    [self.tableView reloadData];
 }
 
 // Override to support conditional rearranging of the table view.

@@ -12,37 +12,13 @@
 
 @implementation Product
 
-- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andRow:(float)row {
-    self=[super init];
-    if (self) {
-        self.name = name;
-        self.row = row;
-        self.url  = url;
-        self.logo = logo;
-    }
-    return self;
-
-}
-
-
-
-- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo {
-    self=[super init];
-    if (self) {
-        self.name = name;
-        self.url  = url;
-        self.logo = logo;
-    }
-    return self;
-}
-
 - (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(int)companyID andRow:(float)row  andProductID:(int)productID {
-    self=[super init];
+    self= [super init];
     if (self) {
-        self.name = name;
         self.companyID = companyID;
         self.productID = productID;
         self.row = row;
+        self.name = name;
         self.url  = url;
         self.logo = logo;
     }

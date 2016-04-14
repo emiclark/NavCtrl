@@ -32,28 +32,25 @@ static DAO *sharedMyManager = nil;
 }
 
 
-- (void) updateProduct:(Product *)currentProduct{
++ (void) updateProduct:(Product *)currentProduct{
     [coreDataMethods updateProduct:currentProduct];
 }
 
 
 - (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
      [self.companyList removeObjectAtIndex:row];
-    [SQLMethods deleteCompanyFromSQL: currentCompany];
+    [coreDataMethods deleteCompany: currentCompany];
 }
 
 - (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
     // Delete the row from the data source
     [self.currentCompany.productArray removeObjectAtIndex:row];
-    [SQLMethods deleteProductFromSQL: currentProduct];
+    [coreDataMethods deleteProduct: currentProduct];
 }
 
 
 
 #pragma mark Singleton Methods
-//- (void)initializeDAO {
-//   self.companyList = [[NSMutableArray alloc]init];
-//}
 
 - (NSMutableArray *) populateProducts:(Company  *)currentCompany {
     //populate DAO with Products from SQL
@@ -65,14 +62,19 @@ static DAO *sharedMyManager = nil;
 
 + (id)sharedManager {
     //ensures object is created only once
+
     @synchronized(self) {
         if(sharedMyManager == nil)
             sharedMyManager = [[super allocWithZone:NULL] init];
         }
+
     return sharedMyManager;
 }
 
-
++(void) initializeDAO {
+    [coreDataMethods initModelContext];
+    [coreDataMethods loadOrCreateCoreData];
+}
 
 - (id)copyWithZone:(NSZone *)zone {
     return self;

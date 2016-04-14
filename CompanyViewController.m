@@ -17,19 +17,14 @@
 
 @implementation CompanyViewController
 
+#pragma mark default functions
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
-    
-    //setup coreData
-    [coreDataMethods initModelContext];
-    
-    //setup DAO with coreData if exits, else init with hardcoded data
-    [coreDataMethods loadOrCreateCoreData];
+    [DAO initializeDAO];
 
     [self.tableView reloadData];
-    
     
     self.stockPrices = [[[NSArray alloc]init]autorelease];
     
@@ -72,7 +67,7 @@
 -(void) viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    //    [self updateStockPrices];
+//    [self updateStockPrices];
     [self.tableView reloadData];
     [self setEditing: NO animated: NO];
 }
@@ -84,18 +79,20 @@
     //create query string
     NSMutableString *query = [[[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="]autorelease];
     
-    NSString *temp = [[[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]]autorelease];
-    NSLog(@"%ld, %@",self.dao.companyList.count, temp);
+//    NSString *temp = [[[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]]autorelease];
     
-    for (int i=0; i < self.dao.companyList.count-1; i++) {
-        //concatenate symbol names to end of url
-        [query appendString:[(Company*)self.dao.companyList[i] stockSymbol]];
-        [query appendString:@"+"];
-    }
+    NSString *joinedString = [[[DAO sharedManager] companyList] componentsJoinedByString:@"+"];
     
-    int lastItem = (int)self.dao.companyList.count-1;
+//    for (int i=0; i < self.dao.companyList.count-1; i++) {
+//        //concatenate symbol names to end of url
+//        [query appendString:[(Company*)self.dao.companyList[i] stockSymbol]];
+//        [query appendString:@"+"];
+//    }
+//    
+//    int lastItem = (int)self.dao.companyList.count-1;
     
-    [query appendString:[(Company*)[self.dao.companyList objectAtIndex:lastItem] stockSymbol]];
+    [query appendString:joinedString];
+//    [query appendString:[(Company*)[self.dao.companyList objectAtIndex:lastItem] stockSymbol]];
     [query appendString:@"&f=l1"];
     NSLog(@"query: %@",query);
     
@@ -142,7 +139,6 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
@@ -210,9 +206,12 @@
     for (int i = 0; i < self.dao.companyList.count; i++){
         Company *company = self.dao.companyList[i];
         [company setRow:i];
-        NSLog(@"%@", company.name);
-        [SQLMethods MoveCompany:company];
+        [coreDataMethods updateCompany:company];
+
     }
+//    for (int i = 0; i < self.dao.companyList.count; i++){
+//        NSLog(@"%@: %ld", [self.dao.companyList[i] name], (long)[(Company*)self.dao.companyList[i] row]);
+//    }
     [itemToMove release];
 }
 
@@ -262,13 +261,11 @@
     [super dealloc];
 }
 
-
+#pragma mark NSRULSession delegate functions 
 -(void) URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
-    
 }
 
 -(void) NSURLSessionDownloadDelegate {
-    
 }
 
 @end
