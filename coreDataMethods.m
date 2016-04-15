@@ -22,7 +22,6 @@ static NSString *path;
 
 +(void) initModelContext {
     if(!context){
-        
     
     //get path and filename to store
     NSArray *documentsDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -45,15 +44,14 @@ static NSString *path;
     NSLog(@"%@\n\n",storeURL);
     
     context = [[NSManagedObjectContext alloc] init];
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
     //Add an undo manager
     context.undoManager = [[NSUndoManager alloc] init];
-    [coreDataMethods setUndoManager:context.undoManager];
+    [context setUndoManager:context.undoManager ];
     
     
     //3. Now the context points to the SQLite store
     [context setPersistentStoreCoordinator:psc];
-    
     }
 }
 
@@ -62,10 +60,6 @@ static NSString *path;
     
     // Loads all companies from Core Data Company table into tableview datasource.
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
-    
-    // A predicate template can also be used
-    //    NSPredicate *p = [NSPredicate predicateWithFormat:@"row"];
-    //    [request setPredicate:p];
     
     //Change ascending  YES/NO and validate
     NSSortDescriptor *sortByPk = [[NSSortDescriptor alloc]
@@ -300,6 +294,7 @@ static NSString *path;
     [microsoft.productArray addObject: Surface ];
     [coreDataMethods addProduct:Surface toCompany:microsoft];
     
+    [coreDataMethods saveChanges];
 }
 
 
@@ -346,10 +341,8 @@ static NSString *path;
     [companyMO setName:currentCompany.name];
     [companyMO setStockSymbol:currentCompany.stockSymbol];
     [companyMO setLogo:currentCompany.logo];
-    
-    [coreDataMethods saveChanges];
-    
 }
+
 
 +(void) deleteCompany:(Company *)currentCompany{
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -363,14 +356,15 @@ static NSString *path;
     if (result!=nil) {
         //Remove object from context
         [context deleteObject:result.firstObject];
-        
-        //Save
-        [coreDataMethods saveChanges];
     }
 }
 
-#pragma mark Product CRUD functions
++(void) undoCompany {
+    [context undo];
+    [coreDataMethods reloadCompaniesFromContext];
+}
 
+#pragma mark Product CRUD functions
 
 +(void) addProduct:(Product *)currentProduct  toCompany:(Company*)currentCompany {
     DAO *dao = [DAO sharedManager];
@@ -381,19 +375,19 @@ static NSString *path;
     NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:dao.currentCompany.companyID];
     
     //Add this object to the contex. Nothing happens till it is saved
-    ProductMO *product = [NSEntityDescription insertNewObjectForEntityForName: @"ProductMO" inManagedObjectContext: context];
+    ProductMO *productMO = [NSEntityDescription insertNewObjectForEntityForName: @"ProductMO" inManagedObjectContext: context];
     
-    [product setProductID: pk ];
-    [product setCompanyID:tempCompanyID];
-    [product setRow:tempRow];
-    [product setName: currentProduct.name];
-    [product setUrl:currentProduct.url];
-    [product setLogo:currentProduct.logo];
+    [productMO setProductID: pk ];
+    [productMO setCompanyID:tempCompanyID];
+    [productMO setRow:tempRow];
+    [productMO setName: currentProduct.name];
+    [productMO setUrl:currentProduct.url];
+    [productMO setLogo:currentProduct.logo];
     
-    [coreDataMethods saveChanges];
     ++dao.newProductID;
     ++dao.newProductRow;
 }
+
 
 +(void) updateProduct:(Product *)currentProduct {
 
@@ -413,12 +407,11 @@ static NSString *path;
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }else if (result.count == 1) {
     
-        for (ProductMO *obj in result) {
-            [obj setValue:currentProduct.name forKey:@"name"];
-            [obj setValue:productRow forKey:@"row"];
-            [obj setValue:currentProduct.url forKey:@"url"];
-            [obj setValue:currentProduct.logo forKey:@"logo"];
-            [coreDataMethods saveChanges];
+        for (ProductMO *productMO in result) {
+            [productMO setValue:currentProduct.name forKey:@"name"];
+            [productMO setValue:productRow forKey:@"row"];
+            [productMO setValue:currentProduct.url forKey:@"url"];
+            [productMO setValue:currentProduct.logo forKey:@"logo"];
         }
     }
     NSLog(@"updateProduct:%@, result%@",currentProduct, result);
@@ -427,7 +420,7 @@ static NSString *path;
 
 +(void) deleteProduct:(Product *)currentProduct{
    
-     NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *e = [NSEntityDescription entityForName:@"ProductMO" inManagedObjectContext:context];
     [request setEntity:e];
     NSPredicate *p = [NSPredicate predicateWithFormat:@"productID = %i",currentProduct.productID];
@@ -438,9 +431,6 @@ static NSString *path;
     if (result!=nil) {
         //Remove object from context
         [context deleteObject:result.firstObject];
-        
-        //Save
-        [coreDataMethods saveChanges];
     }
 }
 
@@ -456,39 +446,97 @@ static NSString *path;
     }
 }
 
-//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-+(void) setUndoManager:(NSManagedObjectContext *)contextMgr{
++(void) undoProductForCompany:(Company *) currentCompany {
+    //set undo
+    [context undo];
     
+    //reload from context
+    [coreDataMethods reloadProductsFromContextForCompany: currentCompany];
 }
-//*******************************************=========
 
 
-//+(NSArray *) fetchCompanies {
-//    
-//    // fetch all companies from Core Data
-//    NSFetchRequest *request = [[NSFetchRequest alloc]init];
-//    
-//    //Change ascending  YES/NO and validate
-//    NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc]
-//                                   initWithKey:@"row" ascending:YES];
-//    
-//    [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
-//    
-//    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
-//    [request setEntity:e];
-//
-//    NSError *error = nil;
-//    
-//    //This gets data only from context, not from store
-//    NSArray *result = [context executeFetchRequest:request error:&error];
-//    
-//    if(!result){
-//        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
-//    }
-//    return result;
-//    
-//}
++(void) reloadCompaniesFromContext {
+    
+    // fetch all companies from Core Data
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc] initWithKey:@"row" ascending:YES];
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(result){
+        
+        [[[DAO sharedManager ] companyList] removeAllObjects];
+        
+        //convert MO to Company and populate companyList
+        for (CompanyMO *companyMO in result) {
+            Company *company = [[Company alloc]init];
+            
+            company.companyID = (int)[companyMO.companyID integerValue];
+            company.row = [companyMO.row floatValue];
+            company.name = companyMO.name;
+            company.stockSymbol = companyMO.stockSymbol;
+            company.logo = companyMO.logo;
+            
+            //fetch all products for the company
+            company.productArray = [[NSMutableArray alloc]init];
+            
+            [coreDataMethods reloadProductsFromContextForCompany: company];
+            [[[DAO sharedManager ] companyList ] addObject:company];
+        }
+    }else {
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+}
 
+
++(void) reloadProductsFromContextForCompany:(Company *) currentCompany {
+    
+    // fetch all companies from Core Data
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    NSPredicate *p = [NSPredicate predicateWithFormat:@"companyID = %i",currentCompany.companyID];
+    [request setPredicate:p];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc] initWithKey:@"row" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(result){
+    
+        [currentCompany.productArray removeAllObjects];
+    
+        //convert MO to Product and populate productArray
+        for (ProductMO *productMO in result) {
+            Product *product = [[Product alloc]init];
+            
+            product.companyID = (int)[productMO.companyID integerValue];
+            product.productID = (int)[productMO.productID integerValue];
+            product.row = [productMO.row floatValue];
+            product.name = productMO.name;
+            product.url = productMO.url;
+            product.logo = productMO.logo;
+            
+            [currentCompany.productArray addObject: product];
+        }
+    }else {
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+}
 
 @end

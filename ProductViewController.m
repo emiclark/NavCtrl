@@ -24,13 +24,30 @@
     self.dao = [DAO sharedManager];
     
     UIBarButtonItem *addButton = [[[UIBarButtonItem alloc]
-                                   initWithTitle:@"Add New Product /"
+                                   initWithTitle:@" / Add New Product"
                                    style:UIBarButtonItemStyleBordered
                                    target:self
-                                   action:@selector(addButton:)]autorelease];
+                                   action:@selector(addButtonTapped:)]autorelease];
     
-    NSArray *buttons = [[[NSArray alloc]initWithObjects: self.editButtonItem, addButton, nil] autorelease ];
-    self.navigationItem.rightBarButtonItems = buttons;
+    
+    UIBarButtonItem *undoButton = [[[UIBarButtonItem alloc]
+                                   initWithTitle:@"Undo /"
+                                   style:UIBarButtonItemStyleBordered
+                                   target:self
+                                    action:@selector(undoButtonTapped:)]autorelease];
+    
+    UIBarButtonItem *saveButton = [[[UIBarButtonItem alloc]
+                                    initWithTitle:@"Save /"
+                                    style:UIBarButtonItemStyleBordered
+                                    target:self
+                                    action:@selector(SaveButtonTapped:)]autorelease];
+    
+    // Display an Edit 'Add New Product' and Undo button on the RHS navigation bar for this view controller.
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, saveButton, nil];
+    
+    // Display an Back and Save button on the LHS navigation bar for this view controller.
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects: addButton, nil];
+    self.navigationItem.leftItemsSupplementBackButton = YES;
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;
@@ -47,7 +64,7 @@
     [self setEditing: NO animated: NO];
 }
 
--(void)addButton:(id)sender {
+-(void)addButtonTapped:(id)sender {
     
     self.editProductViewController = [[[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil] autorelease];
     self.editProductViewController.currentCompany = self.currentCompany;
@@ -55,6 +72,15 @@
     [self.navigationController pushViewController: self.editProductViewController animated:YES];
     
 }
+
+-(void)undoButtonTapped:(id)sender {
+    [DAO undoProductforCompany];
+}
+
+-(void)SaveButtonTapped:(id)sender {
+    [DAO save];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

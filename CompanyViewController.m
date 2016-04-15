@@ -8,6 +8,7 @@
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 
 #import "CompanyViewController.h"
+#import "coreDataMethods.h"
 
 
 @interface CompanyViewController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
@@ -40,20 +41,39 @@
     
     self.productViewController = [[[ProductViewController alloc] init] autorelease];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    //add button on LHS
+    //add Add New Company button on LHS
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
     addButton.action = @selector(addNewCompany);
     addButton.title = @"Add New Company";
     addButton.target = self;
     self.navigationItem.leftBarButtonItem = addButton;
+
+    //add Save button on LHS
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]init];
+    saveButton.action = @selector(saveButtonTapped);
+    saveButton.title = @"Save /";
+    saveButton.target = self;
+    self.navigationItem.leftBarButtonItem = saveButton;
+    
+    //add Undo button RHS
+    UIBarButtonItem *undoButton = [[UIBarButtonItem alloc]init];
+    undoButton.action = @selector(undoCompany);
+    undoButton.title = @"Undo /";
+    undoButton.target = self;
+    
+    // Display an 'Add New Company' and Save button on the LHS navigation bar for this view controller.
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:addButton, nil];
+    
+    // Display an Edit and Undo button on the RHS navigation bar for this view controller.
+//    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, nil];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, saveButton, nil];
+    
     
     self.title = @"Mobile device makers";
 
     [self.tableView reloadData];
 }
+
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -72,16 +92,22 @@
     [self setEditing: NO animated: NO];
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark Company Methods
 -(void)updateStockPrices {
     
     // request for stock prices using Yahoo API
-    
     //create query string
     NSMutableString *query = [[[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="]autorelease];
     
 //    NSString *temp = [[[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]]autorelease];
     
-    NSString *joinedString = [[[DAO sharedManager] companyList] componentsJoinedByString:@"+"];
+    NSString *joinedString = [[[self.dao.companyList objectAtIndex:0] stockSymbol ] componentsJoinedByString:@"+"];
     
 //    for (int i=0; i < self.dao.companyList.count-1; i++) {
 //        //concatenate symbol names to end of url
@@ -132,10 +158,15 @@
     [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+-(void) undoCompany {
+    [DAO undoCompany];
+    [self.tableView reloadData];
+}
+
+-(void) saveButtonTapped {
+    [DAO save];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -176,8 +207,6 @@
     return YES;
 }
 
-
-
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -193,7 +222,6 @@
 }
 
 // Override to support rearranging the table view.
-
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
     Company *itemToMove;
@@ -206,13 +234,13 @@
     for (int i = 0; i < self.dao.companyList.count; i++){
         Company *company = self.dao.companyList[i];
         [company setRow:i];
-        [coreDataMethods updateCompany:company];
+        [DAO updateCompany:company];
 
     }
-//    for (int i = 0; i < self.dao.companyList.count; i++){
-//        NSLog(@"%@: %ld", [self.dao.companyList[i] name], (long)[(Company*)self.dao.companyList[i] row]);
-//    }
+    [DAO undoCompany];
+    [self.tableView reloadData];
     [itemToMove release];
+
 }
 
 
@@ -257,15 +285,17 @@
     }
 }
 
-- (void)dealloc {
-    [super dealloc];
-}
 
 #pragma mark NSRULSession delegate functions 
 -(void) URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
 }
 
+
 -(void) NSURLSessionDownloadDelegate {
 }
 
+#pragma mark Misc Methods
+- (void)dealloc {
+    [super dealloc];
+}
 @end

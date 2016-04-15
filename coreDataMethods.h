@@ -16,6 +16,7 @@
 @interface coreDataMethods : NSObject
 
 @property (nonatomic, retain) NSString *archivePath;
+@property (nonatomic, retain) NSUndoManager *undoManager;
 
 // setup methods
 +(void) initModelContext;
@@ -29,22 +30,19 @@
 +(void) addCompany:(Company *)currentCompany;
 +(void) updateCompany:(Company *)currentCompany;
 +(void) deleteCompany:(Company *)currentCompany;
++(void) undoCompany;
 
 // Product CRUD functions
 +(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 +(void) updateProduct:(Product *)currentProduct;
 +(void) deleteProduct:(Product *)currentProduct;
++(void) undoProductForCompany:(Company *)currentCompany;
+
 
 #pragma mark utility functions
 +(void) saveChanges;
-+(void) setUndoManager:(NSManagedObjectContext *)contextMgr;
-//
-
-//
-//
-//+(int) GetNoOfProductsCount;
-//
-
++(void) reloadCompaniesFromContext;
++(void) reloadProductsFromContextForCompany:(Company *) currentCompany;
 
 
 @end

@@ -24,5 +24,7 @@
 @property ( nonatomic, retain) Product *currentProduct;
 @property ( nonatomic, retain) DAO  *dao;
 
--(void) addButton:(id)sender;
+-(void) addButtonTapped:(id)sender;
+-(void) undoButtonTapped:(id)sender;
+-(void) saveButtonTapped:(id)sender;
 @end

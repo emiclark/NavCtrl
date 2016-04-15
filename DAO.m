@@ -16,51 +16,53 @@ static DAO *sharedMyManager = nil;
 
 @implementation DAO
 
-
-- (void) addCompany:(Company *)currentCompany{
+#pragma mark Company CRUD methods
+-(void) addCompany:(Company *)currentCompany{
     [self.companyList addObject:currentCompany];
     [coreDataMethods addCompany:currentCompany];
 }
 
-- (void) addProduct:(Product *)currentProduct {
++(void) updateCompany:(Company *)currentCompany {
+    [coreDataMethods updateCompany:currentCompany];
+}
+
+-(void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
+    [self.companyList removeObjectAtIndex:row];
+    [coreDataMethods deleteCompany: currentCompany];
+}
+
++(void) undoCompany {
+    [coreDataMethods undoCompany];
+}
+
++ (void) save {
+    [coreDataMethods saveChanges];
+}
+
+#pragma mark Product CRUD methods
+
+-(void) addProduct:(Product *)currentProduct {
     [self.currentCompany.productArray addObject:currentProduct];
     [coreDataMethods addProduct:currentProduct toCompany: self.currentCompany];
 }
 
-- (void) updateCompany:(Company *)currentCompany {
-    [coreDataMethods updateCompany:currentCompany];
-}
-
-
-+ (void) updateProduct:(Product *)currentProduct{
++(void) updateProduct:(Product *)currentProduct{
     [coreDataMethods updateProduct:currentProduct];
 }
 
-
-- (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
-     [self.companyList removeObjectAtIndex:row];
-    [coreDataMethods deleteCompany: currentCompany];
-}
-
-- (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
+-(void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row {
     // Delete the row from the data source
     [self.currentCompany.productArray removeObjectAtIndex:row];
     [coreDataMethods deleteProduct: currentProduct];
 }
 
-
++(void) undoProductforCompany {
+    [coreDataMethods undoProductForCompany: [[DAO sharedManager] currentCompany]];
+}
 
 #pragma mark Singleton Methods
 
-- (NSMutableArray *) populateProducts:(Company  *)currentCompany {
-    //populate DAO with Products from SQL
-    self.currentCompany.productArray = [SQLMethods populateProductsFromSQL:currentCompany];
-    return self.currentCompany.productArray;
-}
-
-
-
-+ (id)sharedManager {
++(id)sharedManager {
     //ensures object is created only once
 
     @synchronized(self) {
@@ -76,28 +78,30 @@ static DAO *sharedMyManager = nil;
     [coreDataMethods loadOrCreateCoreData];
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+#pragma mark Miscellaneous Methods
+
+-(id)copyWithZone:(NSZone *)zone {
     return self;
 }
 
-+ (id)allocWithZone:(NSZone *)zone {
++(id)allocWithZone:(NSZone *)zone {
     return [[self sharedManager] retain];
 }
 
 
-- (id)retain {
+-(id)retain {
     return self;
 }
 
-- (oneway void)release {
+-(oneway void)release {
     // never release
 }
 
-- (id)autorelease {
+-(id)autorelease {
     return self;
 }
 
-- (void)dealloc {
+-(void)dealloc {
     // Should never be called, but just here for clarity really.
     [super dealloc];
     

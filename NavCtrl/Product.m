@@ -12,7 +12,7 @@
 
 @implementation Product
 
-- (id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(int)companyID andRow:(float)row  andProductID:(int)productID {
+-(id) initWithName:(NSString*)name andUrl:(NSString*)url andLogo:(NSString*)logo andCompanyID:(int)companyID andRow:(float)row  andProductID:(int)productID {
     self= [super init];
     if (self) {
         self.companyID = companyID;

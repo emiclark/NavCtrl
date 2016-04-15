@@ -27,27 +27,25 @@
 
 @property (nonatomic, retain) NSMutableArray *companyList;
 
-+ (id)sharedManager;
-//- (instancetype) init;
-+ (void) initializeDAO;
 
-- (NSMutableArray *) populateProducts:(Company  *)currentCompany ;
+// Singleton Methods
++(id)sharedManager;
++(void) initializeDAO;
 
-- (void) addCompany:(Company *)currentCompany;
-- (void) addProduct:(Product *)currentProduct;
+// Company CRUD Methods
+-(void) addCompany:(Company *)currentCompany;
++(void) updateCompany:(Company *)currentCompany;
+-(void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
++(void) undoCompany;
++(void) save;
 
-- (void) updateCompany:(Company *)currentCompany;
-+ (void) updateProduct:(Product *)currentProduct;
-//- (void) updateCompany:(Company *)currentCompany AtIndex:(NSInteger)index;
-//- (void) updateProduct:(Product *)currentProduct AtIndex:(NSInteger)index;
+// Product CRUD Methods
+-(void) addProduct:(Product *)currentProduct;
++(void) updateProduct:(Product *)currentProduct;
+-(void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
++(void) undoProductforCompany;
 
-- (void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
-- (void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
-
-
-
-
-
+//- (void) undoProductforCompany:(Company*)currentCompany;
 
 @end
 

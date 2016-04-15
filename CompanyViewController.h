@@ -22,14 +22,14 @@
 @interface CompanyViewController : UITableViewController
 
 @property ( nonatomic, retain) DAO  *dao;
-
 @property ( nonatomic, retain) IBOutlet ProductViewController *productViewController;
 @property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
 @property ( nonatomic, retain) Company   *currentCompany;
-@property int currentRow;
+@property ( nonatomic, strong) NSArray *stockPrices;
 
-@property (nonatomic, strong) NSArray *stockPrices;
-
--(void)updateStockPrices;
+-(void) updateStockPrices;
+-(void) addNewCompany;
+-(void) undoCompany;
+-(void) saveButtonTapped;
 
 @end

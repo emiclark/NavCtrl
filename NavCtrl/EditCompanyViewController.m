@@ -69,7 +69,7 @@
         self.currentCompany.name = self.name.text;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
-        [self.dao  updateCompany:self.currentCompany];
+        [DAO  updateCompany:self.currentCompany];
         
 
     } else  {
@@ -91,7 +91,6 @@
         //save currentCompany to DAO/CoreData
         [self.dao addCompany:self.currentCompany];
         [self.companyViewController.tableView reloadData];
-        
     }
     
     //return to rootViewController
