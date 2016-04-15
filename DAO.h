@@ -11,8 +11,8 @@
 #import <Foundation/Foundation.h>
 #import "Company.h"
 #import "Product.h"
-#import "sqlite3.h"
-#import "SQLMethods.h"
+//#import "sqlite3.h"
+//#import "SQLMethods.h"
 
 @interface DAO : NSObject
 
@@ -33,7 +33,7 @@
 +(void) initializeDAO;
 
 // Company CRUD Methods
--(void) addCompany:(Company *)currentCompany;
++(void) addCompany:(Company *)currentCompany;
 +(void) updateCompany:(Company *)currentCompany;
 -(void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row;
 +(void) undoCompany;
@@ -43,9 +43,13 @@
 -(void) addProduct:(Product *)currentProduct;
 +(void) updateProduct:(Product *)currentProduct;
 -(void) deleteProduct:(Product *)currentProduct atRow:(NSInteger)row;
-+(void) undoProductforCompany;
++(void) undoProduct;
 
 //- (void) undoProductforCompany:(Company*)currentCompany;
+
+// Utility Methods
++(float) getNewCompanyRowNumber;
++(float) getNewProductRowNumber;
 
 @end
 

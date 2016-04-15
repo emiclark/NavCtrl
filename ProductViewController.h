@@ -12,6 +12,7 @@
 #import "WebViewController.h"
 #import "DAO.h"
 #import "Product.h"
+
 @class EditProductViewController;
 
 @interface ProductViewController : UITableViewController

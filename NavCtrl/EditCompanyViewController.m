@@ -81,15 +81,14 @@
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
         
-        long indexOfLastElement = self.dao.companyList.count-1;
-        if (indexOfLastElement < 0 ) {
-            self.currentCompany.row =  1.0;
-        } else {
-            self.currentCompany.row = [(Company*)[self.dao.companyList objectAtIndex:indexOfLastElement] row];
-            self.currentCompany.row = self.currentCompany.row + 1.0;
-        }
+        //get row number for new company
+        self.currentCompany.row = [DAO getNewCompanyRowNumber];
+        self.dao.currentCompany = self.currentCompany;
+        
         //save currentCompany to DAO/CoreData
-        [self.dao addCompany:self.currentCompany];
+        [DAO addCompany:self.currentCompany];
+        [DAO save];
+        
         [self.companyViewController.tableView reloadData];
     }
     

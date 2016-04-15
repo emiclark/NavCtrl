@@ -58,17 +58,15 @@
         self.currentProduct.name = self.name.text;
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
-        
-        //set row number
-        long indexOfLastElement = self.currentCompany.productArray.count-1;
-        if (indexOfLastElement < 0 ) {
-            self.currentProduct.row =  1.0;
-        } else {
-            self.currentProduct.row = self.dao.newProductRow + 1.0;
-        }
-        //save new product
+
+        //get row number for newproduct
+        self.currentProduct.row = [DAO getNewProductRowNumber];
+
+        //add new product and save
         self.dao.currentProduct = self.currentProduct;
-        [self.dao addProduct:self.currentProduct];
+        [self.dao addProduct: self.currentProduct];
+        
+        [DAO save];
     }
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];

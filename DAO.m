@@ -17,8 +17,8 @@ static DAO *sharedMyManager = nil;
 @implementation DAO
 
 #pragma mark Company CRUD methods
--(void) addCompany:(Company *)currentCompany{
-    [self.companyList addObject:currentCompany];
++(void) addCompany:(Company *)currentCompany{
+    [[[DAO sharedManager] companyList] addObject:currentCompany];
     [coreDataMethods addCompany:currentCompany];
 }
 
@@ -56,8 +56,8 @@ static DAO *sharedMyManager = nil;
     [coreDataMethods deleteProduct: currentProduct];
 }
 
-+(void) undoProductforCompany {
-    [coreDataMethods undoProductForCompany: [[DAO sharedManager] currentCompany]];
++(void) undoProduct{
+    [coreDataMethods undoProduct];    
 }
 
 #pragma mark Singleton Methods
@@ -75,10 +75,20 @@ static DAO *sharedMyManager = nil;
 
 +(void) initializeDAO {
     [coreDataMethods initModelContext];
-    [coreDataMethods loadOrCreateCoreData];
+    [coreDataMethods checkToLoadOrCreateCoreData];
 }
 
 #pragma mark Miscellaneous Methods
+
++(float) getNewCompanyRowNumber {
+    float newProdRow =[coreDataMethods getNewCompanyRowNumber];
+    return newProdRow;
+}
+
++(float) getNewProductRowNumber {
+    float newProdRow =[coreDataMethods getNewProductRowNumber];
+    return newProdRow;
+}
 
 -(id)copyWithZone:(NSZone *)zone {
     return self;

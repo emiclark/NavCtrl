@@ -10,8 +10,6 @@
 #import "ProductViewController.h"
 #import "EditProductViewController.h"
 
-#import "DAO.h"
-
 @interface ProductViewController ()
 @end
 
@@ -40,7 +38,7 @@
                                     initWithTitle:@"Save /"
                                     style:UIBarButtonItemStyleBordered
                                     target:self
-                                    action:@selector(SaveButtonTapped:)]autorelease];
+                                    action:@selector(saveButtonTapped:)]autorelease];
     
     // Display an Edit 'Add New Product' and Undo button on the RHS navigation bar for this view controller.
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, saveButton, nil];
@@ -74,10 +72,11 @@
 }
 
 -(void)undoButtonTapped:(id)sender {
-    [DAO undoProductforCompany];
+    [DAO undoProduct];
+    [self.tableView reloadData];
 }
 
--(void)SaveButtonTapped:(id)sender {
+-(void)saveButtonTapped:(id)sender {
     [DAO save];
 }
 

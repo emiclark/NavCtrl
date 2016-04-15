@@ -20,11 +20,11 @@
 
 // setup methods
 +(void) initModelContext;
-+(void) loadOrCreateCoreData;
-+(void) loadCoreData:(NSArray *)MOresultArray;
-+(void) getNewCompanyIDandProductID;
-+(NSArray *) fetchProductsForCompany;
++(void) checkToLoadOrCreateCoreData;
 +(void) addCompanyAndProductsToCoreData;
++(void) loadCoreData:(NSArray *)MOresultArray;
++(NSArray *) fetchProductsForCompany;
+
 
 // Company CRUD functions
 +(void) addCompany:(Company *)currentCompany;
@@ -36,12 +36,16 @@
 +(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 +(void) updateProduct:(Product *)currentProduct;
 +(void) deleteProduct:(Product *)currentProduct;
-+(void) undoProductForCompany:(Company *)currentCompany;
-
++(void) undoProduct;
+//+(void) undoProductForCompany:(Company *)currentCompany;
 
 #pragma mark utility functions
 +(void) saveChanges;
++(float) getNewCompanyRowNumber;
++(float) getNewProductRowNumber;
++(void) getNewCompanyIDandProductID;
 +(void) reloadCompaniesFromContext;
+//+(void) reloadProductsFromContextForCompany;
 +(void) reloadProductsFromContextForCompany:(Company *) currentCompany;
 
 

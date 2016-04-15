@@ -56,7 +56,7 @@ static NSString *path;
 }
 
 
-+(void)loadOrCreateCoreData {
++(void)checkToLoadOrCreateCoreData {
     
     // Loads all companies from Core Data Company table into tableview datasource.
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
@@ -74,143 +74,18 @@ static NSString *path;
     //This gets data only from context, not from store
     NSArray *result = [context executeFetchRequest:request error:&error];
     
-    NSLog(@"companies:result.count>>: %ld",result.count);
     if(!result){
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }else if (result.count > 0) {
         [coreDataMethods loadCoreData:result ];
         
     }else if (result.count == 0) {
+        //add companies and products to store if model.data (data) is nonexistant
         [coreDataMethods addCompanyAndProductsToCoreData];
-    }
-}
-
-+ (void) loadCoreData: (NSArray *)MOresultArray {
-    
-    //load all MO objects from coreData to DAO
-    DAO *dao = [DAO sharedManager];
-    dao.companyList = [[NSMutableArray alloc]init];
-    
-    //initialize newcompanyID
-    dao.newCompanyID = (int)MOresultArray.count;
-    
-    //convert companyMO to company
-    for (CompanyMO *companyMO in MOresultArray) {
-        Company *company = [[Company alloc]init];
         
-        long companyID = [companyMO.companyID integerValue];
-        float row = [companyMO.row floatValue ];
-        
-        company.companyID = (int) companyID;
-        company.row  = row;
-        company.name = companyMO.name;
-        company.stockSymbol = companyMO.stockSymbol;
-        company.logo = companyMO.logo;
-        
-        company.productArray = [[NSMutableArray alloc]init];
-        
-        NSArray *allProductsArray = [coreDataMethods fetchProductsForCompany];
-        if (allProductsArray.count > 0) {
-            
-            //initialize/convert product array for each company
-            for (ProductMO *productMO in allProductsArray) {
-                if (companyMO.companyID == productMO.companyID) {
-                    Product *product = [[Product alloc ]init];
-                    product.productID = (int)[productMO.productID integerValue];
-                    product.name   = productMO.name;
-                    product.row = [productMO.row floatValue];
-                    product.companyID = (int)[productMO.companyID integerValue];
-                    product.url = productMO.url;
-                    product.logo = productMO.logo;
-                    
-                    [company.productArray addObject:product];
-                }
-            }
-            [dao.companyList addObject:company];
-        }
+        //initialize newcompanyID and newproductID for new company and products
+        [coreDataMethods getNewCompanyIDandProductID];
     }
-    //initialize newcompanyID and newproductID for next company and products
-    [coreDataMethods getNewCompanyIDandProductID];
-}
-
-+(void) getNewCompanyIDandProductID {
-    DAO *dao = [DAO sharedManager];
-    
-    //get newCompanyID ==
-    // fetch all companies from Core Data
-    NSFetchRequest *requestCompany = [[NSFetchRequest alloc]init];
-    
-    //Change ascending  YES/NO and validate
-    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
-                                   initWithKey:@"companyID" ascending:YES];
-    
-    [requestCompany setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
-    
-    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
-    [requestCompany setEntity:e];
-    NSError *error = nil;
-    
-    //This gets data only from context, not from store
-    NSArray *Companyresult = [context executeFetchRequest:requestCompany error:&error];
-    
-    if(!Companyresult){
-        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
-    }
-    CompanyMO *companyMO = [Companyresult lastObject];
-    
-    long companyID = [companyMO.companyID integerValue];
-    dao.newCompanyID = (int)companyID+1;
-    
-    //  get newProductID   ==
-    
-    // fetch all companies from Core Data
-    NSFetchRequest *requestProducts = [[NSFetchRequest alloc]init];
-    
-    //Change ascending  YES/NO and validate
-    NSSortDescriptor *sortByKey2 = [[NSSortDescriptor alloc]
-                                    initWithKey:@"productID" ascending:YES];
-    
-    [requestProducts setSortDescriptors:[NSArray arrayWithObject:sortByKey2]];
-    
-    NSEntityDescription *e2 = [[model entitiesByName] objectForKey:@"ProductMO"];
-    [requestProducts setEntity:e2];
-    NSError *error2 = nil;
-    
-    //This gets data only from context, not from store
-    NSArray *Productresult = [context executeFetchRequest:requestProducts error:&error2];
-    
-    if(!Productresult){
-        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
-    }
-    ProductMO *productMO = [Productresult lastObject];
-    
-    long productID = [productMO.productID integerValue];
-    dao.newProductID = (int)productID+1;
-}
-
-+(NSArray *) fetchProductsForCompany {
-    
-    // fetch all products from Core Data
-    NSFetchRequest *request = [[NSFetchRequest alloc]init];
-    
-    //Change ascending  YES/NO and validate
-    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
-                                   initWithKey:@"row" ascending:YES];
-    
-    [request setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
-    
-    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
-    [request setEntity:e];
-    NSError *error = nil;
-    
-    //This gets data only from context, not from store
-    NSArray *result = [context executeFetchRequest:request error:&error];
-    
-    if(!result){
-        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
-    }
-    return result;
-    
 }
 
 +(void)addCompanyAndProductsToCoreData{
@@ -298,6 +173,82 @@ static NSString *path;
 }
 
 
++ (void) loadCoreData: (NSArray *)MOresultArray {
+
+    DAO *dao = [DAO sharedManager];
+
+    //initialize newcompanyID
+    dao.newCompanyID = (int)MOresultArray.count;
+
+    //load all MO objects from coreData and initialize DAO
+    dao.companyList = [[NSMutableArray alloc]init];
+
+    //convert companyMO to company
+    for (CompanyMO *companyMO in MOresultArray) {
+        Company *company = [[Company alloc]init];
+        
+        long companyID = [companyMO.companyID integerValue];
+        float row = [companyMO.row floatValue ];
+        
+        company.companyID = (int) companyID;
+        company.row  = row;
+        company.name = companyMO.name;
+        company.stockSymbol = companyMO.stockSymbol;
+        company.logo = companyMO.logo;
+        
+        //initialize productArray for each company
+        company.productArray = [[NSMutableArray alloc]init];
+        
+        NSArray *allProductsArray = [coreDataMethods fetchProductsForCompany];
+        if (allProductsArray.count > 0) {
+            
+            //initialize/convert product array for each company
+            for (ProductMO *productMO in allProductsArray) {
+                if (companyMO.companyID == productMO.companyID) {
+                    Product *product = [[Product alloc ]init];
+                    product.productID = (int)[productMO.productID integerValue];
+                    product.name   = productMO.name;
+                    product.row = [productMO.row floatValue];
+                    product.companyID = (int)[productMO.companyID integerValue];
+                    product.url = productMO.url;
+                    product.logo = productMO.logo;
+                    
+                    [company.productArray addObject:product];
+                }
+            }
+            [dao.companyList addObject:company];
+        }
+    }
+}
+
+
++(NSArray *) fetchProductsForCompany {
+    
+    // fetch all products from Core Data
+    NSFetchRequest *request = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
+                                   initWithKey:@"row" ascending:YES];
+    
+    [request setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [request setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if(!result){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    return result;
+    
+}
+
+
+
 #pragma mark Company CRUD functions
 
 +(void) addCompany:(Company *)currentCompany {
@@ -315,7 +266,6 @@ static NSString *path;
     [company setLogo:currentCompany.logo];
     [context insertObject:company];
     
-    [coreDataMethods saveChanges];
     ++dao.newCompanyID;
     ++dao.newCompanyRow;
 }
@@ -364,6 +314,7 @@ static NSString *path;
     [coreDataMethods reloadCompaniesFromContext];
 }
 
+
 #pragma mark Product CRUD functions
 
 +(void) addProduct:(Product *)currentProduct  toCompany:(Company*)currentCompany {
@@ -371,7 +322,8 @@ static NSString *path;
     
     // get primary key, row number, companyID
     NSNumber *pk = [NSNumber numberWithInteger:dao.newProductID];
-    NSNumber *tempRow = [[NSNumber alloc]initWithFloat: dao.newProductRow];
+//    NSNumber *tempRow = [[NSNumber alloc]initWithFloat: dao.newProductRow];
+        NSNumber *tempRow = [[NSNumber alloc]initWithFloat: currentProduct.row];
     NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:dao.currentCompany.companyID];
     
     //Add this object to the contex. Nothing happens till it is saved
@@ -392,6 +344,8 @@ static NSString *path;
 +(void) updateProduct:(Product *)currentProduct {
 
     //update currentProduct and save
+    NSNumber *productID = [[NSNumber alloc]initWithInteger:currentProduct.productID];
+    NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentProduct.companyID];
     NSNumber *productRow = [[NSNumber alloc]initWithFloat:currentProduct.row];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -409,12 +363,13 @@ static NSString *path;
     
         for (ProductMO *productMO in result) {
             [productMO setValue:currentProduct.name forKey:@"name"];
+            [productMO setValue:companyID forKey:@"companyID"];
+            [productMO setValue:productID forKey:@"productID"];
             [productMO setValue:productRow forKey:@"row"];
             [productMO setValue:currentProduct.url forKey:@"url"];
             [productMO setValue:currentProduct.logo forKey:@"logo"];
         }
     }
-    NSLog(@"updateProduct:%@, result%@",currentProduct, result);
 }
 
 
@@ -434,6 +389,19 @@ static NSString *path;
     }
 }
 
++(void) undoProduct {
+    [context undo];
+//    [coreDataMethods reloadProductsFromContextForCompany];
+    [coreDataMethods reloadProductsFromContextForCompany: [[DAO sharedManager] currentCompany]];
+    NSLog(@"cC:%@",[[DAO sharedManager] currentCompany]);
+
+}
+
+//+(void) undoProductForCompany:(Company *) currentCompany {
+//    [context undo];
+//    [coreDataMethods reloadProductsFromContextForCompany: currentCompany];
+//}
+
 #pragma mark utility methods
 +(void) saveChanges
 {
@@ -444,15 +412,93 @@ static NSString *path;
     {
         NSLog(@"Error saving: %@", [err localizedDescription]);
     }
+    
+    [context.undoManager removeAllActions];
+    
 }
 
 
-+(void) undoProductForCompany:(Company *) currentCompany {
-    //set undo
-    [context undo];
++(float) getNewCompanyRowNumber {
+    DAO *dao = [DAO sharedManager];
+    //get row number for new company
+    float newRowNum = 0.0;
+    for (Company *company in dao.companyList) {
+        if (company.row > newRowNum) {
+            newRowNum = company.row;
+        }
+    }
+    newRowNum++;
+    return newRowNum;
+}
+
+
++(float) getNewProductRowNumber {
+    DAO *dao = [DAO sharedManager];
+    //get row number for new product
+    float newRowNum = 0.0;
+    NSLog(@"cc:%@, cP:%@",dao.currentCompany, dao.currentProduct);
+    for (Product *product in dao.currentCompany.productArray) {
+        if (product.row > newRowNum) {
+            newRowNum = product.row;
+        }
+    }
+    newRowNum++;
+    return newRowNum;
+}
+
++(void) getNewCompanyIDandProductID {
+    DAO *dao = [DAO sharedManager];
     
-    //reload from context
-    [coreDataMethods reloadProductsFromContextForCompany: currentCompany];
+    //get newCompanyID ==
+    // fetch all companies from Core Data
+    NSFetchRequest *requestCompany = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey = [[NSSortDescriptor alloc]
+                                   initWithKey:@"companyID" ascending:YES];
+    
+    [requestCompany setSortDescriptors:[NSArray arrayWithObject:sortByKey]];
+    
+    NSEntityDescription *e = [[model entitiesByName] objectForKey:@"CompanyMO"];
+    [requestCompany setEntity:e];
+    NSError *error = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *Companyresult = [context executeFetchRequest:requestCompany error:&error];
+    
+    if(!Companyresult){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    CompanyMO *companyMO = [Companyresult lastObject];
+    
+    long companyID = [companyMO.companyID integerValue];
+    dao.newCompanyID = (int)companyID+1;
+    
+    //  get newProductID   ==
+    
+    // fetch all companies from Core Data
+    NSFetchRequest *requestProducts = [[NSFetchRequest alloc]init];
+    
+    //Change ascending  YES/NO and validate
+    NSSortDescriptor *sortByKey2 = [[NSSortDescriptor alloc]
+                                    initWithKey:@"productID" ascending:YES];
+    
+    [requestProducts setSortDescriptors:[NSArray arrayWithObject:sortByKey2]];
+    
+    NSEntityDescription *e2 = [[model entitiesByName] objectForKey:@"ProductMO"];
+    [requestProducts setEntity:e2];
+    NSError *error2 = nil;
+    
+    //This gets data only from context, not from store
+    NSArray *Productresult = [context executeFetchRequest:requestProducts error:&error2];
+    
+    if(!Productresult){
+        [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
+    }
+    ProductMO *productMO = [Productresult lastObject];
+    
+    long productID = [productMO.productID integerValue];
+    dao.newProductID = (int)productID+1;
 }
 
 
@@ -488,7 +534,9 @@ static NSString *path;
             //fetch all products for the company
             company.productArray = [[NSMutableArray alloc]init];
             
+//            [coreDataMethods reloadProductsFromContextForCompany];
             [coreDataMethods reloadProductsFromContextForCompany: company];
+            
             [[[DAO sharedManager ] companyList ] addObject:company];
         }
     }else {
@@ -496,13 +544,15 @@ static NSString *path;
     }
 }
 
-
 +(void) reloadProductsFromContextForCompany:(Company *) currentCompany {
-    
+//+(void) reloadProductsFromContextForCompany {
+    DAO *dao = [DAO sharedManager];
+
     // fetch all companies from Core Data
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
     
-    NSPredicate *p = [NSPredicate predicateWithFormat:@"companyID = %i",currentCompany.companyID];
+    NSString *productCompanyID = [NSString stringWithFormat:@"companyID =%i", dao.currentCompany.companyID ];
+    NSPredicate *p = [NSPredicate predicateWithFormat: productCompanyID];
     [request setPredicate:p];
     
     //Change ascending  YES/NO and validate
@@ -519,7 +569,7 @@ static NSString *path;
     
     if(result){
     
-        [currentCompany.productArray removeAllObjects];
+        [dao.currentCompany.productArray removeAllObjects];
     
         //convert MO to Product and populate productArray
         for (ProductMO *productMO in result) {
@@ -532,7 +582,7 @@ static NSString *path;
             product.url = productMO.url;
             product.logo = productMO.logo;
             
-            [currentCompany.productArray addObject: product];
+            [dao.currentCompany.productArray addObject: product];
         }
     }else {
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];

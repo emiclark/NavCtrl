@@ -230,14 +230,11 @@
     [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
     [self.dao.companyList insertObject:itemToMove atIndex:destinationIndexPath.row];
     
-    NSLog(@"Company List.....................");
     for (int i = 0; i < self.dao.companyList.count; i++){
         Company *company = self.dao.companyList[i];
         [company setRow:i];
         [DAO updateCompany:company];
-
     }
-    [DAO undoCompany];
     [self.tableView reloadData];
     [itemToMove release];
 
