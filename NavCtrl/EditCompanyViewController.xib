@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -71,14 +71,22 @@
                         <action selector="SaveButtonTapped:" destination="-1" eventType="touchUpInside" id="cWF-MO-YrG"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stock Symbol" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4e-vX-2qF">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stock Symbol" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4e-vX-2qF">
                     <rect key="frame" x="72" y="238" width="123" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="YK0-1x-tQ4"/>
+                        <constraint firstAttribute="width" constant="123" id="qo0-aD-Pq7"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-7Q-jgv">
-                    <rect key="frame" x="217" y="234" width="300" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PyE-7Q-jgv">
+                    <rect key="frame" x="217" y="234" width="294" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="294" id="9hK-BT-l0x"/>
+                        <constraint firstAttribute="height" constant="30" id="iVC-mP-gNt"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
@@ -95,18 +103,23 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="H6Q-1S-weA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="67" id="0bu-Sw-9Cc"/>
+                <constraint firstItem="PyE-7Q-jgv" firstAttribute="leading" secondItem="A4e-vX-2qF" secondAttribute="trailing" constant="22" id="2Tg-19-0Rj"/>
                 <constraint firstItem="8np-Di-mqu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-127.5" id="4G6-pe-Ued"/>
                 <constraint firstItem="Azd-yA-AWz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="7.5" id="7eQ-v2-IFW"/>
+                <constraint firstItem="A4e-vX-2qF" firstAttribute="top" secondItem="8np-Di-mqu" secondAttribute="bottom" constant="29" id="Bh9-3N-YpM"/>
+                <constraint firstItem="PyE-7Q-jgv" firstAttribute="top" secondItem="pBZ-RC-2tR" secondAttribute="bottom" constant="19" id="Co2-7G-oCl"/>
                 <constraint firstItem="pBZ-RC-2tR" firstAttribute="leading" secondItem="8np-Di-mqu" secondAttribute="trailing" constant="22" id="DXf-af-P39"/>
-                <constraint firstItem="H6Q-1S-weA" firstAttribute="top" secondItem="pBZ-RC-2tR" secondAttribute="bottom" constant="67" id="Dpn-VZ-9FX"/>
                 <constraint firstItem="H6Q-1S-weA" firstAttribute="baseline" secondItem="i00-4H-KRU" secondAttribute="baseline" constant="1.5" id="IfW-bX-hHv"/>
                 <constraint firstItem="Azd-yA-AWz" firstAttribute="top" secondItem="H6Q-1S-weA" secondAttribute="bottom" constant="28" id="JBI-j9-jhN"/>
+                <constraint firstItem="i00-4H-KRU" firstAttribute="top" secondItem="A4e-vX-2qF" secondAttribute="bottom" constant="29" id="V7Y-ad-cAt"/>
                 <constraint firstItem="pBZ-RC-2tR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="180" id="YWn-z6-0QK"/>
                 <constraint firstItem="qcw-oA-e6R" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="7" id="a6E-U2-ANE"/>
                 <constraint firstItem="H6Q-1S-weA" firstAttribute="leading" secondItem="i00-4H-KRU" secondAttribute="trailing" constant="22" id="iTU-cq-UTO"/>
+                <constraint firstItem="PyE-7Q-jgv" firstAttribute="leading" secondItem="H6Q-1S-weA" secondAttribute="leading" id="jxC-bn-EJF"/>
                 <constraint firstItem="i00-4H-KRU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-124.5" id="nrA-Bq-ipA"/>
                 <constraint firstItem="pBZ-RC-2tR" firstAttribute="top" secondItem="qcw-oA-e6R" secondAttribute="bottom" constant="49" id="uxh-iH-hbS"/>
                 <constraint firstItem="8np-Di-mqu" firstAttribute="top" secondItem="qcw-oA-e6R" secondAttribute="bottom" constant="57" id="vbN-kD-8q6"/>
+                <constraint firstItem="H6Q-1S-weA" firstAttribute="top" secondItem="PyE-7Q-jgv" secondAttribute="bottom" constant="18" id="xol-54-MO7"/>
             </constraints>
         </view>
     </objects>

@@ -15,7 +15,8 @@
 
 @implementation EditProductViewController
 
-- (void)viewDidLoad {
+#pragma mark View Methods
+-(void)viewDidLoad {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
@@ -39,7 +40,8 @@
     }
 }
 
-- (IBAction)saveProductButtonTapped:(UIButton *)sender {
+#pragma mark Save Product Method
+-(IBAction)saveProductButtonTapped:(UIButton *)sender {
     
     if (self.currentProduct.productID !=  0) {
         //edit product mode
@@ -48,7 +50,7 @@
         self.currentProduct.logo = self.logo.text;
         self.currentProduct.row = self.currentRow;
         [DAO updateProduct:self.currentProduct];
-        
+//        [DAO save];
     } else {
 
         //add product mode
@@ -65,15 +67,15 @@
         //add new product and save
         self.dao.currentProduct = self.currentProduct;
         [self.dao addProduct: self.currentProduct];
-        
-        [DAO save];
     }
+
+    [DAO save];
     [self.productVC.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-- (void)didReceiveMemoryWarning {
+#pragma mark Misc Methods
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -88,7 +90,7 @@
  }
  */
 
-- (void)dealloc {
+-(void)dealloc {
     
     [_productViewTitle release];
     [_name release];

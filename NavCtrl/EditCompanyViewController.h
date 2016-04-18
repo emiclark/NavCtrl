@@ -19,16 +19,14 @@
 @property (retain,nonatomic) DAO *dao;
 @property (retain, nonatomic) Company *currentCompany;
 @property (nonatomic) NSInteger currentRow;
-
 @property (retain, nonatomic) CompanyViewController *companyViewController;
 
 @property (retain, nonatomic) IBOutlet UILabel *label;
 @property (retain, nonatomic) IBOutlet UITextField *name;
 @property (retain, nonatomic) IBOutlet UITextField *stockSymbol;
-
 @property (retain, nonatomic) IBOutlet UITextField *logo;
 @property (retain, nonatomic) IBOutlet UIButton *saveButton;
 
-- (IBAction)SaveButtonTapped:(UIButton *)sender;
+-(IBAction)SaveButtonTapped:(UIButton *)sender;
 
 @end

@@ -30,14 +30,15 @@
 +(void) addCompany:(Company *)currentCompany;
 +(void) updateCompany:(Company *)currentCompany;
 +(void) deleteCompany:(Company *)currentCompany;
++(void) moveCompany:(Company *)currentCompany;
 +(void) undoCompany;
 
 // Product CRUD functions
 +(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 +(void) updateProduct:(Product *)currentProduct;
 +(void) deleteProduct:(Product *)currentProduct;
++(void) moveProduct:(Product *)currentProduct;
 +(void) undoProduct;
-//+(void) undoProductForCompany:(Company *)currentCompany;
 
 #pragma mark utility functions
 +(void) saveChanges;
@@ -45,8 +46,7 @@
 +(float) getNewProductRowNumber;
 +(void) getNewCompanyIDandProductID;
 +(void) reloadCompaniesFromContext;
-//+(void) reloadProductsFromContextForCompany;
-+(void) reloadProductsFromContextForCompany:(Company *) currentCompany;
++(NSMutableArray *) reloadProductsFromContextForCompany: (Company *)currentCompany forProductArray:(NSMutableArray *)productArray;
 
 
 @end

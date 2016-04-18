@@ -28,13 +28,12 @@
 @property (retain, nonatomic) IBOutlet UITextField *name;
 @property (retain, nonatomic) IBOutlet UITextField *url;
 @property (retain, nonatomic) IBOutlet UITextField *logo;
+@property (retain, nonatomic) IBOutlet UIButton *saveProductButton;
 
 @property (strong, nonatomic) ProductViewController * productVC;
 @property (strong, nonatomic) CompanyViewController * companyVC;
 
-@property (retain, nonatomic) IBOutlet UIButton *saveProductButton;
-
-
-- (IBAction)saveProductButtonTapped:(UIButton *)sender;
+#pragma mark Save Product Method
+-(IBAction)saveProductButtonTapped:(UIButton *)sender;
 
 @end

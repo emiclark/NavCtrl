@@ -19,7 +19,8 @@
 
 @implementation WebViewController
 
-- (void)viewDidLoad {
+#pragma mark View Methods
+-(void)viewDidLoad {
     [super viewDidLoad];
     
     //init WKWebView
@@ -38,10 +39,11 @@
     
     //add webview to view
     [self.view addSubview:self.myWebView];
-    
 }
 
-- (void)didReceiveMemoryWarning {
+
+#pragma mark Misc Methods
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -56,7 +58,7 @@
  }
  */
 
-- (void)dealloc {
+-(void)dealloc {
     [_myWebView release];
     [super dealloc];
 }

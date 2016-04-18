@@ -16,6 +16,24 @@ static DAO *sharedMyManager = nil;
 
 @implementation DAO
 
+#pragma mark Singleton Methods
+
++(id)sharedManager {
+    //ensures object is created only once
+    
+    @synchronized(self) {
+        if(sharedMyManager == nil)
+            sharedMyManager = [[super allocWithZone:NULL] init];
+    }
+    
+    return sharedMyManager;
+}
+
++(void) initializeDAO {
+    [coreDataMethods initModelContext];
+    [coreDataMethods checkToLoadOrCreateCoreData];
+}
+
 #pragma mark Company CRUD methods
 +(void) addCompany:(Company *)currentCompany{
     [[[DAO sharedManager] companyList] addObject:currentCompany];
@@ -29,6 +47,10 @@ static DAO *sharedMyManager = nil;
 -(void) deleteCompany:(Company *)currentCompany atRow:(NSInteger)row {
     [self.companyList removeObjectAtIndex:row];
     [coreDataMethods deleteCompany: currentCompany];
+}
+
++(void) moveCompany:(Company *)currentCompany {
+    [coreDataMethods moveCompany:currentCompany];
 }
 
 +(void) undoCompany {
@@ -56,26 +78,12 @@ static DAO *sharedMyManager = nil;
     [coreDataMethods deleteProduct: currentProduct];
 }
 
++(void) moveProduct:(Product *)currentProduct {
+    [coreDataMethods moveProduct:currentProduct];
+}
+
 +(void) undoProduct{
     [coreDataMethods undoProduct];    
-}
-
-#pragma mark Singleton Methods
-
-+(id)sharedManager {
-    //ensures object is created only once
-
-    @synchronized(self) {
-        if(sharedMyManager == nil)
-            sharedMyManager = [[super allocWithZone:NULL] init];
-        }
-
-    return sharedMyManager;
-}
-
-+(void) initializeDAO {
-    [coreDataMethods initModelContext];
-    [coreDataMethods checkToLoadOrCreateCoreData];
 }
 
 #pragma mark Miscellaneous Methods

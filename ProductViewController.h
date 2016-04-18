@@ -17,14 +17,14 @@
 
 @interface ProductViewController : UITableViewController
 
+@property ( nonatomic, retain) DAO  *dao;
 @property (retain, nonatomic) EditProductViewController *editProductViewController;
-
-@property (nonatomic, retain) WebViewController    *myWebViewCtlr;
+@property (nonatomic, retain) WebViewController *myWebViewCtlr;
 @property ( nonatomic,retain) NSString *titleOfCompany;
 @property ( nonatomic,retain)  Company *currentCompany;
 @property ( nonatomic, retain) Product *currentProduct;
-@property ( nonatomic, retain) DAO  *dao;
 
+// Product CRUD Methods
 -(void) addButtonTapped:(id)sender;
 -(void) undoButtonTapped:(id)sender;
 -(void) saveButtonTapped:(id)sender;

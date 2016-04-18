@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00BC83D21CA74D570008D8B3 /* SQLMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 00BC83D11CA74D570008D8B3 /* SQLMethods.m */; };
 		48A656B518163BF200746D36 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B418163BF200746D36 /* Foundation.framework */; };
 		48A656B718163BF200746D36 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B618163BF200746D36 /* CoreGraphics.framework */; };
 		48A656B918163BF200746D36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B818163BF200746D36 /* UIKit.framework */; };
@@ -60,8 +59,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00BC83D01CA74D570008D8B3 /* SQLMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SQLMethods.h; path = ../SQLMethods.h; sourceTree = "<group>"; };
-		00BC83D11CA74D570008D8B3 /* SQLMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLMethods.m; path = ../SQLMethods.m; sourceTree = "<group>"; };
 		48A656B118163BF200746D36 /* NavCtrl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavCtrl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		48A656B418163BF200746D36 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		48A656B618163BF200746D36 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -218,8 +215,6 @@
 				483796CB1BCBF7A00062D5AB /* AppDelegate */,
 				AA0A615B1C84F0E5009ACEB0 /* DAO.h */,
 				AA0A615C1C84F0E5009ACEB0 /* DAO.m */,
-				00BC83D01CA74D570008D8B3 /* SQLMethods.h */,
-				00BC83D11CA74D570008D8B3 /* SQLMethods.m */,
 				AA7CEDF51C80E7D200DA7BB4 /* Company.h */,
 				AA7CEDF61C80E7D200DA7BB4 /* Company.m */,
 				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
@@ -410,7 +405,6 @@
 			files = (
 				AA05C32C1CBD5C3800C72472 /* CompanyMO.m in Sources */,
 				AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */,
-				00BC83D21CA74D570008D8B3 /* SQLMethods.m in Sources */,
 				AA05C3291CBD5C3800C72472 /* ProductMO+CoreDataProperties.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				AADD59001C909756009AF845 /* EditProductViewController.m in Sources */,

@@ -15,8 +15,8 @@
 
 @implementation ProductViewController
 
-
-- (void)viewDidLoad
+#pragma mark View Methods
+-(void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
@@ -54,7 +54,7 @@
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     // Pass the selected object to the new view controller.
     
     [super viewWillAppear:animated];
@@ -62,13 +62,13 @@
     [self setEditing: NO animated: NO];
 }
 
+#pragma mark Product CRUD Methods
 -(void)addButtonTapped:(id)sender {
     
     self.editProductViewController = [[[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil] autorelease];
     self.editProductViewController.currentCompany = self.currentCompany;
     self.editProductViewController.productVC = self;
     [self.navigationController pushViewController: self.editProductViewController animated:YES];
-    
 }
 
 -(void)undoButtonTapped:(id)sender {
@@ -80,28 +80,21 @@
     [DAO save];
 }
 
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     return self.currentCompany.productArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier] ;
@@ -120,13 +113,13 @@
 
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.editProductViewController.currentRow = indexPath.row;
     self.editProductViewController.currentProduct =  [self.dao.currentCompany.productArray objectAtIndex:indexPath.row];
@@ -174,7 +167,7 @@
         self.currentProduct.row = 1.0;
     }
     
-    [DAO updateProduct:self.currentProduct];
+    [DAO moveProduct:self.currentProduct];
     
     [self.currentCompany.productArray removeObjectAtIndex:sourceIndexPath.row];
     [self.currentCompany.productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
@@ -182,7 +175,7 @@
 }
 
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
@@ -194,7 +187,7 @@
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.dao.currentProduct = [self.dao.currentCompany.productArray objectAtIndex:indexPath.row];
     self.editProductViewController.currentCompany = self.dao.currentCompany;
@@ -226,5 +219,10 @@
     }
 }
 
-
+#pragma mark Misc Methods
+-(void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 @end

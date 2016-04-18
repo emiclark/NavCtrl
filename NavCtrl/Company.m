@@ -27,8 +27,9 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat: @"%@", self.name];
-//        return [NSString stringWithFormat: @"%@, CC:%d, row:%f, %@", self.name, self.companyID, self.row, self.logo];
+    return [NSString stringWithFormat: @"name:%@, compID:%d, row:%f, logo:%@\n", self.name, self.companyID, self.row, self.logo];
+//    return [NSString stringWithFormat: @"%@", self.name];
+    
 }
 @end
 

@@ -26,6 +26,6 @@
 }
 
 -(NSString*)description {
-    return [NSString stringWithFormat:@"%@, CC:%i, CP:%i, row:%f, %@, %@", self.name, self.companyID, self.productID, self.row, self.url, self.logo];
+    return [NSString stringWithFormat:@"name:%@, compID:%i, prodID:%i, row:%f, url:%@, logo:%@\n", self.name, self.companyID, self.productID, self.row, self.url, self.logo];
 }
 @end

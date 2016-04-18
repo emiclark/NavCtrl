@@ -22,36 +22,36 @@ static NSString *path;
 
 +(void) initModelContext {
     if(!context){
-    
-    //get path and filename to store
-    NSArray *documentsDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [documentsDirectories objectAtIndex:0];
-    path =  [documentsDirectory stringByAppendingPathComponent:@"model.data"];
-    
-    // 1. Creating ObjectModel which describes the schema.
-    model = [NSManagedObjectModel mergedModelFromBundles:nil];
-    
-    NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    
-    // 2. Creating Context.
-    NSURL *storeURL = [NSURL fileURLWithPath:path];
-    NSError *error = nil;
-    
-    if(![psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        [NSException raise:@"Open failed" format:@"Reason: %@", [error localizedDescription]];
-    }
-    
-    NSLog(@"%@\n\n",storeURL);
-    
-    context = [[NSManagedObjectContext alloc] init];
-
-    //Add an undo manager
-    context.undoManager = [[NSUndoManager alloc] init];
-    [context setUndoManager:context.undoManager ];
-    
-    
-    //3. Now the context points to the SQLite store
-    [context setPersistentStoreCoordinator:psc];
+        
+        //get path and filename to store
+        NSArray *documentsDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [documentsDirectories objectAtIndex:0];
+        path =  [documentsDirectory stringByAppendingPathComponent:@"model.data"];
+        
+        // 1. Creating ObjectModel which describes the schema.
+        model = [NSManagedObjectModel mergedModelFromBundles:nil];
+        
+        NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
+        
+        // 2. Creating Context.
+        NSURL *storeURL = [NSURL fileURLWithPath:path];
+        NSError *error = nil;
+        
+        if(![psc addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
+            [NSException raise:@"Open failed" format:@"Reason: %@", [error localizedDescription]];
+        }
+        //print url of model.data store
+        NSLog(@"%@\n\n",storeURL);
+        
+        context = [[NSManagedObjectContext alloc] init];
+        
+        //3. Add an undo manager
+        context.undoManager = [[NSUndoManager alloc] init];
+        [context setUndoManager:context.undoManager ];
+        
+        
+        //4. Now the context points to the SQLite store
+        [context setPersistentStoreCoordinator:psc];
     }
 }
 
@@ -128,6 +128,7 @@ static NSString *path;
     Product *Note = [[Product alloc] initWithName:@"Galaxy Note" andUrl:@"http://www.samsung.com/us/mobile/galaxy-note/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [samsung.productArray addObject: Note ];
     [coreDataMethods addProduct:Note toCompany:samsung];
+    dao.newProductRow++;
     
     Product *Tab = [[Product alloc] initWithName:@"Galaxy Tab" andUrl:@"http://www.samsung.com/us/mobile/galaxy-tab/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [samsung.productArray addObject: Tab ];
@@ -157,7 +158,7 @@ static NSString *path;
     [dao.companyList addObject:microsoft];
     [coreDataMethods addCompany:microsoft];
     
-    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo:@"microsoft.png" andCompanyID: dao.currentCompany.companyID andRow: dao.newProductRow andProductID: dao.newProductID ];
     [microsoft.productArray addObject: Lumina ];
     [coreDataMethods addProduct:Lumina toCompany:microsoft];
     
@@ -174,15 +175,15 @@ static NSString *path;
 
 
 + (void) loadCoreData: (NSArray *)MOresultArray {
-
+    
     DAO *dao = [DAO sharedManager];
-
+    
     //initialize newcompanyID
     dao.newCompanyID = (int)MOresultArray.count;
-
+    
     //load all MO objects from coreData and initialize DAO
     dao.companyList = [[NSMutableArray alloc]init];
-
+    
     //convert companyMO to company
     for (CompanyMO *companyMO in MOresultArray) {
         Company *company = [[Company alloc]init];
@@ -252,19 +253,21 @@ static NSString *path;
 #pragma mark Company CRUD functions
 
 +(void) addCompany:(Company *)currentCompany {
+    
+    //add currentCompany and save
     DAO *dao = [DAO sharedManager];
     NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:currentCompany.companyID];
     NSNumber *tempRow = [[NSNumber alloc]initWithFloat:currentCompany.row];
     
     //Add this object to the context. Nothing happens till it is saved
-    CompanyMO *company = [NSEntityDescription insertNewObjectForEntityForName: @"CompanyMO" inManagedObjectContext: context];
+    CompanyMO *companyMO = [NSEntityDescription insertNewObjectForEntityForName: @"CompanyMO" inManagedObjectContext: context];
     
-    [company setCompanyID:tempCompanyID];
-    [company setName:currentCompany.name];
-    [company setRow: tempRow];
-    [company setStockSymbol:currentCompany.stockSymbol];
-    [company setLogo:currentCompany.logo];
-    [context insertObject:company];
+    [companyMO setCompanyID:tempCompanyID];
+    [companyMO setName:currentCompany.name];
+    [companyMO setRow: tempRow];
+    [companyMO setStockSymbol:currentCompany.stockSymbol];
+    [companyMO setLogo:currentCompany.logo];
+    [context insertObject:companyMO];
     
     ++dao.newCompanyID;
     ++dao.newCompanyRow;
@@ -272,25 +275,25 @@ static NSString *path;
 
 
 +(void) updateCompany:(Company *)currentCompany {
-    //update currentCompany and save
-    NSNumber *CompanyRow = [[NSNumber alloc]initWithFloat:currentCompany.row];
+    
     NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentCompany.companyID];
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *e = [NSEntityDescription entityForName:@"CompanyMO" inManagedObjectContext:context];
-    [request setEntity:e];
-    NSPredicate *p = [NSPredicate predicateWithFormat:@"companyID = %i",currentCompany.companyID];
-    [request setPredicate:p];
+    [request setEntity:[NSEntityDescription entityForName:@"CompanyMO" inManagedObjectContext:context]];
+    
     NSError *error = nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"companyID = %@", companyID ];
+    [request setPredicate:predicate];
     NSArray *results = [context executeFetchRequest:request error:&error];
     
-    CompanyMO *companyMO = [results objectAtIndex:0];
-    [companyMO setValue:CompanyRow forKey:@"row"];
-    [companyMO setCompanyID:companyID];
-    
+    // maybe some check before, to be sure results is not empty
+    CompanyMO * companyMO = [results objectAtIndex:0];
     [companyMO setName:currentCompany.name];
     [companyMO setStockSymbol:currentCompany.stockSymbol];
     [companyMO setLogo:currentCompany.logo];
+    
+    //    [context insertObject:companyMO];
+    
 }
 
 
@@ -302,11 +305,34 @@ static NSString *path;
     [request setPredicate:p];
     NSError *error = nil;
     NSArray *result = [context executeFetchRequest:request error:&error];
-
+    
     if (result!=nil) {
         //Remove object from context
         [context deleteObject:result.firstObject];
     }
+}
+
++(void) moveCompany:(Company *)currentCompany {
+    
+    NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentCompany.companyID];
+    NSNumber *companyRow = [[NSNumber alloc]initWithFloat:currentCompany.row];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"CompanyMO" inManagedObjectContext:context]];
+    
+    NSError *error = nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"companyID = %@", companyID ];
+    [request setPredicate:predicate];
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if (result!=nil) {
+        CompanyMO * companyMO = [result objectAtIndex:0];
+        [companyMO setName:currentCompany.name];
+        [companyMO setRow:companyRow];
+        [companyMO setStockSymbol:currentCompany.stockSymbol];
+        [companyMO setLogo:currentCompany.logo];
+    }
+    
 }
 
 +(void) undoCompany {
@@ -322,11 +348,10 @@ static NSString *path;
     
     // get primary key, row number, companyID
     NSNumber *pk = [NSNumber numberWithInteger:dao.newProductID];
-//    NSNumber *tempRow = [[NSNumber alloc]initWithFloat: dao.newProductRow];
-        NSNumber *tempRow = [[NSNumber alloc]initWithFloat: currentProduct.row];
+    NSNumber *tempRow = [[NSNumber alloc]initWithFloat: currentProduct.row];
     NSNumber *tempCompanyID = [[NSNumber alloc]initWithInteger:dao.currentCompany.companyID];
     
-    //Add this object to the contex. Nothing happens till it is saved
+    //Add this object to the contex
     ProductMO *productMO = [NSEntityDescription insertNewObjectForEntityForName: @"ProductMO" inManagedObjectContext: context];
     
     [productMO setProductID: pk ];
@@ -342,7 +367,7 @@ static NSString *path;
 
 
 +(void) updateProduct:(Product *)currentProduct {
-
+    
     //update currentProduct and save
     NSNumber *productID = [[NSNumber alloc]initWithInteger:currentProduct.productID];
     NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentProduct.companyID];
@@ -356,11 +381,11 @@ static NSString *path;
     NSError *error = nil;
     
     NSArray *result = [context executeFetchRequest:request error:&error];
-
+    
     if(!result){
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }else if (result.count == 1) {
-    
+        
         for (ProductMO *productMO in result) {
             [productMO setValue:currentProduct.name forKey:@"name"];
             [productMO setValue:companyID forKey:@"companyID"];
@@ -374,7 +399,7 @@ static NSString *path;
 
 
 +(void) deleteProduct:(Product *)currentProduct{
-   
+    
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *e = [NSEntityDescription entityForName:@"ProductMO" inManagedObjectContext:context];
     [request setEntity:e];
@@ -389,18 +414,38 @@ static NSString *path;
     }
 }
 
-+(void) undoProduct {
-    [context undo];
-//    [coreDataMethods reloadProductsFromContextForCompany];
-    [coreDataMethods reloadProductsFromContextForCompany: [[DAO sharedManager] currentCompany]];
-    NSLog(@"cC:%@",[[DAO sharedManager] currentCompany]);
-
++(void) moveProduct:(Product *)currentProduct {
+    
+    NSNumber *companyID = [[NSNumber alloc]initWithInteger:currentProduct.companyID];
+    NSNumber *productID = [[NSNumber alloc]initWithInteger:currentProduct.productID];
+    NSNumber *productRow = [[NSNumber alloc]initWithFloat:currentProduct.row];
+    
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"ProductMO" inManagedObjectContext:context]];
+    
+    NSError *error = nil;
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"productID = %@", productID ];
+    [request setPredicate:predicate];
+    NSArray *result = [context executeFetchRequest:request error:&error];
+    
+    if (result!=nil) {
+        ProductMO * productMO = [result firstObject];
+        [productMO setProductID:productID];
+        [productMO setCompanyID:companyID];
+        [productMO setName:currentProduct.name];
+        [productMO setRow:productRow];
+        [productMO setUrl:currentProduct.url];
+        [productMO setLogo:currentProduct.logo];
+    }
 }
 
-//+(void) undoProductForCompany:(Company *) currentCompany {
-//    [context undo];
-//    [coreDataMethods reloadProductsFromContextForCompany: currentCompany];
-//}
++(void) undoProduct {
+    [context undo];
+    NSMutableArray *productArray = [[DAO sharedManager] currentCompany].productArray;
+    [productArray removeAllObjects];
+    productArray = [coreDataMethods reloadProductsFromContextForCompany: [[DAO sharedManager] currentCompany]  forProductArray:(NSMutableArray *)[[DAO sharedManager] currentCompany].productArray];
+}
+
 
 #pragma mark utility methods
 +(void) saveChanges
@@ -409,9 +454,9 @@ static NSString *path;
     NSError *err = nil;
     BOOL successful = [context save:&err];
     if(!successful)
-    {
+        {
         NSLog(@"Error saving: %@", [err localizedDescription]);
-    }
+        }
     
     [context.undoManager removeAllActions];
     
@@ -436,7 +481,6 @@ static NSString *path;
     DAO *dao = [DAO sharedManager];
     //get row number for new product
     float newRowNum = 0.0;
-    NSLog(@"cc:%@, cP:%@",dao.currentCompany, dao.currentProduct);
     for (Product *product in dao.currentCompany.productArray) {
         if (product.row > newRowNum) {
             newRowNum = product.row;
@@ -449,8 +493,8 @@ static NSString *path;
 +(void) getNewCompanyIDandProductID {
     DAO *dao = [DAO sharedManager];
     
-    //get newCompanyID ==
-    // fetch all companies from Core Data
+    //**  get newCompanyID
+    // fetch all companies
     NSFetchRequest *requestCompany = [[NSFetchRequest alloc]init];
     
     //Change ascending  YES/NO and validate
@@ -474,9 +518,9 @@ static NSString *path;
     long companyID = [companyMO.companyID integerValue];
     dao.newCompanyID = (int)companyID+1;
     
-    //  get newProductID   ==
+    //**  get newProductID
     
-    // fetch all companies from Core Data
+    // fetch all products
     NSFetchRequest *requestProducts = [[NSFetchRequest alloc]init];
     
     //Change ascending  YES/NO and validate
@@ -504,6 +548,8 @@ static NSString *path;
 
 +(void) reloadCompaniesFromContext {
     
+    DAO *dao = [DAO sharedManager];
+    
     // fetch all companies from Core Data
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
     
@@ -517,49 +563,35 @@ static NSString *path;
     //This gets data only from context, not from store
     NSArray *result = [context executeFetchRequest:request error:&error];
     
-    if(result){
-        
-        [[[DAO sharedManager ] companyList] removeAllObjects];
+    if(result>0){
+        [dao.companyList removeAllObjects];
         
         //convert MO to Company and populate companyList
         for (CompanyMO *companyMO in result) {
-            Company *company = [[Company alloc]init];
-            
-            company.companyID = (int)[companyMO.companyID integerValue];
-            company.row = [companyMO.row floatValue];
-            company.name = companyMO.name;
-            company.stockSymbol = companyMO.stockSymbol;
-            company.logo = companyMO.logo;
+            Company *company = [[Company alloc]initWithName:companyMO.name andStockSymbol:companyMO.stockSymbol andLogo:companyMO.logo andRow:[companyMO.row floatValue] andCompanyID:(int)[companyMO.companyID integerValue]];
             
             //fetch all products for the company
-            company.productArray = [[NSMutableArray alloc]init];
+            NSMutableArray *prodArray = [[NSMutableArray alloc]init];
             
-//            [coreDataMethods reloadProductsFromContextForCompany];
-            [coreDataMethods reloadProductsFromContextForCompany: company];
-            
-            [[[DAO sharedManager ] companyList ] addObject:company];
+            prodArray = [coreDataMethods reloadProductsFromContextForCompany:company forProductArray:prodArray];
+            company.productArray = prodArray;
+            [dao.companyList addObject:company];
         }
     }else {
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }
 }
 
-+(void) reloadProductsFromContextForCompany:(Company *) currentCompany {
-//+(void) reloadProductsFromContextForCompany {
-    DAO *dao = [DAO sharedManager];
-
-    // fetch all companies from Core Data
++(NSMutableArray *) reloadProductsFromContextForCompany: (Company *)currentCompany forProductArray:(NSMutableArray *)productArray {
+    
+    // fetch all products from Core Data
     NSFetchRequest *request = [[NSFetchRequest alloc]init];
-    
-    NSString *productCompanyID = [NSString stringWithFormat:@"companyID =%i", dao.currentCompany.companyID ];
-    NSPredicate *p = [NSPredicate predicateWithFormat: productCompanyID];
+    NSString *companyID = [NSString stringWithFormat:@"companyID =%i", currentCompany.companyID ];
+    NSPredicate *p = [NSPredicate predicateWithFormat: companyID];
     [request setPredicate:p];
-    
     //Change ascending  YES/NO and validate
     NSSortDescriptor *sortByRow = [[NSSortDescriptor alloc] initWithKey:@"row" ascending:YES];
-    
     [request setSortDescriptors:[NSArray arrayWithObject:sortByRow]];
-    
     NSEntityDescription *e = [[model entitiesByName] objectForKey:@"ProductMO"];
     [request setEntity:e];
     NSError *error = nil;
@@ -567,26 +599,21 @@ static NSString *path;
     //This gets data only from context, not from store
     NSArray *result = [context executeFetchRequest:request error:&error];
     
-    if(result){
-    
-        [dao.currentCompany.productArray removeAllObjects];
-    
+    if(result>0){
+        
         //convert MO to Product and populate productArray
         for (ProductMO *productMO in result) {
-            Product *product = [[Product alloc]init];
+            int PID = (int)[productMO.productID integerValue];
+            Product *product = [[Product alloc]initWithName:productMO.name andUrl:productMO.url andLogo:productMO.logo andCompanyID:(int)[productMO.companyID integerValue] andRow:[productMO.row floatValue] andProductID:PID];
             
-            product.companyID = (int)[productMO.companyID integerValue];
-            product.productID = (int)[productMO.productID integerValue];
-            product.row = [productMO.row floatValue];
-            product.name = productMO.name;
-            product.url = productMO.url;
-            product.logo = productMO.logo;
-            
-            [dao.currentCompany.productArray addObject: product];
+            //fetch all products for the company
+            [productArray  addObject:product];
         }
     }else {
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
     }
+    return productArray;
 }
+
 
 @end

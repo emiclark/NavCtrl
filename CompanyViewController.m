@@ -19,7 +19,7 @@
 @implementation CompanyViewController
 
 #pragma mark default functions
-- (void)viewDidLoad
+-(void)viewDidLoad
 {
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
@@ -75,7 +75,7 @@
 }
 
 
-- (id)initWithStyle:(UITableViewStyle)style
+-(id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
@@ -105,20 +105,15 @@
     //create query string
     NSMutableString *query = [[[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="]autorelease];
     
-//    NSString *temp = [[[NSString alloc] initWithString: [[self.dao.companyList objectAtIndex:0] stockSymbol ]]autorelease];
+    for (int i=0; i < self.dao.companyList.count-1; i++) {
+        //concatenate symbol names to end of url
+        [query appendString:[(Company*)self.dao.companyList[i] stockSymbol]];
+        [query appendString:@"+"];
+    }
     
-    NSString *joinedString = [[[self.dao.companyList objectAtIndex:0] stockSymbol ] componentsJoinedByString:@"+"];
+    int lastItem = (int)self.dao.companyList.count-1;
     
-//    for (int i=0; i < self.dao.companyList.count-1; i++) {
-//        //concatenate symbol names to end of url
-//        [query appendString:[(Company*)self.dao.companyList[i] stockSymbol]];
-//        [query appendString:@"+"];
-//    }
-//    
-//    int lastItem = (int)self.dao.companyList.count-1;
-    
-    [query appendString:joinedString];
-//    [query appendString:[(Company*)[self.dao.companyList objectAtIndex:lastItem] stockSymbol]];
+    [query appendString:[(Company*)[self.dao.companyList objectAtIndex:lastItem] stockSymbol]];
     [query appendString:@"&f=l1"];
     NSLog(@"query: %@",query);
     
@@ -152,7 +147,7 @@
 }
 
 
-- (void) addNewCompany {
+-(void) addNewCompany {
     self.editCompanyViewController = [[[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil] autorelease];
     self.editCompanyViewController.currentCompany = [[[Company alloc]init]autorelease];
     [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
@@ -176,13 +171,13 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
     return [self.dao.companyList count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -196,19 +191,19 @@
     
     //format tableview with company name + stockprices
     cell.textLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] name];
-   // cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
+    cell.detailTextLabel.text = [[self.dao.companyList objectAtIndex:indexPath.row] stockPrice];
     return cell;
 }
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
 
 // Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         self.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
@@ -232,8 +227,8 @@
     
     for (int i = 0; i < self.dao.companyList.count; i++){
         Company *company = self.dao.companyList[i];
-        [company setRow:i];
-        [DAO updateCompany:company];
+        company.row = (float)i;
+        [DAO moveCompany:company];
     }
     [self.tableView reloadData];
     [itemToMove release];
@@ -242,7 +237,7 @@
 
 
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+-(BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
@@ -253,7 +248,7 @@
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.dao.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
     self.currentCompany = self.dao.currentCompany;
@@ -292,7 +287,7 @@
 }
 
 #pragma mark Misc Methods
-- (void)dealloc {
+-(void)dealloc {
     [super dealloc];
 }
 @end

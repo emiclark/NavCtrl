@@ -18,7 +18,8 @@
 
 @implementation EditCompanyViewController
 
-- (void)viewDidLoad {
+#pragma mark View Methods
+-(void)viewDidLoad {
     
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
@@ -43,17 +44,13 @@
         //set focus
         [self.name performSelector:@selector(becomeFirstResponder) withObject:nil afterDelay:0];
         
-        //set default image for logo
-        if ([self.logo.text  isEqual: @""]){
-            self.currentCompany.logo = @"Sunflower.gif";
-        }
         //set text of save button
         self.saveButton.titleLabel.text = @"Save Company";
     }
     
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+-(void)viewWillAppear:(BOOL)animated {
     // Pass the selected object to the new view controller.
     
     [super viewWillAppear:animated];
@@ -61,15 +58,23 @@
     [self setEditing: NO animated: NO];
 }
 
-- (IBAction)SaveButtonTapped:(UIButton *)sender {
+#pragma mark Save Company Methods
+-(IBAction)SaveButtonTapped:(UIButton *)sender {
     DAO *dao = [DAO sharedManager];
         
     //edit mode - companytoEdit not nil
     if (self.currentCompany.companyID < self.dao.newCompanyID) {
         self.currentCompany.name = self.name.text;
+        self.currentCompany.row = self.currentCompany.row;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
+        if ([self.currentCompany.stockSymbol isEqualToString:@""]) {
+            self.currentCompany.stockSymbol = @"N/A";
+        }
+        NSLog(@"%@",self.currentCompany);
+        //update currentCompany to DAO/CoreData
         [DAO  updateCompany:self.currentCompany];
+        [DAO save];
         
 
     } else  {
@@ -81,6 +86,9 @@
         self.currentCompany.stockSymbol = self.stockSymbol.text;
         self.currentCompany.logo = self.logo.text;
         
+        if ([self.currentCompany.stockSymbol isEqualToString:@""]) {
+            self.currentCompany.stockSymbol = @"N/A";
+        }
         //get row number for new company
         self.currentCompany.row = [DAO getNewCompanyRowNumber];
         self.dao.currentCompany = self.currentCompany;
@@ -97,7 +105,7 @@
     //[self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
+-(void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -112,7 +120,8 @@
  }
  */
 
-- (void)dealloc {
+#pragma mark Misc Methods
+-(void)dealloc {
     [_name release];
     [_logo release];
     [_label release];
