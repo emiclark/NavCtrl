@@ -32,6 +32,10 @@
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA34CE651CB723EC005D9587 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA34CE641CB723EC005D9587 /* CoreData.framework */; };
+		AA3D09C51CC58E0400457349 /* CompanyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */; };
+		AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */; };
+		AA3D09D31CC5937700457349 /* CompanyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */; };
+		AA3D09D41CC5937700457349 /* CompanyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */; };
 		AA4C76881C97367800D32757 /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4C76871C97367800D32757 /* google.png */; };
 		AA75AEED1C9B4862006138E6 /* dao.db in Resources */ = {isa = PBXBuildFile; fileRef = AA75AEEC1C9B4862006138E6 /* dao.db */; };
 		AA75AEEF1C9CB993006138E6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */; };
@@ -94,6 +98,12 @@
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA34CE641CB723EC005D9587 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AA3D09C21CC58E0400457349 /* CompanyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCollectionViewController.h; path = CompanyCollectionViewController/CompanyCollectionViewController.h; sourceTree = "<group>"; };
+		AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewController.m; path = CompanyCollectionViewController/CompanyCollectionViewController.m; sourceTree = "<group>"; };
+		AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyCollectionViewController.xib; path = CompanyCollectionViewController/CompanyCollectionViewController.xib; sourceTree = "<group>"; };
+		AA3D09D01CC5937700457349 /* CompanyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCollectionViewCell.h; path = CompanyCollectionViewController/CompanyCollectionViewCell.h; sourceTree = "<group>"; };
+		AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewCell.m; path = CompanyCollectionViewController/CompanyCollectionViewCell.m; sourceTree = "<group>"; };
+		AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyCollectionViewCell.xib; path = CompanyCollectionViewController/CompanyCollectionViewCell.xib; sourceTree = "<group>"; };
 		AA4C76871C97367800D32757 /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = ../google.png; sourceTree = "<group>"; };
 		AA75AEEC1C9B4862006138E6 /* dao.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = dao.db; sourceTree = "<group>"; };
 		AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -219,6 +229,7 @@
 				AA7CEDF61C80E7D200DA7BB4 /* Company.m */,
 				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
 				AA7CEDF91C80E97000DA7BB4 /* Product.m */,
+				AA3D09C71CC58E1100457349 /* CompanyCollectionViewController */,
 				483796CC1BCBF7C70062D5AB /* ParentViewController */,
 				AA002BE91C8E1B1400A31BBD /* EditCompanyViewController.h */,
 				AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */,
@@ -284,6 +295,20 @@
 				AA05C3281CBD5C3800C72472 /* CompanyMO.m */,
 			);
 			name = CoreData2;
+			sourceTree = "<group>";
+		};
+		AA3D09C71CC58E1100457349 /* CompanyCollectionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AA3D09D01CC5937700457349 /* CompanyCollectionViewCell.h */,
+				AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */,
+				AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */,
+				AA3D09C21CC58E0400457349 /* CompanyCollectionViewController.h */,
+				AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */,
+				AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */,
+			);
+			name = CompanyCollectionViewController;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		AA75AEEB1C9B4862006138E6 /* resources */ = {
@@ -373,10 +398,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA3D09D41CC5937700457349 /* CompanyCollectionViewCell.xib in Resources */,
 				AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				AA4C76881C97367800D32757 /* google.png in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
+				AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */,
 				AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */,
 				AAE05FA81C7CC249005B22DA /* samsung.png in Resources */,
 				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
@@ -403,12 +430,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA3D09D31CC5937700457349 /* CompanyCollectionViewCell.m in Sources */,
 				AA05C32C1CBD5C3800C72472 /* CompanyMO.m in Sources */,
 				AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */,
 				AA05C3291CBD5C3800C72472 /* ProductMO+CoreDataProperties.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				AADD59001C909756009AF845 /* EditProductViewController.m in Sources */,
 				AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */,
+				AA3D09C51CC58E0400457349 /* CompanyCollectionViewController.m in Sources */,
 				AA05C32A1CBD5C3800C72472 /* ProductMO.m in Sources */,
 				AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */,
 				AA9A34C81CB99FE000E127E9 /* coreDataMethods.m in Sources */,

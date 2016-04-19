@@ -18,7 +18,7 @@ static NSManagedObjectContext *context;
 static NSManagedObjectModel *model;
 static NSString *path;
 
-#pragma mark setup functions
+#pragma mark Setup Methods
 
 +(void) initModelContext {
     if(!context){
@@ -250,7 +250,7 @@ static NSString *path;
 
 
 
-#pragma mark Company CRUD functions
+#pragma mark Company CRUD Methods
 
 +(void) addCompany:(Company *)currentCompany {
     
@@ -341,7 +341,7 @@ static NSString *path;
 }
 
 
-#pragma mark Product CRUD functions
+#pragma mark Product CRUD Methods
 
 +(void) addProduct:(Product *)currentProduct  toCompany:(Company*)currentCompany {
     DAO *dao = [DAO sharedManager];
@@ -447,7 +447,7 @@ static NSString *path;
 }
 
 
-#pragma mark utility methods
+#pragma mark utility Methods
 +(void) saveChanges
 {
     //save context to CoreData
@@ -459,7 +459,6 @@ static NSString *path;
         }
     
     [context.undoManager removeAllActions];
-    
 }
 
 

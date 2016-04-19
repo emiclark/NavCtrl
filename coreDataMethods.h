@@ -18,29 +18,28 @@
 @property (nonatomic, retain) NSString *archivePath;
 @property (nonatomic, retain) NSUndoManager *undoManager;
 
-// setup methods
+#pragma mark Setup Methods
 +(void) initModelContext;
 +(void) checkToLoadOrCreateCoreData;
 +(void) addCompanyAndProductsToCoreData;
 +(void) loadCoreData:(NSArray *)MOresultArray;
 +(NSArray *) fetchProductsForCompany;
 
-
-// Company CRUD functions
+#pragma mark Company CRUD Methods
 +(void) addCompany:(Company *)currentCompany;
 +(void) updateCompany:(Company *)currentCompany;
 +(void) deleteCompany:(Company *)currentCompany;
 +(void) moveCompany:(Company *)currentCompany;
 +(void) undoCompany;
 
-// Product CRUD functions
+#pragma mark Product CRUD Methods
 +(void) addProduct:(Product *)currentProduct toCompany:(Company *)currentCompany;
 +(void) updateProduct:(Product *)currentProduct;
 +(void) deleteProduct:(Product *)currentProduct;
 +(void) moveProduct:(Product *)currentProduct;
 +(void) undoProduct;
 
-#pragma mark utility functions
+#pragma mark Utility Methods
 +(void) saveChanges;
 +(float) getNewCompanyRowNumber;
 +(float) getNewProductRowNumber;
