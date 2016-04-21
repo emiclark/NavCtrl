@@ -12,10 +12,11 @@
 #import "DAO.h"
 #import "Company.h"
 #import "Product.h"
-#import "CompanyViewController.h"
-#import "ProductViewController.h"
+#import "CompanyCollectionViewController.h"
+#import "ProductCollectionViewController.h"
 
-@class ProductViewController;
+@class CompanyCollectionViewController;
+@class ProductCollectionViewController;
 
 @interface EditProductViewController : UIViewController
 
@@ -30,8 +31,8 @@
 @property (retain, nonatomic) IBOutlet UITextField *logo;
 @property (retain, nonatomic) IBOutlet UIButton *saveProductButton;
 
-@property (strong, nonatomic) ProductViewController * productVC;
-@property (strong, nonatomic) CompanyViewController * companyVC;
+@property (retain, nonatomic) ProductCollectionViewController * productVC;
+@property (retain, nonatomic) CompanyCollectionViewController * companyVC;
 
 #pragma mark Save Product Method
 -(IBAction)saveProductButtonTapped:(UIButton *)sender;

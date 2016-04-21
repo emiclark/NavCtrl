@@ -8,65 +8,122 @@
 
 #import "CompanyCollectionViewController.h"
 #import "CompanyCollectionViewCell.h"
+#import "DAO.h"
 
 @interface CompanyCollectionViewController ()
 
 @end
 
-@implementation CompanyCollectionViewController
+@implementation CompanyCollectionViewController 
 
-static NSString * const reuseIdentifier = @"Cell";
+NSString * const companyReuseIdentifier = @"CompanyCollectionViewCell";
+BOOL isEditingCompany = NO;
+UIBarButtonItem *editButton;
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+    isEditingCompany = NO;
+    editButton.title = @"Edit";
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [DAO initializeDAO];
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
+    self.dao = [DAO sharedManager];
+
     // Register cell classes
-    [self.collectionView registerClass:[CompanyCollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    [self.collectionView registerNib:[UINib nibWithNibName:@"CompanyCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
+    [self.collectionView registerClass:[CompanyCollectionViewCell class] forCellWithReuseIdentifier:companyReuseIdentifier];
+    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"CompanyCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:companyReuseIdentifier];
     
     // Do any additional setup after loading the view.
-    self.collectionView.allowsSelection = YES;
     
+    self.collectionView.allowsSelection = YES;
     self.clearsSelectionOnViewWillAppear = NO;
     
-    self.productViewController = [[[ProductViewController alloc] init] autorelease];
-    
-    //add Add New Company button on LHS
+    self.productCollectionViewController =
+    [[ProductCollectionViewController alloc]
+     initWithNibName:@"ProductCollectionViewController" bundle:nil];
+
+    //add Add Company button
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
     addButton.action = @selector(addNewCompany);
-    addButton.title = @"Add New Company";
+    addButton.title = @"Add Company";
     addButton.target = self;
-    self.navigationItem.leftBarButtonItem = addButton;
     
-    //add Save button on LHS
+    //add Save button
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]init];
     saveButton.action = @selector(saveButtonTapped);
-    saveButton.title = @"Save /";
+    saveButton.title = @"Save";
     saveButton.target = self;
-    self.navigationItem.leftBarButtonItem = saveButton;
     
-    //add Undo button RHS
+    //add Undo button
     UIBarButtonItem *undoButton = [[UIBarButtonItem alloc]init];
     undoButton.action = @selector(undoCompany);
-    undoButton.title = @"Undo /";
+    undoButton.title = @"Undo";
     undoButton.target = self;
     
-    // Display an 'Add New Company' and Save button on the LHS navigation bar for this view controller.
+    //add Edit button
+    editButton = [[UIBarButtonItem alloc]init];
+    editButton.action = @selector(setEditMode);
+    editButton.title = @"Edit";
+    editButton.target = self;
+    
+    // Display buttons on LHS
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:addButton, nil];
-    
-    // Display an Edit and Undo button on the RHS navigation bar for this view controller.
-    //    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, nil];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:self.editButtonItem, undoButton, saveButton, nil];
-    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:editButton, undoButton, saveButton, nil];
     
     self.title = @"Mobile device makers";
     
     [self.collectionView reloadData];
+}
+
+
+#pragma mark Company CRUD Methods
+
+
+-(void) addNewCompany {
+    self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+    self.editCompanyViewController.currentCompany = [[[Company alloc]init]autorelease];
+    [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
+}
+
+-(void) deleteItem:(UIButton *)sender {
+    CompanyCollectionViewCell *cell = ((CompanyCollectionViewCell *)sender.superview.superview);
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
+    [self.dao deleteCompany: self.dao.companyList[indexPath.row] atRow:indexPath.row];
+    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    [self.collectionView reloadData];
+}
+
+-(void) saveButtonTapped {
+    [DAO save];
+    [self.collectionView reloadData];
+}
+
+-(void) undoCompany {
+    [DAO undoCompany];
+    [self.collectionView reloadData];
+}
+
+// Override to support rearranging the table view.
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     
+    Company *itemToMove;
+    itemToMove = (Company*)[self.dao.companyList objectAtIndex:sourceIndexPath.row];
+    [itemToMove retain];
+    [self.dao.companyList removeObjectAtIndex:sourceIndexPath.row];
+    [self.dao.companyList insertObject:itemToMove atIndex:destinationIndexPath.row];
+    
+    for (int i = 0; i < self.dao.companyList.count; i++){
+        Company *company = self.dao.companyList[i];
+        company.row = (float)i;
+        [DAO moveCompany:company];
+    }
+    [self.collectionView reloadData];
+    [itemToMove release];
     
 }
 
@@ -96,9 +153,9 @@ static NSString * const reuseIdentifier = @"Cell";
     return    [[[DAO sharedManager] companyList] count ];
 }
 
-- (CompanyCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+-(CompanyCollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
-    CompanyCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+    CompanyCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:companyReuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
     
@@ -106,48 +163,70 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.name.text = company.name;
     cell.stockPrice.text = company.stockSymbol;
     cell.logo.image = [UIImage imageNamed:company.logo ];
-    cell.backgroundColor = [UIColor whiteColor];
+
+    // display delete button
+    if (isEditingCompany == YES) {
+        cell.deleteButton.hidden = NO;
+    }
+    else {
+        cell.deleteButton.hidden = YES;
+    }
+    //draw border around cell
+    cell.layer.borderWidth=1.0f;
+    cell.layer.borderColor=[UIColor orangeColor].CGColor;
+    [cell.deleteButton addTarget:self action:@selector(deleteItem:) forControlEvents:UIControlEventTouchUpInside];
+
     
     return cell;
+}
+
+- (void)setEditMode
+{
+    isEditingCompany  = !isEditingCompany;
+    
+    if (isEditingCompany)
+        {
+        editButton.title = @"Done";
+        }
+    else
+        {
+        editButton.title = @"Edit";
+    }
+
+    [self.collectionView reloadData];
+    
 }
 
 #pragma mark <UICollectionViewDelegate>
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    self.dao.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+    self.currentCompany = self.dao.currentCompany;
+    self.editCompanyViewController.currentCompany = self.currentCompany;
     
+    if (isEditingCompany==YES) {
+        //edit mode - edit company
+        //set new viewcontroller to editCompanyViewController
+        self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        
+        //set title of view controller
+        self.productCollectionViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row] ;
+        self.productCollectionViewController.titleOfCompany = [[self.dao.companyList objectAtIndex:indexPath.row] name] ;
+        
+        //pass in pointer of company selected to ediCompanyViewController.companyToedit
+        self.editCompanyViewController.currentCompany = [self.dao.companyList objectAtIndex: indexPath.row];
+        [self.navigationController pushViewController:self.editCompanyViewController animated:YES  ];
+        
+    } else {
+        //show product details
+        self.productCollectionViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
+        self.productCollectionViewController.titleOfCompany = self.currentCompany.name;
+        self.productCollectionViewController.title = self.productCollectionViewController.titleOfCompany;
+        [self.navigationController pushViewController:self.productCollectionViewController animated:YES];
+    }
 }
 
--(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-}
 
--(void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
--(void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
-
-
-//// Uncomment this method to specify if the specified item should be highlighted during tracking
-//- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-//	return YES;
-//}
-//
-//
-//
-//// Uncomment this method to specify if the specified item should be selected
-//- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
-//
-//
-//
-//// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-//- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-//	return YES;
-//}
-//
 //- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 //	return YES;
 //}

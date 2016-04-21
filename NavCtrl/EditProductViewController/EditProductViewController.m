@@ -70,7 +70,7 @@
     }
 
     [DAO save];
-    [self.productVC.tableView reloadData];
+    [self.productVC.collectionView reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

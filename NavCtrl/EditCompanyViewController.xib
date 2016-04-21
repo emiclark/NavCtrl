@@ -51,7 +51,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sunflower.gif" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H6Q-1S-weA">
-                    <rect key="frame" x="217" y="282" width="300" height="35"/>
+                    <rect key="frame" x="217" y="282" width="294" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="UJQ-op-8eZ"/>
                     </constraints>
@@ -102,7 +102,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="H6Q-1S-weA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="67" id="0bu-Sw-9Cc"/>
+                <constraint firstItem="H6Q-1S-weA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="64" id="0bu-Sw-9Cc"/>
                 <constraint firstItem="PyE-7Q-jgv" firstAttribute="leading" secondItem="A4e-vX-2qF" secondAttribute="trailing" constant="22" id="2Tg-19-0Rj"/>
                 <constraint firstItem="8np-Di-mqu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-127.5" id="4G6-pe-Ued"/>
                 <constraint firstItem="Azd-yA-AWz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="7.5" id="7eQ-v2-IFW"/>

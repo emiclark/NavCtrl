@@ -10,22 +10,17 @@
 
 @implementation CompanyCollectionViewCell
 
+- (IBAction)deleteButtonTapped:(UIButton *)sender {
+}
+
 - (void)awakeFromNib {
     // Initialization code
     
-    //background color
-    UIView *bgView = [[UIView alloc]initWithFrame:self.bounds];
-    self.backgroundView = bgView;
-//    self.backgroundView.backgroundColor = [UIColor blueColor];
-    self.backgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"blue"]];
-    
-    //selected background color
-    UIView *selectedView = [[UIView alloc] initWithFrame:[self bounds]];
-    self.backgroundView = selectedView;
-//    self.selectedBackgroundView.backgroundColor = [UIColor yellowColor];
 
-    self.selectedBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"yellow"]];
 }
+
+
+
 
 - (void)dealloc {
     [_logo release];
@@ -34,4 +29,6 @@
     [_name release];
     [super dealloc];
 }
+
+
 @end

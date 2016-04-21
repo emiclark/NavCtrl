@@ -11,15 +11,16 @@
 #import <UIKit/UIKit.h>
 #import "DAO.h"
 #import "Company.h"
-#import "CompanyViewController.h"
-@class CompanyViewController;
+#import "CompanyCollectionViewController.h"
+
+@class CompanyCollectionViewController;
 
 @interface EditCompanyViewController : UIViewController
 
 @property (retain,nonatomic) DAO *dao;
 @property (retain, nonatomic) Company *currentCompany;
 @property (nonatomic) NSInteger currentRow;
-@property (retain, nonatomic) CompanyViewController *companyViewController;
+@property (retain, nonatomic) CompanyCollectionViewController *companyCollectionViewController;
 
 @property (retain, nonatomic) IBOutlet UILabel *label;
 @property (retain, nonatomic) IBOutlet UITextField *name;

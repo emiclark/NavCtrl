@@ -9,8 +9,8 @@
 //
 
 #import "EditCompanyViewController.h"
-#import "CompanyViewController.h"
-#import "ProductViewController.h"
+#import "CompanyCollectionViewController.h"
+#import "ProductCollectionViewController.h"
 
 @interface EditCompanyViewController ()
 
@@ -54,11 +54,12 @@
     // Pass the selected object to the new view controller.
     
     [super viewWillAppear:animated];
-    [self.companyViewController.tableView reloadData];
+    [self.companyCollectionViewController.collectionView reloadData];
     [self setEditing: NO animated: NO];
 }
 
 #pragma mark Save Company Methods
+
 -(IBAction)SaveButtonTapped:(UIButton *)sender {
     DAO *dao = [DAO sharedManager];
         
@@ -97,7 +98,7 @@
         [DAO addCompany:self.currentCompany];
         [DAO save];
         
-        [self.companyViewController.tableView reloadData];
+        [self.companyCollectionViewController.collectionView reloadData];
     }
     
     //return to rootViewController

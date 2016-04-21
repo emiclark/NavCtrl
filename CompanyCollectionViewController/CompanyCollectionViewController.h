@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DAO.h"
-#import "Company.h"
 #import "EditCompanyViewController.h"
+#import "ProductCollectionViewController.h"
 
-@interface CompanyCollectionViewController : UICollectionViewController
 
-@property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
+@class ProductCollectionViewController;
+@class EditCompanyViewController;
+
+@interface CompanyCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property ( nonatomic, retain) DAO *dao;
 @property ( nonatomic, retain) Company   *currentCompany;
 @property ( nonatomic, strong) NSArray *stockPrices;
+@property ( nonatomic, retain) ProductCollectionViewController *productCollectionViewController;
+@property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
 
-@property ( nonatomic, retain) IBOutlet ProductViewController  *productViewController;
-
+#pragma mark Company CRUD Methods
+-(void) addNewCompany;
+-(void) deleteItem:(UIButton *)sender;
+-(void) saveButtonTapped;
+-(void) undoCompany;
 @end

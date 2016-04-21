@@ -67,7 +67,7 @@
     
     self.editProductViewController = [[[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil] autorelease];
     self.editProductViewController.currentCompany = self.currentCompany;
-    self.editProductViewController.productVC = self;
+//    self.editProductViewController.productVC = self;
     [self.navigationController pushViewController: self.editProductViewController animated:YES];
 }
 
@@ -203,7 +203,7 @@
         self.titleOfCompany =  self.currentProduct.name;
         //set title of EditProductViewController
         self.editProductViewController.title = self.editProductViewController.currentProduct.name;
-        self.editProductViewController.productVC = self;
+//        self.editProductViewController.productVC = self;
         [self.navigationController pushViewController: self.editProductViewController animated:YES];
         
     } else {
