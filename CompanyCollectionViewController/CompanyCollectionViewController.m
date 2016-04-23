@@ -33,6 +33,7 @@ UIBarButtonItem *editButton;
     [DAO initializeDAO];
     self.dao = [DAO sharedManager];
 
+    self.installsStandardGestureForInteractiveMovement = YES;
     // Register cell classes
     [self.collectionView registerClass:[CompanyCollectionViewCell class] forCellWithReuseIdentifier:companyReuseIdentifier];
     
@@ -108,9 +109,7 @@ UIBarButtonItem *editButton;
     [self.collectionView reloadData];
 }
 
-// Override to support rearranging the table view.
--(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
-    
+-(void ) collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     Company *itemToMove;
     itemToMove = (Company*)[self.dao.companyList objectAtIndex:sourceIndexPath.row];
     [itemToMove retain];

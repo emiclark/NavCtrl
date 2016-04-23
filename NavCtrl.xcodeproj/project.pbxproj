@@ -37,6 +37,19 @@
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA34CE651CB723EC005D9587 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA34CE641CB723EC005D9587 /* CoreData.framework */; };
+		AA3711EF1CCAF7F800A78FE2 /* lumina.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E21CCAF7F800A78FE2 /* lumina.png */; };
+		AA3711F01CCAF7F800A78FE2 /* ideapad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */; };
+		AA3711F11CCAF7F800A78FE2 /* surfacepro4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */; };
+		AA3711F21CCAF7F800A78FE2 /* galaxytab.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */; };
+		AA3711F31CCAF7F800A78FE2 /* galaxynote.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */; };
+		AA3711F41CCAF7F800A78FE2 /* galaxyS5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */; };
+		AA3711F51CCAF7F800A78FE2 /* galaxyS4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */; };
+		AA3711F61CCAF7F800A78FE2 /* pixelC.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */; };
+		AA3711F71CCAF7F800A78FE2 /* chromebook.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */; };
+		AA3711F81CCAF7F800A78FE2 /* nexus.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EB1CCAF7F800A78FE2 /* nexus.png */; };
+		AA3711F91CCAF7F800A78FE2 /* iPhone.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */; };
+		AA3711FA1CCAF7F800A78FE2 /* ipodtouch.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */; };
+		AA3711FB1CCAF7F800A78FE2 /* ipad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */; };
 		AA3D09C51CC58E0400457349 /* CompanyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */; };
 		AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */; };
 		AA3D09D31CC5937700457349 /* CompanyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */; };
@@ -110,6 +123,19 @@
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA34CE641CB723EC005D9587 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		AA3711E21CCAF7F800A78FE2 /* lumina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lumina.png; path = ../lumina.png; sourceTree = "<group>"; };
+		AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ideapad.jpeg; path = ../ideapad.jpeg; sourceTree = "<group>"; };
+		AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = surfacepro4.jpeg; path = ../surfacepro4.jpeg; sourceTree = "<group>"; };
+		AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxytab.jpeg; path = ../galaxytab.jpeg; sourceTree = "<group>"; };
+		AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxynote.jpeg; path = ../galaxynote.jpeg; sourceTree = "<group>"; };
+		AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxyS5.jpeg; path = ../galaxyS5.jpeg; sourceTree = "<group>"; };
+		AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = galaxyS4.png; path = ../galaxyS4.png; sourceTree = "<group>"; };
+		AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pixelC.jpeg; path = ../pixelC.jpeg; sourceTree = "<group>"; };
+		AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chromebook.jpeg; path = ../chromebook.jpeg; sourceTree = "<group>"; };
+		AA3711EB1CCAF7F800A78FE2 /* nexus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nexus.png; path = ../nexus.png; sourceTree = "<group>"; };
+		AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = iPhone.gif; path = ../iPhone.gif; sourceTree = "<group>"; };
+		AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipodtouch.jpeg; path = ../ipodtouch.jpeg; sourceTree = "<group>"; };
+		AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipad.jpeg; path = ../ipad.jpeg; sourceTree = "<group>"; };
 		AA3D09C21CC58E0400457349 /* CompanyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCollectionViewController.h; path = CompanyCollectionViewController/CompanyCollectionViewController.h; sourceTree = "<group>"; };
 		AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewController.m; path = ../CompanyCollectionViewController/CompanyCollectionViewController.m; sourceTree = "<group>"; };
 		AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyCollectionViewController.xib; path = CompanyCollectionViewController/CompanyCollectionViewController.xib; sourceTree = "<group>"; };
@@ -278,6 +304,19 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AA3711E21CCAF7F800A78FE2 /* lumina.png */,
+				AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */,
+				AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */,
+				AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */,
+				AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */,
+				AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */,
+				AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */,
+				AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */,
+				AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */,
+				AA3711EB1CCAF7F800A78FE2 /* nexus.png */,
+				AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */,
+				AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */,
+				AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */,
 				00655E4F1CC81058005CC57B /* flower.gif */,
 				AAE05FA11C7CC249005B22DA /* apple.png */,
 				AAE05FA21C7CC249005B22DA /* asus.png */,
@@ -428,19 +467,32 @@
 			files = (
 				AA3D09D41CC5937700457349 /* CompanyCollectionViewCell.xib in Resources */,
 				AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */,
+				AA3711F11CCAF7F800A78FE2 /* surfacepro4.jpeg in Resources */,
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
 				AA4C76881C97367800D32757 /* google.png in Resources */,
+				AA3711FB1CCAF7F800A78FE2 /* ipad.jpeg in Resources */,
+				AA3711F61CCAF7F800A78FE2 /* pixelC.jpeg in Resources */,
+				AA3711F01CCAF7F800A78FE2 /* ideapad.jpeg in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
 				AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */,
+				AA3711F91CCAF7F800A78FE2 /* iPhone.gif in Resources */,
 				00775E211CC7089B00ABE0E4 /* ProductCollectionViewCell.xib in Resources */,
 				00655E501CC81058005CC57B /* flower.gif in Resources */,
 				00775E1C1CC7082E00ABE0E4 /* ProductCollectionViewController.xib in Resources */,
+				AA3711F31CCAF7F800A78FE2 /* galaxynote.jpeg in Resources */,
+				AA3711F51CCAF7F800A78FE2 /* galaxyS4.png in Resources */,
+				AA3711F71CCAF7F800A78FE2 /* chromebook.jpeg in Resources */,
+				AA3711F41CCAF7F800A78FE2 /* galaxyS5.jpeg in Resources */,
 				AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */,
 				AAE05FA81C7CC249005B22DA /* samsung.png in Resources */,
+				AA3711F81CCAF7F800A78FE2 /* nexus.png in Resources */,
+				AA3711FA1CCAF7F800A78FE2 /* ipodtouch.jpeg in Resources */,
 				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
+				AA3711EF1CCAF7F800A78FE2 /* lumina.png in Resources */,
+				AA3711F21CCAF7F800A78FE2 /* galaxytab.jpeg in Resources */,
 				AA75AEED1C9B4862006138E6 /* dao.db in Resources */,
 				AADD59011C909756009AF845 /* EditProductViewController.xib in Resources */,
 			);

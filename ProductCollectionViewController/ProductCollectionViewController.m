@@ -33,6 +33,8 @@ UIBarButtonItem *deleteButton;
     [super viewDidLoad];
     self.dao = [DAO sharedManager];
     
+    self.installsStandardGestureForInteractiveMovement = YES;
+    
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -142,7 +144,47 @@ UIBarButtonItem *deleteButton;
     [self.collectionView reloadData];
 }
 
+
+-(void)collectionView:(UICollectionView *)collectionView moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath  {
+
+    self.currentProduct = [self.currentCompany.productArray objectAtIndex:sourceIndexPath.row];
     
+    if (self.currentCompany.productArray.count > 0){
+        
+        //more than 1 element
+        if (destinationIndexPath.row == self.currentCompany.productArray.count-1) {
+            //move to bottom, increment row +1.0 of last product and assign to currentProduct
+            
+            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex: destinationIndexPath.row].row + 1.0;
+        } else if (destinationIndexPath.row == 0){
+            //move to top, divide/2 the product.row index in position 1 and set to currentProduct.row
+            self.currentProduct.row = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row / 2.0;
+            
+        } else if (sourceIndexPath.row > destinationIndexPath.row){
+            // move up
+            float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row-1].row;
+            float rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
+            self.currentProduct.row = (rowBefore + rowAfter) / 2.0;
+            
+        } else if (sourceIndexPath.row < destinationIndexPath.row){
+            //move down
+            float rowBefore =[self.currentCompany.productArray objectAtIndex:destinationIndexPath.row].row;
+            float rowAfter = [self.currentCompany.productArray objectAtIndex:destinationIndexPath.row+1].row;
+            self.currentProduct.row = (rowBefore + rowAfter) / 2.0;
+        }
+    } else {
+        //add 1st product for company
+        self.currentProduct.row = 1.0;
+    }
+    
+    [DAO moveProduct:self.currentProduct];
+    
+    [self.currentCompany.productArray removeObjectAtIndex:sourceIndexPath.row];
+    [self.currentCompany.productArray insertObject:self.currentProduct atIndex:destinationIndexPath.row];
+    [self.collectionView reloadData];
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
