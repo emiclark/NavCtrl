@@ -1,6 +1,8 @@
 //
 //  CompanyCollectionViewController.h
 //  NavCtrl
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Aditya Narayan on 4/18/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -13,18 +15,20 @@
 
 @class ProductCollectionViewController;
 @class EditCompanyViewController;
-
+@class DAO;
 @interface CompanyCollectionViewController : UICollectionViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property ( nonatomic, retain) DAO *dao;
 @property ( nonatomic, retain) Company   *currentCompany;
-@property ( nonatomic, strong) NSArray *stockPrices;
 @property ( nonatomic, retain) ProductCollectionViewController *productCollectionViewController;
 @property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
 
+-(void) getStockPrices;
+    
 #pragma mark Company CRUD Methods
 -(void) addNewCompany;
 -(void) deleteItem:(UIButton *)sender;
 -(void) saveButtonTapped;
 -(void) undoCompany;
+
+    
 @end

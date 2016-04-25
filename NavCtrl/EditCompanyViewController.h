@@ -1,15 +1,14 @@
 //
 //  EditCompanyViewController.h
 //  NavCtrl
-// Assignment8
-// CoreData
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "DAO.h"
 #import "Company.h"
 #import "CompanyCollectionViewController.h"
 
@@ -17,7 +16,6 @@
 
 @interface EditCompanyViewController : UIViewController
 
-@property (retain,nonatomic) DAO *dao;
 @property (retain, nonatomic) Company *currentCompany;
 @property (nonatomic) NSInteger currentRow;
 @property (retain, nonatomic) CompanyCollectionViewController *companyCollectionViewController;

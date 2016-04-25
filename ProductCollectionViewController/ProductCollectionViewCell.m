@@ -1,6 +1,8 @@
 //
 //  ProductCollectionViewCell.m
 //  NavCtrl
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 4/19/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.

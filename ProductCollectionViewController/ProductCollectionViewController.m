@@ -1,6 +1,8 @@
 //
 //  ProductCollectionViewController.m
 //  NavCtrl
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 4/19/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -12,6 +14,7 @@
 @class EditCompanyViewController;
 
 @interface ProductCollectionViewController ()
+@property (nonatomic, retain) DAO *dao;
 
 @end
 
@@ -267,6 +270,10 @@ UIBarButtonItem *deleteButton;
         self.myWebViewCtlr = [[[WebViewController alloc]init] autorelease];
         self.myWebViewCtlr.productURL = tempProduct.url;
         self.myWebViewCtlr.title = tempProduct.name;
+        
+        if ([self.currentProduct.url isEqualToString:@""]) {
+            self.myWebViewCtlr.title = [NSString stringWithFormat:@"No Website provided for product %@.",tempProduct.name];
+        }
         
         [self.navigationController pushViewController:self.myWebViewCtlr animated:YES];
     }

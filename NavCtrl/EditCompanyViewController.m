@@ -1,8 +1,8 @@
 //
 //  EditCompanyViewController.m
 //  NavCtrl
-// Assignment8
-// CoreData
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -11,8 +11,10 @@
 #import "EditCompanyViewController.h"
 #import "CompanyCollectionViewController.h"
 #import "ProductCollectionViewController.h"
+#import "DAO.h"
 
 @interface EditCompanyViewController ()
+@property (retain,nonatomic) DAO *dao;
 
 @end
 
@@ -68,10 +70,11 @@
         self.currentCompany.name = self.name.text;
         self.currentCompany.row = self.currentCompany.row;
         self.currentCompany.stockSymbol = self.stockSymbol.text;
-        self.currentCompany.logo = self.logo.text;
         if ([self.currentCompany.stockSymbol isEqualToString:@""]) {
             self.currentCompany.stockSymbol = @"N/A";
         }
+        self.currentCompany.logo = self.logo.text;
+
         NSLog(@"%@",self.currentCompany);
         //update currentCompany to DAO/CoreData
         [DAO  updateCompany:self.currentCompany];
@@ -84,12 +87,19 @@
         self.currentCompany.row = dao.newCompanyRow;
         self.currentCompany.name = self.name.text;
         self.currentCompany.companyID = self.dao.newCompanyID;
-        self.currentCompany.stockSymbol = self.stockSymbol.text;
-        self.currentCompany.logo = self.logo.text;
         
-        if ([self.currentCompany.stockSymbol isEqualToString:@""]) {
+        //if stockSymbol left empty, put in N/A
+        self.currentCompany.stockSymbol = self.stockSymbol.text;
+        if ([self.currentCompany.stockSymbol isEqualToString:@""]){
             self.currentCompany.stockSymbol = @"N/A";
         }
+        
+        //if logo left empty, put in flower.gif as default
+        self.currentCompany.logo = self.logo.text;
+        if ([self.currentCompany.logo isEqualToString:@""]){
+            self.currentCompany.logo = @"flower.gif";
+        }
+        
         //get row number for new company
         self.currentCompany.row = [DAO getNewCompanyRowNumber];
         self.dao.currentCompany = self.currentCompany;

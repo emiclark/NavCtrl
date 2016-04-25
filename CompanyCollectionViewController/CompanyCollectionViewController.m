@@ -1,6 +1,8 @@
 //
 //  CompanyCollectionViewController.m
 //  NavCtrl
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Aditya Narayan on 4/18/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -8,9 +10,12 @@
 
 #import "CompanyCollectionViewController.h"
 #import "CompanyCollectionViewCell.h"
+#import "AFNetworking.h"
 #import "DAO.h"
+#import <SystemConfiguration/SystemConfiguration.h> 
 
 @interface CompanyCollectionViewController ()
+@property ( nonatomic, retain) DAO *dao;
 
 @end
 
@@ -22,9 +27,21 @@ UIBarButtonItem *editButton;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setEditing:NO];
+    [self getStockPrices];
+    [NSTimer scheduledTimerWithTimeInterval: 150.0
+                                     target: self
+                                   selector: @selector(getStockPrices)
+                                   userInfo: nil
+                                    repeats: YES];
+    isEditingCompany = NO;
+    editButton.title = @"Edit";
     [self.collectionView reloadData];
-//    isEditingCompany = NO;
-//    editButton.title = @"Edit";
+}
+
+    
+-(void) getStockPrices {
+    [self.dao updateStockPrices];
 }
 
 
@@ -32,6 +49,7 @@ UIBarButtonItem *editButton;
     [super viewDidLoad];
     [DAO initializeDAO];
     self.dao = [DAO sharedManager];
+    self.dao.ccvc = self;
 
     self.installsStandardGestureForInteractiveMovement = YES;
     // Register cell classes
@@ -84,7 +102,7 @@ UIBarButtonItem *editButton;
 
 #pragma mark Company CRUD Methods
 
-
+    ////////
 -(void) addNewCompany {
     self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
     self.editCompanyViewController.currentCompany = [[[Company alloc]init]autorelease];
@@ -160,7 +178,7 @@ UIBarButtonItem *editButton;
     
     Company *company = [[[DAO sharedManager] companyList] objectAtIndex:indexPath.row];
     cell.name.text = company.name;
-    cell.stockPrice.text = company.stockSymbol;
+    cell.stockPrice.text = company.stockPrice;
     cell.logo.image = [UIImage imageNamed:company.logo ];
 
     // display delete button
@@ -182,7 +200,7 @@ UIBarButtonItem *editButton;
 - (void)setEditMode
 {
     isEditingCompany  = !isEditingCompany;
-    
+
     if (isEditingCompany)
         {
         editButton.title = @"Done";
@@ -191,6 +209,9 @@ UIBarButtonItem *editButton;
         {
         editButton.title = @"Edit";
     }
+    
+    [self setEditing:isEditingCompany];
+
 
     [self.collectionView reloadData];
     
@@ -203,7 +224,7 @@ UIBarButtonItem *editButton;
     self.currentCompany = self.dao.currentCompany;
     self.editCompanyViewController.currentCompany = self.currentCompany;
     
-    if (isEditingCompany==YES) {
+    if (self.isEditing == YES) {
         //edit mode - edit company
         //set new viewcontroller to editCompanyViewController
         self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];

@@ -1,8 +1,8 @@
 //
 //  Company.m
 //  NavCtrl
-// Assignment8
-// CoreData
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.

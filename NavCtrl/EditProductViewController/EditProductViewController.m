@@ -1,8 +1,8 @@
 //
 //  EditProductViewController.m
 //  NavCtrl
-// Assignment8
-// CoreData
+// Assignment9
+// CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 2/29/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
@@ -11,6 +11,8 @@
 #import "EditProductViewController.h"
 
 @interface EditProductViewController ()
+@property  (retain,nonatomic) DAO *dao;
+
 @end
 
 @implementation EditProductViewController
@@ -50,7 +52,6 @@
         self.currentProduct.logo = self.logo.text;
         self.currentProduct.row = self.currentRow;
         [DAO updateProduct:self.currentProduct];
-//        [DAO save];
     } else {
 
         //add product mode
@@ -60,7 +61,9 @@
         self.currentProduct.name = self.name.text;
         self.currentProduct.url = self.url.text;
         self.currentProduct.logo = self.logo.text;
-
+        if ([self.currentProduct.logo isEqualToString:@""]) {
+            self.currentProduct.logo = @"flower.gif";
+        }
         //get row number for newproduct
         self.currentProduct.row = [DAO getNewProductRowNumber];
 
