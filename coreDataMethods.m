@@ -103,15 +103,15 @@ static NSString *path;
     [dao.companyList addObject:apple];
     [coreDataMethods addCompany:apple];
     
-    Product *iPad  = [[Product alloc] initWithName: @"iPad" andUrl:@"http://www.apple.com/ipad/" andLogo:@"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *iPad  = [[Product alloc] initWithName: @"iPad" andUrl:@"http://www.apple.com/ipad/" andLogo:@"ipad.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [apple.productArray addObject: iPad ];
     [coreDataMethods addProduct:iPad toCompany:apple];
     
-    Product *iPod = [[Product alloc] initWithName:@"iPod Touch" andUrl:@"http://www.apple.com/ipod-touch/" andLogo: @"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *iPod = [[Product alloc] initWithName:@"iPod Touch" andUrl:@"http://www.apple.com/ipod-touch/" andLogo: @"ipodtouch.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [apple.productArray addObject: iPod ];
     [coreDataMethods addProduct:iPod toCompany:apple];
     
-    Product *iPhone = [[Product alloc] initWithName:@"iPhone" andUrl:@"http://www.apple.com/iphone/" andLogo: @"apple.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *iPhone = [[Product alloc] initWithName:@"iPhone 6" andUrl:@"http://www.apple.com/iphone/" andLogo: @"iPhone.jpg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [apple.productArray addObject: iPhone ];
     [coreDataMethods addProduct:iPhone toCompany:apple];
     
@@ -121,16 +121,16 @@ static NSString *path;
     [dao.companyList addObject:samsung];
     [coreDataMethods addCompany:samsung];
     
-    Product *S4 = [[Product alloc] initWithName:@"Galaxy S4" andUrl:@"http://www.samsung.com/global/microsite/galaxys4/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *S4 = [[Product alloc] initWithName:@"Galaxy S4" andUrl:@"http://www.samsung.com/us/mobile/cell-phones/SPH-L720ZWASPR" andLogo: @"galaxyS4.jpg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [samsung.productArray addObject: S4 ];
     [coreDataMethods addProduct:S4 toCompany:samsung];
     
-    Product *Note = [[Product alloc] initWithName:@"Galaxy Note" andUrl:@"http://www.samsung.com/us/mobile/galaxy-note/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Note = [[Product alloc] initWithName:@"Galaxy Note" andUrl:@"http://www.samsung.com/us/mobile/galaxy-note/" andLogo: @"galaxynote.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [samsung.productArray addObject: Note ];
     [coreDataMethods addProduct:Note toCompany:samsung];
     dao.newProductRow++;
     
-    Product *Tab = [[Product alloc] initWithName:@"Galaxy Tab" andUrl:@"http://www.samsung.com/us/mobile/galaxy-tab/" andLogo: @"samsung.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Tab = [[Product alloc] initWithName:@"Galaxy Tab" andUrl:@"http://www.samsung.com/us/mobile/galaxy-tab/" andLogo: @"galaxytab.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [samsung.productArray addObject: Tab ];
     [coreDataMethods addProduct:Tab toCompany:samsung];
     
@@ -140,33 +140,34 @@ static NSString *path;
     [dao.companyList addObject:google];
     [coreDataMethods addCompany:google];
     
-    Product *pixelC = [[Product alloc] initWithName:@"Pixel C" andUrl:@"https://pixel.google.com/pixel-c/" andLogo: @"google.png"andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *pixelC = [[Product alloc] initWithName:@"Pixel C" andUrl:@"https://pixel.google.com/pixel-c/" andLogo: @"pixelC.jpeg"andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [google.productArray addObject: pixelC ];
     [coreDataMethods addProduct:pixelC toCompany:google];
     
-    Product *chromebook = [[Product alloc] initWithName:@"Chromebook" andUrl:@"https://www.google.com/chromebook/" andLogo:@"google.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *chromebook = [[Product alloc] initWithName:@"Chromebook" andUrl:@"https://www.google.com/chromebook/" andLogo:@"chromebook.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [google.productArray addObject: chromebook ];
     [coreDataMethods addProduct:chromebook toCompany:google];
     
-    Product *Nexus6P = [[Product alloc] initWithName:@"Nexus 6P" andUrl:@"https://www.google.com/nexus/6p/" andLogo: @"google.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Nexus6P = [[Product alloc] initWithName:@"Nexus 6P" andUrl:@"https://www.google.com/nexus/6p/" andLogo: @"nexus.jpg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [google.productArray addObject: Nexus6P ];
     [coreDataMethods addProduct:Nexus6P toCompany:google];
     
     //microsoft
     Company *microsoft =  [[Company alloc] initWithName:@"Microsoft" andStockSymbol:@"MSFT" andLogo:@"microsoft.png" andRow:dao.newCompanyRow andCompanyID:dao.newCompanyID];
+    
     dao.currentCompany = microsoft;
     [dao.companyList addObject:microsoft];
     [coreDataMethods addCompany:microsoft];
     
-    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo:@"microsoft.png" andCompanyID: dao.currentCompany.companyID andRow: dao.newProductRow andProductID: dao.newProductID ];
+    Product *Lumina = [[Product alloc] initWithName:@"Lumia 950 XL" andUrl:@"https://www.microsoft.com/en-us/mobile/phone/lumia950-xl-dual-sim/" andLogo:@"lumina.png" andCompanyID: dao.currentCompany.companyID andRow: dao.newProductRow andProductID: dao.newProductID ];
     [microsoft.productArray addObject: Lumina ];
     [coreDataMethods addProduct:Lumina toCompany:microsoft];
     
-    Product *Lenovo = [[Product alloc] initWithName:@"Lenovo ideapad MIIX 700" andUrl:@"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Lenovo = [[Product alloc] initWithName:@"Lenovo ideapad MIIX 700" andUrl:@"http://shop.lenovo.com/us/en/tablets/ideapad/miix/miix-700/" andLogo: @"ideapad.jpg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [microsoft.productArray addObject: Lenovo ];
     [coreDataMethods addProduct:Lenovo toCompany:microsoft];
     
-    Product *Surface = [[Product alloc] initWithName:@"Surface Pro 4" andUrl:@"http://www.microsoft.com/surface/en-us/devices/surface-pro-4" andLogo: @"microsoft.png" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
+    Product *Surface = [[Product alloc] initWithName:@"Surface Pro 4" andUrl:@"http://www.microsoft.com/surface/en-us/devices/surface-pro-4" andLogo: @"surfacepro4.jpeg" andCompanyID:dao.currentCompany.companyID andRow:dao.newProductRow andProductID:dao.newProductID];
     [microsoft.productArray addObject: Surface ];
     [coreDataMethods addProduct:Surface toCompany:microsoft];
     
@@ -447,7 +448,7 @@ static NSString *path;
 }
 
 
-#pragma mark utility Methods
+#pragma mark Utility Methods
 +(void) saveChanges
 {
     //save context to CoreData

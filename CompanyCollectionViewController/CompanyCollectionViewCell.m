@@ -15,12 +15,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    
-
 }
-
-
-
 
 - (void)dealloc {
     [_logo release];

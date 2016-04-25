@@ -50,7 +50,7 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Sunflower.gif" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H6Q-1S-weA">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H6Q-1S-weA">
                     <rect key="frame" x="217" y="282" width="294" height="35"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="UJQ-op-8eZ"/>

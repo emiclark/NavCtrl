@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00655E501CC81058005CC57B /* flower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 00655E4F1CC81058005CC57B /* flower.gif */; };
+		00655E821CCDA849005CC57B /* chromebook.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E811CCDA849005CC57B /* chromebook.jpeg */; };
+		00655E911CCDA857005CC57B /* galaxynote.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E831CCDA857005CC57B /* galaxynote.jpeg */; };
+		00655E931CCDA857005CC57B /* galaxytab.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E851CCDA857005CC57B /* galaxytab.jpeg */; };
+		00655E941CCDA857005CC57B /* ipad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E861CCDA857005CC57B /* ipad.jpeg */; };
+		00655E951CCDA857005CC57B /* ipodtouch.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E871CCDA857005CC57B /* ipodtouch.jpeg */; };
+		00655E961CCDA857005CC57B /* lumina.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655E881CCDA857005CC57B /* lumina.png */; };
+		00655E971CCDA857005CC57B /* pixelC.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E891CCDA857005CC57B /* pixelC.jpeg */; };
+		00655E981CCDA857005CC57B /* surfacepro4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E8A1CCDA857005CC57B /* surfacepro4.jpeg */; };
+		00655E991CCDA857005CC57B /* ideapad.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E8B1CCDA857005CC57B /* ideapad.jpg */; };
+		00655E9A1CCDA857005CC57B /* iPhone.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E8C1CCDA857005CC57B /* iPhone.jpg */; };
+		00655E9B1CCDA857005CC57B /* nexus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E8D1CCDA857005CC57B /* nexus.jpg */; };
+		00655E9D1CCDA857005CC57B /* flower.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00655E8F1CCDA857005CC57B /* flower.jpg */; };
+		00655E9E1CCDA857005CC57B /* microsoft.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655E901CCDA857005CC57B /* microsoft.png */; };
+		00655EA31CCDAA0E005CC57B /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655EA01CCDAA0E005CC57B /* apple.png */; };
+		00655EA41CCDAA0E005CC57B /* asus.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655EA11CCDAA0E005CC57B /* asus.png */; };
+		00655EA51CCDAA0E005CC57B /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655EA21CCDAA0E005CC57B /* samsung.png */; };
+		00655EA81CCDAA3A005CC57B /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = 00655EA61CCDAA3A005CC57B /* google.png */; };
+		00655EA91CCDAA3A005CC57B /* sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 00655EA71CCDAA3A005CC57B /* sunflower.gif */; };
+		00655EAD1CCDAE10005CC57B /* galaxyS4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 00655EAC1CCDAE10005CC57B /* galaxyS4.jpg */; };
 		00775E191CC6FE6B00ABE0E4 /* ProductCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00775E181CC6FE6B00ABE0E4 /* ProductCollectionViewController.m */; };
 		00775E1C1CC7082E00ABE0E4 /* ProductCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00775E1B1CC7082E00ABE0E4 /* ProductCollectionViewController.xib */; };
 		00775E201CC7089B00ABE0E4 /* ProductCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00775E1E1CC7089B00ABE0E4 /* ProductCollectionViewCell.m */; };
@@ -24,10 +42,6 @@
 		48A656D018163BF200746D36 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48A656B818163BF200746D36 /* UIKit.framework */; };
 		48A656D818163BF200746D36 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 48A656D618163BF200746D36 /* InfoPlist.strings */; };
 		48A656DA18163BF200746D36 /* NavCtrlTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656D918163BF200746D36 /* NavCtrlTests.m */; };
-		48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E418163C1B00746D36 /* CompanyViewController.m */; };
-		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
-		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
-		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
 		AA002BEC1C8E1B1400A31BBD /* EditCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */; };
 		AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */; };
 		AA05C3291CBD5C3800C72472 /* ProductMO+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = AA05C3221CBD5C3800C72472 /* ProductMO+CoreDataProperties.m */; };
@@ -37,24 +51,10 @@
 		AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */ = {isa = PBXBuildFile; fileRef = AA0A615C1C84F0E5009ACEB0 /* DAO.m */; };
 		AA0C51961C7E21FD00E55086 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA0C51951C7E21FD00E55086 /* WebKit.framework */; };
 		AA34CE651CB723EC005D9587 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA34CE641CB723EC005D9587 /* CoreData.framework */; };
-		AA3711EF1CCAF7F800A78FE2 /* lumina.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E21CCAF7F800A78FE2 /* lumina.png */; };
-		AA3711F01CCAF7F800A78FE2 /* ideapad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */; };
-		AA3711F11CCAF7F800A78FE2 /* surfacepro4.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */; };
-		AA3711F21CCAF7F800A78FE2 /* galaxytab.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */; };
-		AA3711F31CCAF7F800A78FE2 /* galaxynote.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */; };
-		AA3711F41CCAF7F800A78FE2 /* galaxyS5.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */; };
-		AA3711F51CCAF7F800A78FE2 /* galaxyS4.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */; };
-		AA3711F61CCAF7F800A78FE2 /* pixelC.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */; };
-		AA3711F71CCAF7F800A78FE2 /* chromebook.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */; };
-		AA3711F81CCAF7F800A78FE2 /* nexus.png in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EB1CCAF7F800A78FE2 /* nexus.png */; };
-		AA3711F91CCAF7F800A78FE2 /* iPhone.gif in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */; };
-		AA3711FA1CCAF7F800A78FE2 /* ipodtouch.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */; };
-		AA3711FB1CCAF7F800A78FE2 /* ipad.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */; };
 		AA3D09C51CC58E0400457349 /* CompanyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */; };
 		AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */; };
 		AA3D09D31CC5937700457349 /* CompanyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */; };
 		AA3D09D41CC5937700457349 /* CompanyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */; };
-		AA4C76881C97367800D32757 /* google.png in Resources */ = {isa = PBXBuildFile; fileRef = AA4C76871C97367800D32757 /* google.png */; };
 		AA75AEED1C9B4862006138E6 /* dao.db in Resources */ = {isa = PBXBuildFile; fileRef = AA75AEEC1C9B4862006138E6 /* dao.db */; };
 		AA75AEEF1C9CB993006138E6 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */; };
 		AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */ = {isa = PBXBuildFile; fileRef = AA7CEDF61C80E7D200DA7BB4 /* Company.m */; };
@@ -64,10 +64,6 @@
 		AADD59001C909756009AF845 /* EditProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AADD58FE1C909756009AF845 /* EditProductViewController.m */; };
 		AADD59011C909756009AF845 /* EditProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AADD58FF1C909756009AF845 /* EditProductViewController.xib */; };
 		AAE05F9F1C7BDA60005B22DA /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE05F9D1C7BDA60005B22DA /* WebViewController.m */; };
-		AAE05FA51C7CC249005B22DA /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA11C7CC249005B22DA /* apple.png */; };
-		AAE05FA61C7CC249005B22DA /* asus.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA21C7CC249005B22DA /* asus.png */; };
-		AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA31C7CC249005B22DA /* microsoft.png */; };
-		AAE05FA81C7CC249005B22DA /* samsung.png in Resources */ = {isa = PBXBuildFile; fileRef = AAE05FA41C7CC249005B22DA /* samsung.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,9 +77,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00655E4F1CC81058005CC57B /* flower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flower.gif; sourceTree = "<group>"; };
+		00655E811CCDA849005CC57B /* chromebook.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chromebook.jpeg; path = NavCtrl/images/chromebook.jpeg; sourceTree = "<group>"; };
+		00655E831CCDA857005CC57B /* galaxynote.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxynote.jpeg; path = NavCtrl/images/galaxynote.jpeg; sourceTree = "<group>"; };
+		00655E851CCDA857005CC57B /* galaxytab.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxytab.jpeg; path = NavCtrl/images/galaxytab.jpeg; sourceTree = "<group>"; };
+		00655E861CCDA857005CC57B /* ipad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipad.jpeg; path = NavCtrl/images/ipad.jpeg; sourceTree = "<group>"; };
+		00655E871CCDA857005CC57B /* ipodtouch.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipodtouch.jpeg; path = NavCtrl/images/ipodtouch.jpeg; sourceTree = "<group>"; };
+		00655E881CCDA857005CC57B /* lumina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lumina.png; path = NavCtrl/images/lumina.png; sourceTree = "<group>"; };
+		00655E891CCDA857005CC57B /* pixelC.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pixelC.jpeg; path = NavCtrl/images/pixelC.jpeg; sourceTree = "<group>"; };
+		00655E8A1CCDA857005CC57B /* surfacepro4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = surfacepro4.jpeg; path = NavCtrl/images/surfacepro4.jpeg; sourceTree = "<group>"; };
+		00655E8B1CCDA857005CC57B /* ideapad.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ideapad.jpg; path = NavCtrl/images/ideapad.jpg; sourceTree = "<group>"; };
+		00655E8C1CCDA857005CC57B /* iPhone.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = iPhone.jpg; path = NavCtrl/images/iPhone.jpg; sourceTree = "<group>"; };
+		00655E8D1CCDA857005CC57B /* nexus.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = nexus.jpg; path = NavCtrl/images/nexus.jpg; sourceTree = "<group>"; };
+		00655E8F1CCDA857005CC57B /* flower.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = flower.jpg; path = NavCtrl/images/flower.jpg; sourceTree = "<group>"; };
+		00655E901CCDA857005CC57B /* microsoft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = microsoft.png; path = NavCtrl/images/microsoft.png; sourceTree = "<group>"; };
+		00655EA01CCDAA0E005CC57B /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apple.png; path = NavCtrl/images/apple.png; sourceTree = "<group>"; };
+		00655EA11CCDAA0E005CC57B /* asus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = asus.png; path = NavCtrl/images/asus.png; sourceTree = "<group>"; };
+		00655EA21CCDAA0E005CC57B /* samsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = samsung.png; path = NavCtrl/images/samsung.png; sourceTree = "<group>"; };
+		00655EA61CCDAA3A005CC57B /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = NavCtrl/images/google.png; sourceTree = "<group>"; };
+		00655EA71CCDAA3A005CC57B /* sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = sunflower.gif; path = NavCtrl/images/sunflower.gif; sourceTree = "<group>"; };
+		00655EAC1CCDAE10005CC57B /* galaxyS4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxyS4.jpg; path = NavCtrl/images/galaxyS4.jpg; sourceTree = "<group>"; };
 		00775E171CC6FE6B00ABE0E4 /* ProductCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductCollectionViewController.h; path = ProductCollectionViewController/ProductCollectionViewController.h; sourceTree = "<group>"; };
-		00775E181CC6FE6B00ABE0E4 /* ProductCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductCollectionViewController.m; path = ../ProductCollectionViewController/ProductCollectionViewController.m; sourceTree = "<group>"; };
+		00775E181CC6FE6B00ABE0E4 /* ProductCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductCollectionViewController.m; path = ProductCollectionViewController/ProductCollectionViewController.m; sourceTree = "<group>"; };
 		00775E1B1CC7082E00ABE0E4 /* ProductCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProductCollectionViewController.xib; path = NavCtrl/ProductCollectionViewController.xib; sourceTree = "<group>"; };
 		00775E1D1CC7089B00ABE0E4 /* ProductCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductCollectionViewCell.h; path = ProductCollectionViewController/ProductCollectionViewCell.h; sourceTree = "<group>"; };
 		00775E1E1CC7089B00ABE0E4 /* ProductCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductCollectionViewCell.m; path = ProductCollectionViewController/ProductCollectionViewCell.m; sourceTree = "<group>"; };
@@ -104,10 +118,6 @@
 		48A656D518163BF200746D36 /* NavCtrlTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NavCtrlTests-Info.plist"; sourceTree = "<group>"; };
 		48A656D718163BF200746D36 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		48A656D918163BF200746D36 /* NavCtrlTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavCtrlTests.m; sourceTree = "<group>"; };
-		48A656E418163C1B00746D36 /* CompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyViewController.m; path = ../CompanyViewController.m; sourceTree = "<group>"; };
-		48A656E518163C1B00746D36 /* CompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyViewController.xib; path = ../CompanyViewController.xib; sourceTree = "<group>"; };
-		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
-		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
 		AA002BE91C8E1B1400A31BBD /* EditCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCompanyViewController.h; sourceTree = "<group>"; };
 		AA002BEA1C8E1B1400A31BBD /* EditCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCompanyViewController.m; sourceTree = "<group>"; };
 		AA002BEB1C8E1B1400A31BBD /* EditCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCompanyViewController.xib; sourceTree = "<group>"; };
@@ -123,26 +133,12 @@
 		AA0A615C1C84F0E5009ACEB0 /* DAO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DAO.m; path = ../DAO.m; sourceTree = "<group>"; };
 		AA0C51951C7E21FD00E55086 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		AA34CE641CB723EC005D9587 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		AA3711E21CCAF7F800A78FE2 /* lumina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lumina.png; path = ../lumina.png; sourceTree = "<group>"; };
-		AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ideapad.jpeg; path = ../ideapad.jpeg; sourceTree = "<group>"; };
-		AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = surfacepro4.jpeg; path = ../surfacepro4.jpeg; sourceTree = "<group>"; };
-		AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxytab.jpeg; path = ../galaxytab.jpeg; sourceTree = "<group>"; };
-		AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxynote.jpeg; path = ../galaxynote.jpeg; sourceTree = "<group>"; };
-		AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = galaxyS5.jpeg; path = ../galaxyS5.jpeg; sourceTree = "<group>"; };
-		AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = galaxyS4.png; path = ../galaxyS4.png; sourceTree = "<group>"; };
-		AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = pixelC.jpeg; path = ../pixelC.jpeg; sourceTree = "<group>"; };
-		AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = chromebook.jpeg; path = ../chromebook.jpeg; sourceTree = "<group>"; };
-		AA3711EB1CCAF7F800A78FE2 /* nexus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nexus.png; path = ../nexus.png; sourceTree = "<group>"; };
-		AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = iPhone.gif; path = ../iPhone.gif; sourceTree = "<group>"; };
-		AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipodtouch.jpeg; path = ../ipodtouch.jpeg; sourceTree = "<group>"; };
-		AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ipad.jpeg; path = ../ipad.jpeg; sourceTree = "<group>"; };
 		AA3D09C21CC58E0400457349 /* CompanyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCollectionViewController.h; path = CompanyCollectionViewController/CompanyCollectionViewController.h; sourceTree = "<group>"; };
-		AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewController.m; path = ../CompanyCollectionViewController/CompanyCollectionViewController.m; sourceTree = "<group>"; };
+		AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewController.m; path = CompanyCollectionViewController/CompanyCollectionViewController.m; sourceTree = "<group>"; };
 		AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyCollectionViewController.xib; path = CompanyCollectionViewController/CompanyCollectionViewController.xib; sourceTree = "<group>"; };
 		AA3D09D01CC5937700457349 /* CompanyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyCollectionViewCell.h; path = CompanyCollectionViewController/CompanyCollectionViewCell.h; sourceTree = "<group>"; };
 		AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CompanyCollectionViewCell.m; path = CompanyCollectionViewController/CompanyCollectionViewCell.m; sourceTree = "<group>"; };
 		AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CompanyCollectionViewCell.xib; path = CompanyCollectionViewController/CompanyCollectionViewCell.xib; sourceTree = "<group>"; };
-		AA4C76871C97367800D32757 /* google.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = google.png; path = ../google.png; sourceTree = "<group>"; };
 		AA75AEEC1C9B4862006138E6 /* dao.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = dao.db; sourceTree = "<group>"; };
 		AA75AEEE1C9CB993006138E6 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		AA7CEDF51C80E7D200DA7BB4 /* Company.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Company.h; sourceTree = "<group>"; };
@@ -152,17 +148,11 @@
 		AA9A34C61CB99FE000E127E9 /* coreDataMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = coreDataMethods.m; path = ../coreDataMethods.m; sourceTree = "<group>"; };
 		AA9A34C71CB99FE000E127E9 /* coreDataMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = coreDataMethods.h; path = ../coreDataMethods.h; sourceTree = "<group>"; };
 		AA9A34CA1CB9A13D00E127E9 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CompanyViewController.h; path = ../CompanyViewController.h; sourceTree = "<group>"; };
-		AACD08BD1C7E87EA008E02C2 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		AADD58FD1C909756009AF845 /* EditProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProductViewController.h; path = EditProductViewController/EditProductViewController.h; sourceTree = "<group>"; };
 		AADD58FE1C909756009AF845 /* EditProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProductViewController.m; path = EditProductViewController/EditProductViewController.m; sourceTree = "<group>"; };
 		AADD58FF1C909756009AF845 /* EditProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditProductViewController.xib; path = EditProductViewController/EditProductViewController.xib; sourceTree = "<group>"; };
 		AAE05F9C1C7BDA60005B22DA /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		AAE05F9D1C7BDA60005B22DA /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
-		AAE05FA11C7CC249005B22DA /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
-		AAE05FA21C7CC249005B22DA /* asus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = asus.png; sourceTree = "<group>"; };
-		AAE05FA31C7CC249005B22DA /* microsoft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microsoft.png; sourceTree = "<group>"; };
-		AAE05FA41C7CC249005B22DA /* samsung.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = samsung.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +182,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00655E9F1CCDA870005CC57B /* images */ = {
+			isa = PBXGroup;
+			children = (
+				00655EAC1CCDAE10005CC57B /* galaxyS4.jpg */,
+				00655EA61CCDAA3A005CC57B /* google.png */,
+				00655EA71CCDAA3A005CC57B /* sunflower.gif */,
+				00655EA01CCDAA0E005CC57B /* apple.png */,
+				00655EA11CCDAA0E005CC57B /* asus.png */,
+				00655EA21CCDAA0E005CC57B /* samsung.png */,
+				00655E831CCDA857005CC57B /* galaxynote.jpeg */,
+				00655E851CCDA857005CC57B /* galaxytab.jpeg */,
+				00655E861CCDA857005CC57B /* ipad.jpeg */,
+				00655E871CCDA857005CC57B /* ipodtouch.jpeg */,
+				00655E881CCDA857005CC57B /* lumina.png */,
+				00655E891CCDA857005CC57B /* pixelC.jpeg */,
+				00655E8A1CCDA857005CC57B /* surfacepro4.jpeg */,
+				00655E8B1CCDA857005CC57B /* ideapad.jpg */,
+				00655E8C1CCDA857005CC57B /* iPhone.jpg */,
+				00655E8D1CCDA857005CC57B /* nexus.jpg */,
+				00655E8F1CCDA857005CC57B /* flower.jpg */,
+				00655E901CCDA857005CC57B /* microsoft.png */,
+				00655E811CCDA849005CC57B /* chromebook.jpeg */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
 		00775E1A1CC6FE7400ABE0E4 /* ProductCollectionViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +215,7 @@
 				00775E1E1CC7089B00ABE0E4 /* ProductCollectionViewCell.m */,
 				00775E1F1CC7089B00ABE0E4 /* ProductCollectionViewCell.xib */,
 				00775E171CC6FE6B00ABE0E4 /* ProductCollectionViewController.h */,
+				00775E181CC6FE6B00ABE0E4 /* ProductCollectionViewController.m */,
 				00775E1B1CC7082E00ABE0E4 /* ProductCollectionViewController.xib */,
 			);
 			name = ProductCollectionViewController;
@@ -214,28 +231,10 @@
 			name = AppDelegate;
 			sourceTree = "<group>";
 		};
-		483796CC1BCBF7C70062D5AB /* ParentViewController */ = {
-			isa = PBXGroup;
-			children = (
-				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
-				AACD08BC1C7E87EA008E02C2 /* CompanyViewController.h */,
-				48A656E418163C1B00746D36 /* CompanyViewController.m */,
-			);
-			name = ParentViewController;
-			sourceTree = "<group>";
-		};
-		483796CD1BCBF7EB0062D5AB /* ProductViewController */ = {
-			isa = PBXGroup;
-			children = (
-				AACD08BD1C7E87EA008E02C2 /* ProductViewController.h */,
-				48A656E918163F8700746D36 /* ProductViewController.m */,
-			);
-			name = ProductViewController;
-			sourceTree = "<group>";
-		};
 		48A656A818163BF200746D36 = {
 			isa = PBXGroup;
 			children = (
+				00655E9F1CCDA870005CC57B /* images */,
 				AA05C32D1CBD5C3D00C72472 /* CoreData2 */,
 				48A656BA18163BF200746D36 /* NavCtrl */,
 				48A656D318163BF200746D36 /* NavCtrlTests */,
@@ -280,8 +279,6 @@
 				AA7CEDF61C80E7D200DA7BB4 /* Company.m */,
 				AA7CEDF81C80E97000DA7BB4 /* Product.h */,
 				AA7CEDF91C80E97000DA7BB4 /* Product.m */,
-				AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */,
-				00775E181CC6FE6B00ABE0E4 /* ProductCollectionViewController.m */,
 				AA3D09C71CC58E1100457349 /* CompanyCollectionViewController */,
 				00775E1A1CC6FE7400ABE0E4 /* ProductCollectionViewController */,
 				AA002BE91C8E1B1400A31BBD /* EditCompanyViewController.h */,
@@ -290,8 +287,6 @@
 				AADD58FD1C909756009AF845 /* EditProductViewController.h */,
 				AADD58FE1C909756009AF845 /* EditProductViewController.m */,
 				AADD58FF1C909756009AF845 /* EditProductViewController.xib */,
-				483796CC1BCBF7C70062D5AB /* ParentViewController */,
-				483796CD1BCBF7EB0062D5AB /* ProductViewController */,
 				AAE05F9C1C7BDA60005B22DA /* WebViewController.h */,
 				AAE05F9D1C7BDA60005B22DA /* WebViewController.m */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
@@ -304,26 +299,6 @@
 		48A656BB18163BF200746D36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				AA3711E21CCAF7F800A78FE2 /* lumina.png */,
-				AA3711E31CCAF7F800A78FE2 /* ideapad.jpeg */,
-				AA3711E41CCAF7F800A78FE2 /* surfacepro4.jpeg */,
-				AA3711E51CCAF7F800A78FE2 /* galaxytab.jpeg */,
-				AA3711E61CCAF7F800A78FE2 /* galaxynote.jpeg */,
-				AA3711E71CCAF7F800A78FE2 /* galaxyS5.jpeg */,
-				AA3711E81CCAF7F800A78FE2 /* galaxyS4.png */,
-				AA3711E91CCAF7F800A78FE2 /* pixelC.jpeg */,
-				AA3711EA1CCAF7F800A78FE2 /* chromebook.jpeg */,
-				AA3711EB1CCAF7F800A78FE2 /* nexus.png */,
-				AA3711EC1CCAF7F800A78FE2 /* iPhone.gif */,
-				AA3711ED1CCAF7F800A78FE2 /* ipodtouch.jpeg */,
-				AA3711EE1CCAF7F800A78FE2 /* ipad.jpeg */,
-				00655E4F1CC81058005CC57B /* flower.gif */,
-				AAE05FA11C7CC249005B22DA /* apple.png */,
-				AAE05FA21C7CC249005B22DA /* asus.png */,
-				AAE05FA31C7CC249005B22DA /* microsoft.png */,
-				AAE05FA41C7CC249005B22DA /* samsung.png */,
-				AA4C76871C97367800D32757 /* google.png */,
-				48A656ED1816468000746D36 /* Sunflower.gif */,
 				48A656BC18163BF200746D36 /* NavCtrl-Info.plist */,
 				48A656BD18163BF200746D36 /* InfoPlist.strings */,
 				48A656C018163BF200746D36 /* main.m */,
@@ -372,6 +347,7 @@
 				AA3D09D11CC5937700457349 /* CompanyCollectionViewCell.m */,
 				AA3D09D21CC5937700457349 /* CompanyCollectionViewCell.xib */,
 				AA3D09C21CC58E0400457349 /* CompanyCollectionViewController.h */,
+				AA3D09C31CC58E0400457349 /* CompanyCollectionViewController.m */,
 				AA3D09C41CC58E0400457349 /* CompanyCollectionViewController.xib */,
 			);
 			name = CompanyCollectionViewController;
@@ -465,35 +441,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00655EAD1CCDAE10005CC57B /* galaxyS4.jpg in Resources */,
+				00655E9A1CCDA857005CC57B /* iPhone.jpg in Resources */,
+				00655E931CCDA857005CC57B /* galaxytab.jpeg in Resources */,
 				AA3D09D41CC5937700457349 /* CompanyCollectionViewCell.xib in Resources */,
-				AAE05FA71C7CC249005B22DA /* microsoft.png in Resources */,
-				AA3711F11CCAF7F800A78FE2 /* surfacepro4.jpeg in Resources */,
-				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
-				AA4C76881C97367800D32757 /* google.png in Resources */,
-				AA3711FB1CCAF7F800A78FE2 /* ipad.jpeg in Resources */,
-				AA3711F61CCAF7F800A78FE2 /* pixelC.jpeg in Resources */,
-				AA3711F01CCAF7F800A78FE2 /* ideapad.jpeg in Resources */,
-				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
+				00655E9D1CCDA857005CC57B /* flower.jpg in Resources */,
+				00655E981CCDA857005CC57B /* surfacepro4.jpeg in Resources */,
+				00655E991CCDA857005CC57B /* ideapad.jpg in Resources */,
 				AA3D09C61CC58E0400457349 /* CompanyCollectionViewController.xib in Resources */,
-				AA3711F91CCAF7F800A78FE2 /* iPhone.gif in Resources */,
+				00655E951CCDA857005CC57B /* ipodtouch.jpeg in Resources */,
 				00775E211CC7089B00ABE0E4 /* ProductCollectionViewCell.xib in Resources */,
-				00655E501CC81058005CC57B /* flower.gif in Resources */,
+				00655E9B1CCDA857005CC57B /* nexus.jpg in Resources */,
 				00775E1C1CC7082E00ABE0E4 /* ProductCollectionViewController.xib in Resources */,
-				AA3711F31CCAF7F800A78FE2 /* galaxynote.jpeg in Resources */,
-				AA3711F51CCAF7F800A78FE2 /* galaxyS4.png in Resources */,
-				AA3711F71CCAF7F800A78FE2 /* chromebook.jpeg in Resources */,
-				AA3711F41CCAF7F800A78FE2 /* galaxyS5.jpeg in Resources */,
+				00655E971CCDA857005CC57B /* pixelC.jpeg in Resources */,
+				00655EA51CCDAA0E005CC57B /* samsung.png in Resources */,
 				AA002BED1C8E1B1400A31BBD /* EditCompanyViewController.xib in Resources */,
-				AAE05FA81C7CC249005B22DA /* samsung.png in Resources */,
-				AA3711F81CCAF7F800A78FE2 /* nexus.png in Resources */,
-				AA3711FA1CCAF7F800A78FE2 /* ipodtouch.jpeg in Resources */,
-				AAE05FA51C7CC249005B22DA /* apple.png in Resources */,
+				00655E911CCDA857005CC57B /* galaxynote.jpeg in Resources */,
+				00655E9E1CCDA857005CC57B /* microsoft.png in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
+				00655E941CCDA857005CC57B /* ipad.jpeg in Resources */,
+				00655EA41CCDAA0E005CC57B /* asus.png in Resources */,
+				00655EA31CCDAA0E005CC57B /* apple.png in Resources */,
+				00655E821CCDA849005CC57B /* chromebook.jpeg in Resources */,
+				00655EA91CCDAA3A005CC57B /* sunflower.gif in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
-				AAE05FA61C7CC249005B22DA /* asus.png in Resources */,
-				AA3711EF1CCAF7F800A78FE2 /* lumina.png in Resources */,
-				AA3711F21CCAF7F800A78FE2 /* galaxytab.jpeg in Resources */,
+				00655E961CCDA857005CC57B /* lumina.png in Resources */,
 				AA75AEED1C9B4862006138E6 /* dao.db in Resources */,
+				00655EA81CCDAA3A005CC57B /* google.png in Resources */,
 				AADD59011C909756009AF845 /* EditProductViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,7 +492,6 @@
 				AA05C32C1CBD5C3800C72472 /* CompanyMO.m in Sources */,
 				AA7CEDFA1C80E97000DA7BB4 /* Product.m in Sources */,
 				AA05C3291CBD5C3800C72472 /* ProductMO+CoreDataProperties.m in Sources */,
-				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				00775E201CC7089B00ABE0E4 /* ProductCollectionViewCell.m in Sources */,
 				AADD59001C909756009AF845 /* EditProductViewController.m in Sources */,
 				AA7CEDF71C80E7D200DA7BB4 /* Company.m in Sources */,
@@ -531,7 +504,6 @@
 				AA0A615D1C84F0E5009ACEB0 /* DAO.m in Sources */,
 				48A656C518163BF200746D36 /* NavControllerAppDelegate.m in Sources */,
 				48A656C118163BF200746D36 /* main.m in Sources */,
-				48A656EB18163F8700746D36 /* ProductViewController.m in Sources */,
 				AA002BEC1C8E1B1400A31BBD /* EditCompanyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

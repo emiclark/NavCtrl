@@ -20,8 +20,6 @@
 @property (nonatomic, retain) EditProductViewController *editProductViewController;
 @property (nonatomic, retain) ProductCollectionViewController *productCollectionViewController;
 
-
-
 @property (nonatomic, retain) WebViewController *myWebViewCtlr;
 @property ( nonatomic,retain) NSString *titleOfCompany;
 @property ( nonatomic,retain)  Company *currentCompany;

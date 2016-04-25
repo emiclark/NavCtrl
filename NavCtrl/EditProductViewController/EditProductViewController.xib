@@ -54,25 +54,25 @@
                         <constraint firstAttribute="width" constant="307" id="2Dr-bO-rHJ"/>
                         <constraint firstAttribute="height" constant="30" id="ZUg-0h-B3H"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Default: http://www.google.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbI-a3-YmP">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="http://www.product_web_address.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YbI-a3-YmP">
                     <rect key="frame" x="236" y="235" width="307" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="7mN-Gr-20M"/>
                         <constraint firstAttribute="width" constant="307" id="gyM-uz-M5B"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Default: Sunflower.gif" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpK-B3-K3c">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bpK-B3-K3c">
                     <rect key="frame" x="236" y="288" width="307" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="KFg-NB-0P4"/>
                         <constraint firstAttribute="width" constant="307" id="xJB-D3-0Dl"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5V-Se-4dc">

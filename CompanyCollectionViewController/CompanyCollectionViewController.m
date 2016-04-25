@@ -23,8 +23,8 @@ UIBarButtonItem *editButton;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.collectionView reloadData];
-    isEditingCompany = NO;
-    editButton.title = @"Edit";
+//    isEditingCompany = NO;
+//    editButton.title = @"Edit";
 }
 
 

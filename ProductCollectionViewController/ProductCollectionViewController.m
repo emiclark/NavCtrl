@@ -138,8 +138,7 @@ UIBarButtonItem *deleteButton;
     self.dao.currentProduct = [self.dao.currentCompany.productArray objectAtIndex:indexPath.row ];
     
     [self.dao deleteProduct: self.dao.currentProduct atRow:indexPath.row];
-    
-//    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+    //[self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
     
     [self.collectionView reloadData];
 }
@@ -216,10 +215,8 @@ UIBarButtonItem *deleteButton;
     ProductCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:productReuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    
     Product *product = [self.dao.currentCompany.productArray objectAtIndex:indexPath.row];
     cell.name.text = product.name;
-    cell.url.text = product.url;
     cell.logo.image = [UIImage imageNamed:product.logo ];
     
     if (isEditingProduct == YES) {
@@ -238,8 +235,6 @@ UIBarButtonItem *deleteButton;
     
     return cell;
 }
-
-
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
