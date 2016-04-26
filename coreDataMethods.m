@@ -1,7 +1,7 @@
 //
 //  coreDataMethods.m
 //  NavCtrl
-//
+// 
 //  Created by Aditya Narayan on 4/7/16.
 //  Copyright © 2016 Aditya Narayan. All rights reserved.
 //
@@ -178,20 +178,22 @@ static NSString *path;
     [iPad release];
     [iPhone release];
     [iPod release];
+    
     [samsung release];
     [S4 release];
     [Note release];
     [Tab release];
+    
     [google release];
     [Nexus6P release];
     [chromebook release];
     [pixelC release];
+    
     [microsoft release];
+    [Lumina release];
     [Surface release];
     [Lenovo release];
-    [Lumina release];
-    
-    
+
 }
 
 
@@ -331,7 +333,11 @@ static NSString *path;
         //Remove object from context
         [context deleteObject:result.firstObject];
     }
+    
+    //release company and all it's products
+    [self releaseCompanyAndProducts:(Company *)currentCompany];
 }
+
 
 +(void) moveCompany:(Company *)currentCompany {
     
@@ -433,6 +439,8 @@ static NSString *path;
         //Remove object from context
         [context deleteObject:result.firstObject];
     }
+    //release product
+    [currentProduct release];
 }
 
 +(void) moveProduct:(Product *)currentProduct {
@@ -469,6 +477,7 @@ static NSString *path;
 
 
 #pragma mark Utility Methods
+
 +(void) saveChanges
 {
     //save context to CoreData
@@ -628,6 +637,7 @@ static NSString *path;
             
             //fetch all products for the company
             [productArray  addObject:product];
+            [product release];
         }
     }else {
         [NSException raise:@"Fetch Failed" format:@"Reason: %@", [error localizedDescription]];
@@ -635,5 +645,9 @@ static NSString *path;
     return productArray;
 }
 
++(void) releaseCompanyAndProducts:(Company *)currentCompany {
+    [currentCompany.productArray removeAllObjects];
+    [currentCompany release];
+}
 
 @end

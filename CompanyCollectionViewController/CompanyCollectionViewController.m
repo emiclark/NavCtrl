@@ -257,7 +257,6 @@ UIBarButtonItem *editButton;
 
 -(void) dealloc {
     [super dealloc];
-    [_currentCompany release];
     [_productCollectionViewController release];
     [_editCompanyViewController release];
     

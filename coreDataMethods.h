@@ -46,6 +46,6 @@
 +(void) getNewCompanyIDandProductID;
 +(void) reloadCompaniesFromContext;
 +(NSMutableArray *) reloadProductsFromContextForCompany: (Company *)currentCompany forProductArray:(NSMutableArray *)productArray;
-
++(void) releaseCompanyAndProducts:(Company *)currentCompany;
 
 @end
