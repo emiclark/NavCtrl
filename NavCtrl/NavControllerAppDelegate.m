@@ -16,14 +16,14 @@
     
     // Override point for customization after application launch.
     CompanyCollectionViewController *rootController =
-    [[CompanyCollectionViewController alloc]
-     initWithNibName:@"CompanyCollectionViewController" bundle:nil];
+    [[[CompanyCollectionViewController alloc]
+     initWithNibName:@"CompanyCollectionViewController" bundle:nil] autorelease];
     
-    self.navigationController = [[UINavigationController alloc]
-                            initWithRootViewController:rootController];
+    self.navigationController = [[[UINavigationController alloc]
+                                  initWithRootViewController:rootController] autorelease];
     
-    self.window = [[UIWindow alloc]
-                   initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window = [[[UIWindow alloc]
+                   initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
 //  self.window addSubview:self.navigationController.view];
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];

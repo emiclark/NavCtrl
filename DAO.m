@@ -99,12 +99,12 @@ static DAO *sharedMyManager = nil;
     // request for stock prices using Yahoo API
     
     //create query string
-    NSMutableString *query = [[[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="]autorelease];
+    NSMutableString *query = [[NSMutableString alloc]initWithString:@"http://finance.yahoo.com/d/quotes.csv?s="];
     
-    NSString *temp = [[[NSString alloc] initWithString: [[self.companyList objectAtIndex:0] stockSymbol ]]autorelease];
-    NSLog(@"%ld, %@",self.companyList.count, temp);
+    NSString *temp = [[NSString alloc] initWithString: [[self.companyList objectAtIndex:0] stockSymbol ]];
+    NSLog(@"%lul, %@",(unsigned long)self.companyList.count, temp);
     
-    self.stockSymbol = [[NSMutableString alloc]init];
+    self.stockSymbol = [[[NSMutableString alloc]init]autorelease];
     
     for (int i=0; i < self.companyList.count-1; i++) {
         //concatenate symbol names to end of url
@@ -112,20 +112,20 @@ static DAO *sharedMyManager = nil;
         [query appendString:self.stockSymbol];
         [query appendString:@"+"];
     }
-    
     int lastItem = (int)self.companyList.count-1;
     
     [query appendString:[[self.companyList objectAtIndex:lastItem] stockSymbol]];
     [query appendString:@"&f=l1"];
-    NSLog(@"query: %@",query);
     
+    NSLog(@"query: %@",query);
+
     
     //create url from query string
     NSURL *dataURL = [NSURL URLWithString:query];
     
     //    //create session
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    AFURLSessionManager *manager = [[[AFURLSessionManager alloc] initWithSessionConfiguration:configuration] autorelease];
     
     
     NSURLSessionDataTask *downloadTask = [manager.session dataTaskWithURL:dataURL
@@ -158,7 +158,8 @@ static DAO *sharedMyManager = nil;
          });
     }];
     [downloadTask resume];
-
+    [temp release];
+    [query release];
 }
 
     
@@ -199,7 +200,10 @@ static DAO *sharedMyManager = nil;
 -(void)dealloc {
     // Should never be called, but just here for clarity really.
     [super dealloc];
-    
+    [_companyList release];
+    [_stockSymbol release];
+    [_ccvc release];
+
 }
 
 @end

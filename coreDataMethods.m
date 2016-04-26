@@ -172,6 +172,26 @@ static NSString *path;
     [coreDataMethods addProduct:Surface toCompany:microsoft];
     
     [coreDataMethods saveChanges];
+    
+    //release objects
+    [apple release];
+    [iPad release];
+    [iPhone release];
+    [iPod release];
+    [samsung release];
+    [S4 release];
+    [Note release];
+    [Tab release];
+    [google release];
+    [Nexus6P release];
+    [chromebook release];
+    [pixelC release];
+    [microsoft release];
+    [Surface release];
+    [Lenovo release];
+    [Lumina release];
+    
+    
 }
 
 

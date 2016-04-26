@@ -29,7 +29,7 @@ UIBarButtonItem *editButton;
     [super viewWillAppear:animated];
     [self setEditing:NO];
     [self getStockPrices];
-    [NSTimer scheduledTimerWithTimeInterval: 150.0
+    [NSTimer scheduledTimerWithTimeInterval: 300.0
                                      target: self
                                    selector: @selector(getStockPrices)
                                    userInfo: nil
@@ -63,8 +63,8 @@ UIBarButtonItem *editButton;
     self.clearsSelectionOnViewWillAppear = NO;
     
     self.productCollectionViewController =
-    [[ProductCollectionViewController alloc]
-     initWithNibName:@"ProductCollectionViewController" bundle:nil];
+    [[[ProductCollectionViewController alloc]
+     initWithNibName:@"ProductCollectionViewController" bundle:nil] autorelease ];
 
     //add Add Company button
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
@@ -104,7 +104,7 @@ UIBarButtonItem *editButton;
 
     ////////
 -(void) addNewCompany {
-    self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+    self.editCompanyViewController = [[[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil] autorelease];
     self.editCompanyViewController.currentCompany = [[[Company alloc]init]autorelease];
     [self.navigationController pushViewController: self.editCompanyViewController animated:YES];
 }
@@ -227,7 +227,7 @@ UIBarButtonItem *editButton;
     if (self.isEditing == YES) {
         //edit mode - edit company
         //set new viewcontroller to editCompanyViewController
-        self.editCompanyViewController = [[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil];
+        self.editCompanyViewController = [[[EditCompanyViewController alloc]initWithNibName:@"EditCompanyViewController" bundle:nil] autorelease];
         
         //set title of view controller
         self.productCollectionViewController.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row] ;
@@ -255,5 +255,12 @@ UIBarButtonItem *editButton;
 //	
 //}
 
+-(void) dealloc {
+    [super dealloc];
+    [_currentCompany release];
+    [_productCollectionViewController release];
+    [_editCompanyViewController release];
+    
+}
 
 @end

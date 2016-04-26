@@ -55,7 +55,7 @@ UIBarButtonItem *deleteButton;
     
     self.collectionView.allowsSelection = YES;
     //    self.clearsSelectionOnViewWillAppear = NO;
-    self.editProductViewController = [[EditProductViewController alloc] init];
+    self.editProductViewController = [[[EditProductViewController alloc] init] autorelease];
     
     //add Add Product Button
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]init];
@@ -99,7 +99,7 @@ UIBarButtonItem *deleteButton;
 
 -(void)addButtonTapped:(id)sender {
     
-    self.editProductViewController = [[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil];
+    self.editProductViewController = [[[EditProductViewController alloc]initWithNibName:@"EditProductViewController" bundle:nil] autorelease];
     
     self.editProductViewController.currentCompany = self.dao.currentCompany;
     
@@ -271,10 +271,11 @@ UIBarButtonItem *deleteButton;
         self.myWebViewCtlr.productURL = tempProduct.url;
         self.myWebViewCtlr.title = tempProduct.name;
         
-        if ([self.currentProduct.url isEqualToString:@""]) {
-            self.myWebViewCtlr.title = [NSString stringWithFormat:@"No Website provided for product %@.",tempProduct.name];
+        if ([tempProduct.url isEqualToString:@""]) {
+             self.myWebViewCtlr.title = [NSString stringWithFormat:@"NO URL FOR PRODUCT - %@",tempProduct.name];
         }
-        
+
+        NSLog(@"cp:%@",tempProduct);
         [self.navigationController pushViewController:self.myWebViewCtlr animated:YES];
     }
 }
