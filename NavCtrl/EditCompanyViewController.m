@@ -1,7 +1,7 @@
 //
 //  EditCompanyViewController.m
 //  NavCtrl
-// Assignment9
+// Assignment10
 // CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Emiko Clark on 2/29/16.

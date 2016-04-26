@@ -1,7 +1,7 @@
 //
 //  CompanyCollectionViewCell.h
 //  NavCtrl
-// Assignment9
+// Assignment10
 // CoreData + AFNetworking to retrieve StockPrices
 //
 //  Created by Aditya Narayan on 4/18/16.
