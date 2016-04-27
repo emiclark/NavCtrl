@@ -14,7 +14,12 @@
 #import "DAO.h"
 #import <SystemConfiguration/SystemConfiguration.h> 
 
-@interface CompanyCollectionViewController ()
+@interface CompanyCollectionViewController (){
+    
+    UIBarButtonItem *editButton;
+    BOOL isEditingCompany;
+
+}
 @property ( nonatomic, retain) DAO *dao;
 
 @end
@@ -22,28 +27,22 @@
 @implementation CompanyCollectionViewController 
 
 NSString * const companyReuseIdentifier = @"CompanyCollectionViewCell";
-BOOL isEditingCompany = NO;
-UIBarButtonItem *editButton;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setEditing:NO];
+    
+    isEditingCompany = YES;
+    [self setEditMode];
+    
     [self getStockPrices];
     [NSTimer scheduledTimerWithTimeInterval: 300.0
                                      target: self
                                    selector: @selector(getStockPrices)
                                    userInfo: nil
                                     repeats: YES];
-    isEditingCompany = NO;
-    editButton.title = @"Edit";
+
     [self.collectionView reloadData];
 }
-
-    
--(void) getStockPrices {
-    [self.dao updateStockPrices];
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -197,25 +196,6 @@ UIBarButtonItem *editButton;
     return cell;
 }
 
-- (void)setEditMode
-{
-    isEditingCompany  = !isEditingCompany;
-
-    if (isEditingCompany)
-        {
-        editButton.title = @"Done";
-        }
-    else
-        {
-        editButton.title = @"Edit";
-    }
-    
-    [self setEditing:isEditingCompany];
-
-
-    [self.collectionView reloadData];
-    
-}
 
 #pragma mark <UICollectionViewDelegate>
 
@@ -223,6 +203,8 @@ UIBarButtonItem *editButton;
     self.dao.currentCompany = [self.dao.companyList objectAtIndex:indexPath.row];
     self.currentCompany = self.dao.currentCompany;
     self.editCompanyViewController.currentCompany = self.currentCompany;
+    
+    
     
     if (self.isEditing == YES) {
         //edit mode - edit company
@@ -254,6 +236,31 @@ UIBarButtonItem *editButton;
 //- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 //	
 //}
+
+#pragma mark Misc Utility Methods
+
+- (void)setEditMode
+{
+    isEditingCompany  = !isEditingCompany;
+    
+    [self setEditing:isEditingCompany];
+    
+    if (isEditingCompany)
+        {
+        editButton.title = @"Done";
+        }
+    else
+        {
+        editButton.title = @"Edit";
+        
+        }
+    [self.collectionView reloadData];
+}
+
+
+-(void) getStockPrices {
+    [self.dao updateStockPrices];
+}
 
 -(void) dealloc {
     [super dealloc];

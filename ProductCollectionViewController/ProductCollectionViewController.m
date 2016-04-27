@@ -13,7 +13,12 @@
 
 @class EditCompanyViewController;
 
-@interface ProductCollectionViewController ()
+@interface ProductCollectionViewController (){
+    UIBarButtonItem *editButton;
+    UIBarButtonItem *deleteButton;
+    BOOL isEditingProduct;
+
+}
 @property (nonatomic, retain) DAO *dao;
 
 @end
@@ -21,9 +26,6 @@
 @implementation ProductCollectionViewController
 
 NSString * const productReuseIdentifier = @"ProductCollectionViewCell";
-BOOL isEditingProduct = NO;
-UIBarButtonItem *editButton;
-UIBarButtonItem *deleteButton;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

@@ -22,13 +22,15 @@
 @property ( nonatomic, retain) ProductCollectionViewController *productCollectionViewController;
 @property ( nonatomic, retain) EditCompanyViewController *editCompanyViewController;
 
--(void) getStockPrices;
-    
-#pragma mark Company CRUD Methods
+// Company CRUD Methods
 -(void) addNewCompany;
 -(void) deleteItem:(UIButton *)sender;
 -(void) saveButtonTapped;
 -(void) undoCompany;
+
+// Misc Utility Methods
+-(void) setEditMode;
+-(void) getStockPrices;
 
     
 @end
